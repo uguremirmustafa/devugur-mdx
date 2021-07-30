@@ -138,8 +138,7 @@ a {
   backdrop-filter: saturate(180%) blur(20px);
   transition: background-color 0.1 ease-in-out;
   width: 100%;
-  height: 6rem;
-  @apply border-b border-gray-200 dark:border-gray-800;
+  @apply border-b border-gray-200 dark:border-gray-800 dark:bg-gray-900;
 }
 .sticky-nav > div {
   max-width: 48rem;
@@ -154,6 +153,18 @@ a {
   .sticky-nav {
     @apply bg-white dark:bg-gray-900;
   }
+}
+.navlinks {
+  @apply hidden md:flex;
+}
+.hamburger {
+  @apply fixed bottom-8 right-8 p-2 dark:bg-gray-800 rounded-full border-2 dark:border-gray-200 bg-gray-200 border-gray-800;
+}
+.openmenu {
+  @apply fixed bottom-8 right-8 flex flex-col justify-end items-end translate-x-0  bg-gray-100 dark:bg-gray-800 p-4 rounded-md w-32 font-bold border-gray-900 border-2 dark:border-gray-300;
+}
+.closemenu {
+  @apply hidden;
 }
 /* end of navbar */
 .prose {
@@ -275,17 +286,20 @@ a {
 
 code[class*='language-'],
 pre[class*='language-'] {
-  @apply text-blue-900 dark:text-gray-50 overflow-y-scroll;
+  @apply text-blue-900 dark:text-gray-50 overflow-x-hidden;
+}
+.prose pre {
+  @apply overflow-x-scroll md:overflow-x-hidden;
 }
 
-pre::-webkit-scrollbar {
-  display: none;
-}
+// pre::-webkit-scrollbar {
+//   display: none;
+// }
 
-pre {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-}
+// pre {
+//   -ms-overflow-style: none; /* IE and Edge */
+//   scrollbar-width: none; /* Firefox */
+// }
 
 .remark-code-title {
   @apply px-5 py-3 font-mono text-sm font-bold text-gray-800 bg-gray-200 border border-b-0 border-gray-200 rounded-t dark:text-gray-200 dark:border-gray-700 dark:bg-gray-800;
@@ -330,5 +344,5 @@ table {
 }
 .footer {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
 }

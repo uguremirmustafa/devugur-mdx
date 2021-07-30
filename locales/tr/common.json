@@ -6,7 +6,9 @@
     "blog": "Blog",
     "portfolio": "Projeler"
   },
-  "views": "kez okundu 👀",
+  "views": "okuma 👀",
   "readTime": "dakika ⏲",
-  "navigation": "Site haritası"
+  "navigation": "Site haritası",
+  "connect": "İletişim",
+  "unrelated": "Alakasız"
 }

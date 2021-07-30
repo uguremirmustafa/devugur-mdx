@@ -15,6 +15,8 @@ export const Footer = ({ alternate }: Props) => {
   const blog = t('nav.blog');
   const portfolio = t('nav.portfolio');
   const navigation = t('navigation');
+  const unrelated = t('unrelated');
+  const connect = t('connect');
   const { locales, asPath, locale } = useRouter();
 
   const isArticle = alternate !== '';
@@ -44,7 +46,7 @@ export const Footer = ({ alternate }: Props) => {
           </NextLink>
         </ul>
         <ul className="flex flex-col gap-1 md:gap-0">
-          <h6 className="p-1 underline">Media</h6>
+          <h6 className="p-1 underline">{connect}</h6>
           <a href="https://twitter.com/uguremirmustafa" className="p-1">
             Twitter
           </a>
@@ -53,6 +55,9 @@ export const Footer = ({ alternate }: Props) => {
           </a>
           <a href="https://instagram.com/uguremirmustafa" className="p-1">
             Instagram
+          </a>
+          <a href="mailto:uguremirmustafa@gmail.com" className="p-1">
+            Email
           </a>
           {!isArticle && (
             <ul className="flex gap-4 p-1">
@@ -70,6 +75,9 @@ export const Footer = ({ alternate }: Props) => {
               <a className="p-1">🇹🇷/🇺🇸</a>
             </NextLink>
           )}
+        </ul>
+        <ul className="flex flex-col gap-1 md:gap-0">
+          <h6 className="p-1 underline">{unrelated}</h6>
         </ul>
       </div>
     </footer>
