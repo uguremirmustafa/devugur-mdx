@@ -10,39 +10,25 @@ const root = process.cwd();
 
 export async function getFiles(type: string, locales: string[]) {
   let paths: { params: { slug: string }; locale: string }[] = [];
-  const fileSlugs = fs.readdirSync(path.join(root, 'data', type));
+  const fileNames = fs.readdirSync(path.join(root, 'data', type));
+  const fileSlugs = fileNames.map((name) => name.replace('.mdx', ''));
+  // console.log(fileSlugs);
 
-  for (let slug of fileSlugs) {
-    for (let locale of locales) {
-      let fullPath = path.join(
-        root,
-        'data',
-        type,
-        slug,
-        locale === defaultLocale ? 'index.mdx' : `index.${locale}.mdx`
-      );
-      if (!fs.existsSync(fullPath)) {
-        continue;
-      }
-      paths.push({ params: { slug }, locale });
-    }
-  }
+  fileSlugs.map((file) => {
+    const content = fs.readFileSync(`${path.join(root, 'data', type, file)}.mdx`, 'utf8');
+    const { data } = matter(content);
+    // console.log(data);
+    paths.push({ params: { slug: file }, locale: data.locale });
+    return file;
+  });
 
   return paths;
 }
 
 export async function getFileBySlug(type: string, slug: string, locale: string) {
-  const fullPath = slug
-    ? path.join(
-        root,
-        'data',
-        type,
-        slug,
-        locale === defaultLocale ? 'index.mdx' : `index.${locale}.mdx`
-      )
-    : path.join(root, 'data', type, locale === defaultLocale ? 'index.mdx' : `index.${locale}.mdx`);
+  const fullPath = path.join(root, 'data', type, slug);
 
-  const source = fs.readFileSync(fullPath, 'utf8');
+  const source = fs.readFileSync(`${fullPath}.mdx`, 'utf8');
 
   const { data, content } = matter(source);
   const mdxSource = await serialize(content, {
@@ -78,20 +64,16 @@ export async function getFileBySlug(type: string, slug: string, locale: string) 
 }
 
 export async function getAllFilesFrontMatter(type: string, locale: string) {
-  const postSlugs = fs.readdirSync(path.join(root, 'data', type));
-
-  const allPostData = postSlugs
-    .map((slug) => {
-      // const slug = file.replace('.mdx', '');
-
+  const fileNames = fs.readdirSync(path.join(root, 'data', type));
+  // console.log(fileNames);
+  // locale = 'en';
+  const allPostData = fileNames
+    .map((file) => {
       // read full file
-      const fileName = locale === defaultLocale ? 'index.mdx' : `index.${locale}.mdx`;
-      const fullPath = path.join(root, 'data', type, slug, fileName);
+      // const fileName = locale === defaultLocale ? 'index.mdx' : `index.${locale}.mdx`;
+      const fullPath = path.join(root, 'data', type, file);
 
-      if (!fs.existsSync(fullPath)) {
-        return;
-      }
-
+      const slug = file.replace('.mdx', '');
       const fileContents = fs.readFileSync(fullPath, 'utf8');
 
       // matter content
@@ -103,23 +85,17 @@ export async function getAllFilesFrontMatter(type: string, locale: string) {
           title: string;
           summary: string;
           image: string;
+          techStack?: string;
+          tags?: string[];
+          locale: string;
+          isPublished: boolean;
         }),
-        files: postSlugs,
+        files: fileNames,
       };
     })
-    .filter((post) => post);
+    .filter((post) => post.locale === locale)
+    .filter((post) => post.isPublished)
+    .sort((a, b) => Number(new Date(b.publishedAt)) - Number(new Date(a.publishedAt)));
 
   return allPostData;
 }
-// return files.reduce((allPosts, postSlug) => {
-//   const source = fs.readFileSync(path.join(root, 'data', type, postSlug), 'utf8');
-//   const { data } = matter(source);
-
-//   return [
-//     {
-//       ...data,
-//       slug: postSlug.replace('.mdx', ''),
-//     },
-//     ...allPosts,
-//   ];
-// }, []);

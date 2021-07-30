@@ -66,7 +66,7 @@ a {
 ::selection {
   // background-color: #47a3f3;
   // color: #fefefe;
-  @apply bg-red-400 text-white;
+  @apply bg-red-400 text-white dark:bg-gray-700 dark:text-gray-200;
 }
 
 @layer base {
@@ -80,7 +80,7 @@ a {
   span,
   li,
   a {
-    @apply text-gray-900 dark:text-white;
+    @apply text-gray-900 dark:text-gray-200;
   }
   a {
     @apply hover:text-red-400 transition duration-300;
@@ -109,7 +109,10 @@ a {
   h4,
   h5,
   h6 {
-    @apply font-bold mb-2;
+    @apply font-bold mb-2 mt-4 text-gray-900 dark:text-gray-200;
+  }
+  pre {
+    @apply text-sm;
   }
 }
 
@@ -153,7 +156,19 @@ a {
   }
 }
 /* end of navbar */
-
+.prose {
+  @apply text-gray-900 dark:text-gray-100;
+}
+.prose ul {
+  @apply pl-4 py-1;
+}
+.prose li::before {
+  content: '✔';
+  padding-right: 0.5rem;
+}
+.prose a {
+  @apply underline text-red-400 dark:text-blue-500 hover:text-red-300 dark:hover:text-blue-400;
+}
 .prose .anchor {
   @apply absolute invisible;
 
@@ -178,16 +193,16 @@ a {
 }
 
 .prose pre {
-  @apply border border-gray-200 bg-gray-100 dark:border-gray-700 dark:bg-gray-900 p-2 my-4 rounded-sm;
+  @apply border border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-800 p-2 my-4 rounded-sm;
 }
 
 .prose code {
-  @apply text-red-400 dark:text-gray-200 px-1 py-0.5 rounded-sm bg-gray-100 dark:bg-gray-900;
+  @apply text-red-400 dark:text-gray-100 px-1 py-0.5 rounded-sm bg-gray-50 dark:bg-gray-800;
 }
 
 .prose img {
   /* Don't apply styles to next/image */
-  @apply m-0;
+  @apply m-0 py-4;
 }
 
 .prose > :first-child {
@@ -200,30 +215,34 @@ a {
 .token.prolog,
 .token.doctype,
 .token.cdata {
-  @apply text-gray-700 dark:text-gray-300;
+  @apply text-gray-500 dark:text-gray-300;
 }
 
 .token.punctuation {
-  @apply text-gray-700 dark:text-gray-300;
+  @apply text-blue-400 dark:text-blue-400;
+}
+.token.tag {
+  @apply text-green-400;
 }
 
 .token.property,
-.token.tag,
 .token.boolean,
 .token.number,
 .token.constant,
 .token.symbol,
 .token.deleted {
-  @apply text-green-500;
+  @apply text-blue-300;
+}
+.token.string {
+  @apply text-blue-300;
 }
 
 .token.selector,
 .token.attr-name,
-.token.string,
 .token.char,
 .token.builtin,
 .token.inserted {
-  @apply text-purple-500;
+  @apply text-purple-400;
 }
 
 .token.operator,
@@ -231,18 +250,21 @@ a {
 .token.url,
 .language-css .token.string,
 .style .token.string {
-  @apply text-yellow-500;
+  @apply text-yellow-600;
 }
 
 .token.atrule,
-.token.attr-value,
-.token.keyword {
+.token.attr-value {
   @apply text-blue-500;
+}
+.token.keyword.module,
+.token.keyword {
+  @apply text-red-500;
 }
 
 .token.function,
 .token.class-name {
-  @apply text-pink-500;
+  @apply text-blue-400;
 }
 
 .token.regex,
@@ -253,7 +275,7 @@ a {
 
 code[class*='language-'],
 pre[class*='language-'] {
-  @apply text-gray-800 dark:text-gray-50;
+  @apply text-blue-900 dark:text-gray-50 overflow-y-scroll;
 }
 
 pre::-webkit-scrollbar {
@@ -305,4 +327,8 @@ input[type='email'] {
 table {
   display: block;
   overflow-y: scroll;
+}
+.footer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }

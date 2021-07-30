@@ -1,6 +1,8 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { Navbar } from 'layouts/Navbar';
+import { Footer } from 'layouts/Footer';
+
 export default function Container(props: any) {
   const { children, ...customMeta } = props;
   const router = useRouter();
@@ -33,10 +35,13 @@ export default function Container(props: any) {
         {meta.date && <meta property="article:published_time" content={meta.date} />}
       </Head>
 
-      <Navbar />
-      <main id="skip" className="flex flex-col justify-center px-8 bg-white dark:bg-gray-900 pt-8">
+      <Navbar alternate={customMeta.alternate ? customMeta.alternate : ''} />
+      <main
+        id="skip"
+        className="flex flex-col justify-center px-8 bg-white dark:bg-gray-900 py-8 divide-y max-w-2xl w-full mx-auto"
+      >
         {children}
-        {/* <Footer /> */}
+        <Footer alternate={customMeta.alternate ? customMeta.alternate : ''} />
       </main>
     </div>
   );

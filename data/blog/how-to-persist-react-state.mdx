@@ -1,0 +1,86 @@
+---
+title: How to persist react state between page refreshes?
+summary: In this tutorial, you will learn how to store react state in local storage of the browser.
+publishedAt: '2021-03-14'
+image: '/static/images/how-to-add-twitter-tags-to-nextjs-blog/example.png'
+locale: en
+tags: ['localstorage', 'state-management', 'refresh', 'react']
+isPublished: true
+alternate: ''
+---
+
+Let's say we have a value kept in the state in a react application and we want to keep it there even if we refresh the page. The simplest solution is local storage of the browser!
+
+```javascript
+import React, { useState, useEffect } from 'react';
+
+export default function Name() {
+  const [name, setName] = useState('');
+  const handleChange = (e) => {
+    setName(e.target.value);
+  };
+
+  return (
+    <div>
+      <input type="text" onChange={handleChange} value={name} />
+    </div>
+  );
+}
+```
+
+In the example code, we store the input value in the name variable and we change it by `handleChange` function. Whenever we refresh it will be gone! We can get the advantage of the `useEffect` hook and the `localStorage` of the browser here.
+
+```jsx
+import React, { useState, useEffect } from 'react';
+
+export default function Name() {
+  const [name, setName] = useState('');
+  const handleChange = (e) => {
+    setName(e.target.value);
+  };
+
+  useEffect(() => {
+    localStorage.setItem('name-state', JSON.stringify(name));
+  }, [name]);
+
+  return (
+    <div>
+      <input type="text" onChange={handleChange} value={name} />
+    </div>
+  );
+}
+```
+
+`setItem` method takes two parameters: key for the data and the data itself. Now the data is stored on local storage but if we refresh we wouldn't see the state updated with the local data. In order to achieve that we need to add one more `useEffect` hook to the mix.
+
+```jsx
+import React, { useState, useEffect } from 'react';
+
+export default function Name() {
+  const [name, setName] = useState('');
+  const handleChange = (e) => {
+    setName(e.target.value);
+  };
+  useEffect(() => {
+    const data = localStorage.getItem('name-state');
+    if (data) {
+      setName(JSON.parse(data));
+    }
+  }, []);
+  useEffect(() => {
+    localStorage.setItem('name-state', JSON.stringify(name));
+  }, [name]);
+
+  return (
+    <div>
+      <input type="text" onChange={handleChange} value={name} />
+    </div>
+  );
+}
+```
+
+Notice that we added the last `useEffect` hook before the previous one so that the local data is available to us before setting it again.
+
+And that's it. Even if you refresh the browser, the state will be persisted.
+
+If you liked the article and would like to support me, you can follow me on [Twitter](https://twitter.com/uguremirmustafa).

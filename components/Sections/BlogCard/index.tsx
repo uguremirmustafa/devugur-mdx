@@ -1,25 +1,30 @@
 import React from 'react';
 import Link from 'next/link';
+import useSWR from 'swr';
+import fetcher from '@lib/fetcher';
+import useTranslation from 'next-translate/useTranslation';
 interface Props {
   title: string;
   summary: string;
   slug: string;
-  // views: any;
 }
 
 export const BlogCard = ({ summary, slug, title }: Props) => {
+  const { data } = useSWR(`/api/views/${slug}`, fetcher);
+  const views = new Number(data?.total);
+  const { t } = useTranslation('common');
+  const viewsText = t('views');
   return (
     <Link href={`/blog/${slug}`} key={slug}>
       <a className="w-full">
-        <div className="mb-8 w-full">
+        <div className="w-full md:shadow-sm md:hover:shadow-xl transition duration-300 md:p-4 md:rounded-md md:border md:border-gray-200">
           <div className="flex flex-col md:flex-row justify-between">
-            <h4 className="text-lg md:text-xl font-medium mb-2 w-full text-gray-900 dark:text-gray-100 hover:underline transition duration-150">
+            <h4 className="text-lg md:text-xl font-medium mb-1 md:mb-2 w-full text-gray-900 dark:text-gray-100">
               {title}
             </h4>
-
-            {/* <p className="text-gray-500 text-left md:text-right w-32 mb-4 md:mb-0">
-              {`${views ? new Number(views).toLocaleString() : '–––'} views`}
-            </p> */}
+            <p className="text-gray-500 text-left md:text-right min-w-32 mb-2 md:mb-0 text-sm md:text-base">
+              {`${views ? new Number(views).toLocaleString() : '–––'} ${viewsText}`}
+            </p>
           </div>
           <p className="text-gray-600 dark:text-gray-400">{summary}</p>
         </div>

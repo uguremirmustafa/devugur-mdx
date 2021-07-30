@@ -1,0 +1,12 @@
+{
+  "nav": {
+    "home": "Anasayfa",
+    "gear": "Ekipman",
+    "about": "Hakkımda",
+    "blog": "Blog",
+    "portfolio": "Projeler"
+  },
+  "views": "kez okundu 👀",
+  "readTime": "dakika ⏲",
+  "navigation": "Site haritası"
+}

@@ -15,7 +15,7 @@ export const ThemeSwitcher = (props: Props) => {
   return (
     <button
       onClick={() => setTheme(isDark ? 'light' : 'dark')}
-      className="p-1 border-2 border-gray-900 dark:border-white rounded-lg outline-none"
+      className="p-1 border-2 border-gray-900 dark:border-white rounded-lg outline-none w-8 h-8 flex justify-center items-center"
     >
       {mounted && (
         <svg

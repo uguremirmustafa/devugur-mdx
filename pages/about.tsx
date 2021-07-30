@@ -1,12 +1,15 @@
+import Container from '@components/Container';
+import { useRouter } from 'next/router';
 import React from 'react';
 
 interface Props {}
 
 const About = (props: Props) => {
+  const { locale } = useRouter();
   return (
-    <div>
-      <div className="p-4 text-red-900">asjdlask</div>
-    </div>
+    <Container>
+      <div>me</div>
+    </Container>
   );
 };
 

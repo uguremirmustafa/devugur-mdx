@@ -1,9 +1,12 @@
 import React, { useEffect, useRef } from 'react';
 import styles from './style.module.scss';
 import gsap, { Power3 } from 'gsap';
+import useTranslation from 'next-translate/useTranslation';
+
 interface Props {}
 
 export const Hero = (props: Props) => {
+  const { t } = useTranslation();
   let headerRef = useRef<HTMLHeadingElement | null>(null);
   useEffect(() => {
     gsap.fromTo(headerRef.current, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1 });
@@ -15,8 +18,9 @@ export const Hero = (props: Props) => {
         ref={headerRef}
         className={`leading-8 text-2xl md:text-4xl md:leading-relaxed font-bold text-center ${styles.heading}`}
       >
-        My name is Ugur!<br></br> I sit at home all day and create <br></br>
-        <span className="text-red-400 dark:text-red-400">blazing fast websites.</span>
+        {t('home:heroText.part1')}
+        <br></br> {t('home:heroText.part2')} <br></br>
+        <span className="text-red-400 dark:text-red-400">{t('home:heroText.part3')}</span>
       </h2>
 
       <div className="max-w-md mx-auto py-8">
@@ -308,8 +312,8 @@ export const Hero = (props: Props) => {
           </a>
         </div>
         <div className="flex justify-center gap-4 py-12">
-          <button className="btn ">See my work</button>
-          <button className="btn-contained ">Read tutorials</button>
+          <button className="btn ">{t('home:portfolioBtn')}</button>
+          <button className="btn-contained ">{t('home:blogBtn')}</button>
         </div>
       </div>
     </div>

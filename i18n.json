@@ -1,4 +1,11 @@
 {
   "locales": ["en", "tr"],
-  "defaultLocale": "en"
+  "defaultLocale": "en",
+  "pages": {
+    "*": ["common"],
+    "/": ["home"],
+    "/about": ["about"],
+    "/blog": ["blog"],
+    "/portfolio": ["portfolio"]
+  }
 }

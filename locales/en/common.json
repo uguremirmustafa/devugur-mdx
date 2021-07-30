@@ -1,0 +1,12 @@
+{
+  "nav": {
+    "home": "Home",
+    "gear": "Gear",
+    "about": "About",
+    "blog": "Blog",
+    "portfolio": "Portfolio"
+  },
+  "views": "views 👀",
+  "readTime": "min read ⏲",
+  "navigation": "Navigation"
+}
