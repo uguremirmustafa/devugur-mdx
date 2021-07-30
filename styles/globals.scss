@@ -1,0 +1,308 @@
+/* ./styles/globals.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/** @format */
+@font-face {
+  font-family: 'Poppins';
+  src: url('/fonts/Poppins/poppins-v15-latin-ext-regular.woff') format('woff');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url('/fonts/Poppins/poppins-v15-latin-ext-500.woff') format('woff');
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url('/fonts/Poppins/poppins-v15-latin-ext-500italic.woff') format('woff');
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Poppins';
+  src: url('/fonts/Poppins/poppins-v15-latin-ext-700.woff') format('woff');
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Source Code Pro';
+  src: url('/fonts/SourceCodePro/source-code-pro-v14-latin-ext-600.woff') format('woff');
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+}
+html {
+  min-width: 360px;
+  scroll-behavior: smooth;
+}
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell,
+    Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+/* #__next {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+} */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+::selection {
+  // background-color: #47a3f3;
+  // color: #fefefe;
+  @apply bg-red-400 text-white;
+}
+
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  span,
+  li,
+  a {
+    @apply text-gray-900 dark:text-white;
+  }
+  a {
+    @apply hover:text-red-400 transition duration-300;
+  }
+  h1 {
+    @apply text-4xl md:text-6xl;
+  }
+  h2 {
+    @apply text-3xl md:text-4xl;
+  }
+  h3 {
+    @apply text-2xl md:text-3xl;
+  }
+  h4 {
+    @apply text-xl md:text-2xl;
+  }
+  h5 {
+    @apply text-lg md:text-xl;
+  }
+  h6 {
+    @apply text-base md:text-lg;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-bold mb-2;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply font-bold py-1 sm:py-2 px-4 sm:px-6 text-sm sm:text-base rounded-full border-2 border-red-400 text-red-400  hover:bg-red-400 hover:text-white transition duration-300 ease-in-out;
+  }
+  .btn-sm {
+    @apply btn py-1 px-4 text-sm;
+  }
+  .btn-contained {
+    @apply btn bg-red-400 text-white hover:bg-white dark:hover:bg-gray-900 hover:text-red-400;
+  }
+  .icon {
+    @apply p-1 hover:bg-red-100 rounded-full;
+  }
+}
+/* navbar */
+.sticky-nav {
+  position: sticky;
+  z-index: 10;
+  top: 0;
+  backdrop-filter: saturate(180%) blur(20px);
+  transition: background-color 0.1 ease-in-out;
+  width: 100%;
+  height: 6rem;
+  @apply border-b border-gray-200 dark:border-gray-800;
+}
+.sticky-nav > div {
+  max-width: 48rem;
+}
+.skip-nav {
+  @apply absolute px-4 py-2 transition-transform duration-200 transform -translate-y-12 left-1/4 focus:translate-y-3 -top-8;
+  :focus {
+    top: 840px;
+  }
+}
+@-moz-document url-prefix() {
+  .sticky-nav {
+    @apply bg-white dark:bg-gray-900;
+  }
+}
+/* end of navbar */
+
+.prose .anchor {
+  @apply absolute invisible;
+
+  margin-left: -1em;
+  padding-right: 3em;
+  width: 80%;
+  max-width: 700px;
+  cursor: pointer;
+}
+
+.anchor:hover {
+  @apply visible no-underline;
+}
+
+.prose .anchor:after {
+  @apply text-gray-300 dark:text-gray-700;
+  content: '#   ';
+}
+
+.prose *:hover > .anchor {
+  @apply visible no-underline;
+}
+
+.prose pre {
+  @apply border border-gray-200 bg-gray-100 dark:border-gray-700 dark:bg-gray-900 p-2 my-4 rounded-sm;
+}
+
+.prose code {
+  @apply text-red-400 dark:text-gray-200 px-1 py-0.5 rounded-sm bg-gray-100 dark:bg-gray-900;
+}
+
+.prose img {
+  /* Don't apply styles to next/image */
+  @apply m-0;
+}
+
+.prose > :first-child {
+  /* Override removing top margin, causing layout shift */
+  margin-top: 1.25em !important;
+  margin-bottom: 1.25em !important;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  @apply text-gray-700 dark:text-gray-300;
+}
+
+.token.punctuation {
+  @apply text-gray-700 dark:text-gray-300;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  @apply text-green-500;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+  @apply text-purple-500;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+  @apply text-yellow-500;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+  @apply text-blue-500;
+}
+
+.token.function,
+.token.class-name {
+  @apply text-pink-500;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+  @apply text-yellow-500;
+}
+
+code[class*='language-'],
+pre[class*='language-'] {
+  @apply text-gray-800 dark:text-gray-50;
+}
+
+pre::-webkit-scrollbar {
+  display: none;
+}
+
+pre {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.remark-code-title {
+  @apply px-5 py-3 font-mono text-sm font-bold text-gray-800 bg-gray-200 border border-b-0 border-gray-200 rounded-t dark:text-gray-200 dark:border-gray-700 dark:bg-gray-800;
+}
+
+.remark-code-title + pre {
+  @apply mt-0 rounded-t-none;
+}
+
+.mdx-marker {
+  @apply block px-4 -mx-4 bg-gray-100 border-l-4 border-blue-500 dark:bg-gray-800;
+}
+
+/* Remove Safari input shadow on mobile */
+input[type='text'],
+input[type='email'] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.metric-card > a {
+  @apply no-underline;
+}
+
+.metric-card > p {
+  @apply my-2;
+}
+
+.step > h3 {
+  @apply my-0;
+}
+
+.prose .tweet a {
+  text-decoration: inherit;
+  font-weight: inherit;
+}
+
+table {
+  display: block;
+  overflow-y: scroll;
+}

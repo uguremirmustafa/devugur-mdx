@@ -1,0 +1,108 @@
+---
+title: How to add Twitter tags to a Nextjs blog
+summary: Improve the interaction of your tweets by adding twitter tags to your NextJS blog
+publishedAt: '2019-12-26'
+image: '/static/images/how-to-add-twitter-tags-to-nextjs-blog/example.png'
+---
+
+Images on your twitter posts will increase the interaction of your tweets, that's a fact. You like blogging on your brand new NextJS website and you would like to share it on twitter. But you realize that your blog url does not look like this card style:
+
+![Screenshot_2021-03-31_22-02-28](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/17e6tvvt9diday3dhrig.png)
+
+<!-- <Image
+  alt={`Web vitals`}
+  src={`/static/images/how-to-add-twitter-tags-to-nextjs-blog/example.png`}
+  width={1200}
+  height={630}
+/> -->
+
+### Some header
+
+In order to solve this problem you need to have twitter tags in
+the `<head></head>` of your page. So how do we manage this in `NextJS` ?
+
+We can add `<Head>` tag to our component's return portion.
+
+```JS
+import Head from 'next/head';
+
+export default function example() {
+  return (
+    <div>
+      <Head>
+        <title>My site title</title>
+      </Head>
+      <h2>My awesome content</h2>
+    </div>
+  );
+}
+```
+
+Whatever we put inside the `<Head>` tags will be available on the document's head section. So we can add our twitter tags here. But as a better option, we can use `next-seo` package to handle this problem.
+
+```bash
+npm i next-seo --save
+```
+
+Now let's create a component called `Seo.js`
+
+```JSX
+// components/Seo.js
+import { NextSeo } from 'next-seo';
+
+export default function Seo({ post }) {
+  const { title, excerpt, slug, coverImage } = post;
+  return (
+    <>
+      <NextSeo
+        title={title}
+        description={excerpt}
+        canonical={`https://myawesomewebsite.com/blog/${slug}`}
+        openGraph={{
+          type: 'website',
+          url: 'https://myawesomewebsite.com',
+          title: `${title} | originally posted on myawesomewebsite.com`,
+          description: excerpt,
+          locale: 'en_EN',
+          images: [
+            {
+              url: coverImage,
+              width: 800,
+              height: 600,
+              alt: `hero image for ${title}`,
+            },
+          ],
+          site_name: 'myawesomewebsite.com',
+        }}
+        twitter={{
+          handle: '@myawesometwittername',
+          site: 'myawesomewebsite.com',
+          cardType: 'summary',
+        }}
+      />
+    </>
+  );
+}
+```
+
+After editing the fields with your own data you can import this component to your blog component. Notice that we are passing the data as a prop to the `Seo.js` component and dynamically rendering the meta data. This component can be very useful with dynamic routing in NextJS.
+
+```JSX
+import Seo from '@components/Seo';
+
+export default function example() {
+  const post = {
+    // ...
+  };
+  return (
+    <div>
+      <Seo post={post} />
+      <h2>My awesome content</h2>
+    </div>
+  );
+}
+```
+
+And that's it. You can check if your url is working as expected from [this card validator](https://cards-dev.twitter.com/validator).
+
+I hope you find this tutorial helpful. You can find me on [twitter](https://twitter.com/uguremirmustafa) where I share daily content related to web development and especially on NextJS.
