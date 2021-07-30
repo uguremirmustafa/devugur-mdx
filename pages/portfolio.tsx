@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import Container from '@components/Container';
 import { getAllFilesFrontMatter } from '@lib/mdx';
 import { InferGetStaticPropsType } from 'next';
