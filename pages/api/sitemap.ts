@@ -54,7 +54,7 @@ export default async (req, res) => {
 
     // Create a stream to write to
     const stream = new SitemapStream({
-      hostname: `https://${req.headers.host}`,
+      hostname: `https://devugur.com`,
     });
 
     res.writeHead(200, {
