@@ -1,5 +1,5 @@
 import { MDXRemote } from 'next-mdx-remote';
-import { GetStaticProps, GetStaticPaths, InferGetStaticPropsType } from 'next';
+import { GetStaticPaths, InferGetStaticPropsType } from 'next';
 import { getFiles, getFileBySlug } from '@lib/mdx';
 import MDXComponents from '@components/Utils/MDXComponents';
 import BlogLayout from 'layouts/BlogLayout';

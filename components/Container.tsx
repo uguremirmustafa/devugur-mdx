@@ -8,7 +8,7 @@ export default function Container(props: any) {
   const router = useRouter();
   const meta = {
     title: 'Uğur Emirmustafaoğlu - Frontend Developer, blogger, ex lawyer.',
-    description: `Front-end developer, JavaScript enthusiast, and course creator.`,
+    description: `Front-end developer, open source enthusiast and Linux fan.`,
     image: 'https://devugur.com/static/images/me.png',
     type: 'website',
     ...customMeta,
@@ -23,7 +23,7 @@ export default function Container(props: any) {
         <meta property="og:url" content={`https://devugur.com${router.asPath}`} />
         <link rel="canonical" href={`https://devugur.com${router.asPath}`} />
         <meta property="og:type" content={meta.type} />
-        <meta property="og:site_name" content="Lee Robinson" />
+        <meta property="og:site_name" content="Uğur Emirmustafaoğlu" />
         <meta property="og:description" content={meta.description} />
         <meta property="og:title" content={meta.title} />
         <meta property="og:image" content={meta.image} />
@@ -38,7 +38,7 @@ export default function Container(props: any) {
       <Navbar alternate={customMeta.alternate ? customMeta.alternate : ''} />
       <main
         id="skip"
-        className="flex flex-col justify-center px-8 bg-white dark:bg-gray-900 py-8 divide-y max-w-2xl w-full mx-auto"
+        className="flex flex-col justify-center px-6 bg-white dark:bg-gray-900 py-8 divide-y max-w-2xl w-full mx-auto"
       >
         {children}
         <Footer alternate={customMeta.alternate ? customMeta.alternate : ''} />

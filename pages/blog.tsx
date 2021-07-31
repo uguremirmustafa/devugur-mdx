@@ -5,6 +5,7 @@ import { BlogCard } from '@components/Sections/BlogCard';
 import { getAllFilesFrontMatter } from '@lib/mdx';
 import { InferGetStaticPropsType } from 'next';
 import useTranslation from 'next-translate/useTranslation';
+import useSWR from 'swr';
 
 export default function Blog({ posts }: InferGetStaticPropsType<typeof getStaticProps>) {
   const { t } = useTranslation('blog');
@@ -53,28 +54,6 @@ export default function Blog({ posts }: InferGetStaticPropsType<typeof getStatic
             />
           </svg>
         </div>
-        {!searchValue && (
-          <div className="flex flex-col gap-4 w-full">
-            <h3 className="font-bold text-2xl md:text-4xl tracking-tight mb-4 mt-8 text-black dark:text-white">
-              {subTitle}
-            </h3>
-            <BlogCard
-              title="Everything I Know About Style Guides, Design Systems, and Component Libraries"
-              summary="A deep-dive on everything I've learned in the past year building style guides, design systems, component libraries, and their best practices."
-              slug="style-guides-component-libraries-design-systems"
-            />
-            <BlogCard
-              title="How Stripe Designs Beautiful Websites"
-              summary="Examining the tips and tricks used to make Stripe's website design a notch above the rest."
-              slug="how-stripe-designs-beautiful-websites"
-            />
-            <BlogCard
-              title="Creating a Monorepo with Lerna & Yarn Workspaces"
-              summary="In this guide, you will learn how to create a Monorepo to manage multiple packages with a shared build, test, and release process."
-              slug="monorepo-lerna-yarn-workspaces"
-            />
-          </div>
-        )}
         <h3 className="font-bold text-2xl md:text-4xl tracking-tight mb-4 mt-8 text-black dark:text-white">
           {allPosts}
         </h3>
@@ -93,6 +72,5 @@ export default function Blog({ posts }: InferGetStaticPropsType<typeof getStatic
 
 export const getStaticProps = async ({ locale }) => {
   const posts = await getAllFilesFrontMatter('blog', locale);
-
   return { props: { posts } };
 };

@@ -41,7 +41,7 @@ export const Footer = ({ alternate }: Props) => {
           <NextLink href="/">
             <a className="p-1">{home}</a>
           </NextLink>
-          <NextLink href="/api/sitemap">
+          <NextLink href="/sitemap.xml">
             <a className="p-1">{sitemap}</a>
           </NextLink>
         </ul>

@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import styles from './style.module.scss';
 import gsap, { Power3 } from 'gsap';
 import useTranslation from 'next-translate/useTranslation';
+import Link from 'next/link';
 
 interface Props {}
 
@@ -13,7 +14,7 @@ export const Hero = (props: Props) => {
   }, []);
 
   return (
-    <div className={`text-base md:text-lg py-8 md:py-16 xl:h-5/6 ${styles.test}`}>
+    <div className={`text-base md:text-lg py-4 md:py-16 xl:h-5/6 ${styles.test}`}>
       <h2
         ref={headerRef}
         className={`leading-8 text-2xl md:text-4xl md:leading-relaxed font-bold text-center ${styles.heading}`}
@@ -312,8 +313,12 @@ export const Hero = (props: Props) => {
           </a>
         </div>
         <div className="flex justify-center gap-4 py-12">
-          <button className="btn ">{t('home:portfolioBtn')}</button>
-          <button className="btn-contained ">{t('home:blogBtn')}</button>
+          <Link href="/portolio">
+            <button className="btn">{t('home:portfolioBtn')}</button>
+          </Link>
+          <Link href="/blog">
+            <button className="btn-contained ">{t('home:blogBtn')}</button>
+          </Link>
         </div>
       </div>
     </div>

@@ -17,7 +17,7 @@ export const BlogCard = ({ summary, slug, title }: Props) => {
   return (
     <Link href={`/blog/${slug}`} key={slug}>
       <a className="w-full">
-        <div className="w-full md:shadow-sm md:hover:shadow-xl transition duration-300 md:p-4 md:rounded-md md:border md:border-gray-200">
+        <div className="w-full md:shadow-sm md:hover:shadow-xl transition duration-300 p-4 rounded-md border border-gray-200">
           <div className="flex flex-col md:flex-row justify-between mb-2">
             <h4 className=" text-gray-900 dark:text-gray-100 p-0 m-0 w-full">{title}</h4>
             <p className="text-gray-500 text-left md:text-right mt-2 md:mt-0 min-w-4 text-sm">

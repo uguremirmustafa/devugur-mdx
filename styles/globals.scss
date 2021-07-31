@@ -138,10 +138,13 @@ a {
   backdrop-filter: saturate(180%) blur(20px);
   transition: background-color 0.1 ease-in-out;
   width: 100%;
-  @apply border-b border-gray-200 dark:border-gray-800 dark:bg-gray-900;
+  @apply border-b border-gray-200 bg-white md:bg-transparent dark:border-gray-800 dark:bg-gray-900;
 }
 .sticky-nav > div {
   max-width: 48rem;
+}
+.sticky-nav a {
+  @apply dark:hover:text-red-400;
 }
 .skip-nav {
   @apply absolute px-4 py-2 transition-transform duration-200 transform -translate-y-12 left-1/4 focus:translate-y-3 -top-8;
@@ -158,10 +161,10 @@ a {
   @apply hidden md:flex;
 }
 .hamburger {
-  @apply fixed bottom-8 right-8 p-2 dark:bg-gray-800 rounded-full border-2 dark:border-gray-200 bg-gray-200 border-gray-800;
+  @apply fixed md:hidden bottom-4 right-4 p-2 dark:bg-gray-800 rounded-full border-2 dark:border-gray-200 bg-gray-200 border-gray-800;
 }
 .openmenu {
-  @apply fixed bottom-8 right-8 flex flex-col justify-end items-end translate-x-0  bg-gray-100 dark:bg-gray-800 p-4 rounded-md w-32 font-bold border-gray-900 border-2 dark:border-gray-300;
+  @apply fixed bottom-4 right-4 flex flex-col justify-end items-end translate-x-0  bg-gray-100 dark:bg-gray-800 p-4 rounded-md w-32 font-bold border-gray-900 border-2 dark:border-gray-300;
 }
 .closemenu {
   @apply hidden;
