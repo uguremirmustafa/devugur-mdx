@@ -1,4 +1,3 @@
-import { ThemeSwitcher } from '@components/Utils/ThemeSwitcher';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -14,6 +13,7 @@ export const Footer = ({ alternate }: Props) => {
   const about = t('nav.about');
   const blog = t('nav.blog');
   const portfolio = t('nav.portfolio');
+  const sitemap = t('nav.sitemap');
   const navigation = t('navigation');
   const unrelated = t('unrelated');
   const connect = t('connect');
@@ -32,9 +32,6 @@ export const Footer = ({ alternate }: Props) => {
           <NextLink href="/portfolio">
             <a className="p-1">{portfolio}</a>
           </NextLink>
-          <NextLink href="/gear">
-            <a className="p-1">{gear}</a>
-          </NextLink>
           <NextLink href="/blog">
             <a className="p-1">{blog}</a>
           </NextLink>
@@ -43,6 +40,9 @@ export const Footer = ({ alternate }: Props) => {
           </NextLink>
           <NextLink href="/">
             <a className="p-1">{home}</a>
+          </NextLink>
+          <NextLink href="/api/my-sitemap">
+            <a className="p-1">{sitemap}</a>
           </NextLink>
         </ul>
         <ul className="flex flex-col gap-1 md:gap-0">
@@ -78,6 +78,9 @@ export const Footer = ({ alternate }: Props) => {
         </ul>
         <ul className="flex flex-col gap-1 md:gap-0">
           <h6 className="p-1 underline">{unrelated}</h6>
+          <NextLink href="/gear">
+            <a className="p-1">{gear}</a>
+          </NextLink>
         </ul>
       </div>
     </footer>

@@ -168,7 +168,10 @@ a {
 }
 /* end of navbar */
 .prose {
-  @apply text-gray-900 dark:text-gray-100;
+  @apply text-gray-900 dark:text-gray-100 text-lg;
+}
+.prose h2 {
+  @apply text-red-500 dark:text-yellow-400;
 }
 .prose ul {
   @apply pl-4 py-1;
@@ -204,7 +207,7 @@ a {
 }
 
 .prose pre {
-  @apply border border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-800 p-2 my-4 rounded-sm;
+  @apply border border-gray-200 bg-gray-50 dark:border-gray-700 dark:bg-gray-800 p-4 my-6 rounded-sm;
 }
 
 .prose code {
@@ -226,7 +229,7 @@ a {
 .token.prolog,
 .token.doctype,
 .token.cdata {
-  @apply text-gray-500 dark:text-gray-300;
+  @apply text-gray-500 dark:text-gray-400;
 }
 
 .token.punctuation {
@@ -275,7 +278,7 @@ a {
 
 .token.function,
 .token.class-name {
-  @apply text-blue-400;
+  @apply text-blue-500;
 }
 
 .token.regex,
@@ -286,7 +289,7 @@ a {
 
 code[class*='language-'],
 pre[class*='language-'] {
-  @apply text-blue-900 dark:text-gray-50 overflow-x-hidden;
+  @apply text-blue-900 dark:text-gray-50 overflow-x-hidden leading-6;
 }
 .prose pre {
   @apply overflow-x-scroll md:overflow-x-hidden;

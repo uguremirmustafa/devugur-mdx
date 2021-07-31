@@ -31,6 +31,7 @@
     "remark-code-titles": "^0.1.2",
     "remark-slug": "^6.1.0",
     "sass": "^1.36.0",
+    "sitemap": "^7.0.0",
     "swr": "^0.5.6"
   },
   "devDependencies": {

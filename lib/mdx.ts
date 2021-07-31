@@ -8,6 +8,20 @@ const { defaultLocale } = require('i18n.json');
 
 const root = process.cwd();
 
+export async function getSlugs(type: string, locale: string) {
+  const fileNames = fs.readdirSync(path.join(root, 'data', type));
+  const fileSlugs = fileNames.map((name) => name.replace('.mdx', ''));
+  let files = [];
+  fileSlugs.map((file) => {
+    const content = fs.readFileSync(`${path.join(root, 'data', type, file)}.mdx`, 'utf8');
+    const { data } = matter(content);
+    // console.log(data);
+    files.push({ slug: file, locale: data.locale, alternate: data.alternate });
+    return file;
+  });
+  return files.filter((file) => file.locale === locale);
+}
+
 export async function getFiles(type: string, locales: string[]) {
   let paths: { params: { slug: string }; locale: string }[] = [];
   const fileNames = fs.readdirSync(path.join(root, 'data', type));
@@ -35,14 +49,14 @@ export async function getFileBySlug(type: string, slug: string, locale: string) 
     mdxOptions: {
       remarkPlugins: [
         require('remark-slug'),
-        [
-          require('remark-autolink-headings'),
-          {
-            linkProperties: {
-              className: ['anchor'],
-            },
-          },
-        ],
+        // [
+        //   require('remark-autolink-headings'),
+        //   {
+        //     linkProperties: {
+        //       className: ['anchor'],
+        //     },
+        //   },
+        // ],
         require('remark-code-titles'),
       ],
       rehypePlugins: [mdxPrism],
@@ -85,10 +99,11 @@ export async function getAllFilesFrontMatter(type: string, locale: string) {
           title: string;
           summary: string;
           image: string;
-          techStack?: string;
+          techStack?: string[];
           tags?: string[];
           locale: string;
           isPublished: boolean;
+          alternate: string;
         }),
         files: fileNames,
       };
