@@ -1,4 +1,4 @@
 User-agent: *
 Allow:/
 
-Sitemap: http://localhost:3000/api/my-sitemap
+Sitemap: https://devugur-mdx.vercel.app/sitemap.xml
