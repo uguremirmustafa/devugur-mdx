@@ -54,7 +54,7 @@ export default function Container(props: Props) {
       />
       <main
         id="skip"
-        className="flex flex-col justify-center px-6 bg-white dark:bg-gray-900 py-8 max-w-2xl w-full mx-auto"
+        className="flex flex-col justify-center px-6 bg-white dark:bg-gray-900 py-8 max-w-4xl w-full mx-auto"
       >
         {children}
         <Footer

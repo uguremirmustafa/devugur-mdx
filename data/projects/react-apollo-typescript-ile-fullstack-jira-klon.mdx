@@ -10,4 +10,80 @@ type: project
 isPublished: true
 ---
 
-## Turkece
+Biz yazılımcıların işi temelde problemlere çözüm bulmak ve bunu yaparken de olabildiğince etkili ve verimli olabilmektir. Ancak bunun söylendiği kadar kolay olmadığını hepimiz biliyoruz. Bu nedenle verimliliğimizi artırmak için problemin başladığı andan itibaren işlerimizi kolaylaştırı araçlarla çalışıyoruz.
+
+Bu araçların arasında önemli bir yere sahip olan proje takip araçları da yer almaktadırlar. `Bug Tracker` olarak da adlandırılan bu araçlar arasında sektörde yer edinmiş olan [Jira](https://www.atlassian.com/software/jira) uygulamasını dünya çapında binlerce yazılımcı ve özellikle büyük organizasyonlar aktif olarak kullanmakta. Şu arayüz tanıdık gelecektir: 👇🏻
+
+![Jira Uygulaması Arayüzü](./real-jira.png)
+
+Bu da benim geliştirmiş olduğum versiyonu: 👇🏻
+
+![Jira-Clone by uğur emirmustafaoğlu](./my-version-jira.png)
+
+Fullstack olarak tasarladığım uygulamada kullanıcı tarafında React kullanırken, backend tarafında ise [Hasura](https://hasura.io/)'dan faydalandım. Tamamen **GraphQL** ile çalışan uygulamada **Apollo Client** ile veri alışverişini sağladım. Bu noktada hiçbir `state management library` kullanmayıp kullanıcı tarafındaki bütün veriyi **Apollo Cache** ile yönettim. Arayüz tasarımında ise [popüler](https://hackernoon.com/5-most-popular-react-ui-component-libraries-5sx3t9c) bir tercih yaparak [Material-UI](https://material-ui.com/) kullandım.
+
+Bu kısa girişten sonra uygulamanın detaylarını ve geliştirme aşamalarını incelemeye başlayabiliriz.
+
+## 1. Uygulama tasarım dokümanı
+
+Her şeyden önce uygulamada ne tür ekranların olacağına karar vererek sorunu kafamda netleştirmenin önemli olduğuna karar verdim. Daha sonradan yaşanabilecek sil-baştan problemlerini yaşamamak için bu aşama önemliydi. O yüzden kısa bir tasarım dokümanı yazdım. Doküman özetle şunları içeriyordu:
+
+- Kullanıcı uygulamaya kaydolur(giriş/kayıt ekranı)
+- Yeni bir proje yaratabilir(proje yaratma ekranı)
+- Proje detaylarını görüntüleyebilir(proje dashboard ekranı)
+- Projeyi silebilir(proje sil ekranı)
+- Projeye yeni üyeler ekleyebilir(add member ekranı)
+- Projedeki üyeleri listeleyebilir ve onların yetkilerini değiştirebilir(member list ekranı)
+- Projeye yeni sütun(column) ekleyebilir ve bu sütunların sırasını değiştirebilir.
+- Projedeki sütunlara yeni issue'lar ekleyebilir.
+- Issue'ların detaylarını değiştirebilir.(bu kısım projenin yarısını teşkil ediyor diyebiliriz.)
+
+Bu ekranları sıraladıktan sonra sıra hangi araçları kullanarak bu projeyi oluşturacağıma karar verme aşamasına geliyordu. 🛠
+
+## 2. Araçlara karar verme
+
+Frontend developer olarak her ne kadar backend tarafı beni ilgilendirmiyormuş gibi görünse de aslında işin aslının öyle olmadığını da biliyordum. Zira yeteneklerimi göstermek için de bu gerekliydi. Gerçek bir işe başladığımda büyük ihtimalle basit bir `todo application` yapmayacağımı tahmin etmek zor değildi. Bunun yanı sıra benden sıfırdan bir GraphQL server yazmamı beklemeyeceklerini de düşünerek **Hasura**'yı kullanmaya karar verdim.
+
+Hasura, basitçe açıklamak gerekirse `backend as a service` olarak adlandırılabilecek bir uygulama. Girilen `Postgres` tablolarından otomatik olarak GraphQL endpointleri yaratmamıza yarayan Hasura'nın geliştirmiş olduğum **Jira-Clone** uygulamasının temel taşlarından birini teşkil ettiğini söylemem gerekir. İzinler ve yetkilendirme(authentication) noktasında da kullanmayı düşündüğüm `Auth0` ile mükemmel uyumlu çalışması sebebiyle tercihimi Hasura'dan yana yapmış oldum.
+
+Authentication için sıfırdan kod yazmanın projenin odak noktasını kaybetmeme ve gereksiz zaman harcamama neden olacağını düşünerek de [Auth0](https://auth0.com/) ile kullanıcılarımın giriş/kayıt işlemlerini halletmiş oldum.
+
+GraphQL endpointleri ile konuşacağımız için kullanıcı tarafında [Apollo Client](https://www.apollographql.com/docs/react/) iyi bir seçenek gibi duruyordu. Cache ile çalışacağım için ve Apollo'nun cache konusunda çok iyi olduğunu bildiğim için çok düşünmeden Apollo'yu kullanmaya karar verdim. 🧠
+
+Ana yapıyı kurduktan sonra sıra tasarım noktasına geliyordu. 🌈 Uygulam genelinde yeknesaklığı yakalamak ve güzel bir görünüm elde etmek için bir UI kütüphanesi kullanmanın iyi olacağını düşündüm ve tercihimi **Material UI**'dan yana kullandım.
+
+Böylece kullanacağım araçlara da karar vermiş oluyordum. Sırada ise veri yapısını ve tabloları inşa etmek var: 👇🏻
+
+## 3. Veri yapısını tasarlama ve veritabanını yaratma
+
+Bu aşama uygulamadaki verilerin birbirleri ile ne şekilde ilişki kuracaklarını belirlediğim aşama olacaktı. Yani her şey bunun üzerine kurulacaktı. O yüzden tabloları ve aralarındaki ilişkiyi gösteren bir grafik çizdim. Ancak malesef bu aşamada biraz da olsa çuvalladım. Bütün ilişkileri bir anda kafamda canlandırmak açıkçası biraz zordu fakat sonunda başardım. Bu ilk olarak çizmiş olduğum grafik fakat bunu çizdikten sonra köprünün altından çok sular geçti. 😅😅
+
+![Veritabanı grafiği](./draw.png)
+
+Veri yapısını da hallettikten sonra artık sıra `React` 💕 yazmaya geldi.
+
+## 4. React ile arayüzü hazırlama
+
+Bu tarz nispeten büyük sayılabilecek projelerde `Typescript` ile çalışmak birçok hatayı önceden önlemekle beraber [Graphql code generator](https://www.graphql-code-generator.com/) sayesinde çalışma ortamını etkili hale getirmek de bir o kadar kolay oldu. Graphql endpointini scripte tanıttıktan sonra Apollo ile kullanacağım bütün `query` ve `mutation` hook yapıları kendiliğinden yaratılıyordu. Bu şekilde neredeyse hiç `type` yazmadan Typescript kullanabildim.
+
+Apollo client gerçekten çok iyi bir iş çıkarıyor. Uzaktaki veriyi state ile hiç uğraşmadan doğrudan cache ile halletmek çok verimli bir çalışma ortamı yaratıyor.
+
+Bu aşamada beni zorlayan birkaç nokta oldu. Bunları kısaca listelemek istiyorum:
+
+- BeautifulDND ve Apollo Cache'i beraber kullanarak farklı sütunlar arasında itemleri taşımak bir zorlayıcıydı. Tam olarak şundan bahsediyorum. ![move issues between columns](./move-between-columns.gif)
+- Bu tarz bir uygulamada aynı veri üzerinde aynı anda birçok kişi çalışıyor olabilir. Bu da verinin gerçek zamanlı değişmesi zorunluluğunu beraberinde getiriyor. Bu da ek iş yükü demek fakat başarıldığında ne kadar zevk verici olduğunu tahmin edebilirsiniz. 🥰
+  İki farklı kullanıcının gerçek zamanlı çalışmasını izleyin: 👇 ![realtime update between columns](./realtime.gif)
+
+Sonraki aşamada ise uygulamayı bizzat kendi projem için kullanma var.
+
+## 5. Uygulamadaki gelişmeleri ve aşamaları takip et
+
+Uygulama büyüdükçe karşılaşılan hatalar ve buglar da haliyle arttı. Bu yüzden karşılaştığım hataları ve eklemek istediğim özellikleri uygulamanın kendi arayüzünde yeni `issue`lar yaratarak takip etmeye karar verdim. Böylece hem uygulamanın çalışmasını test edebilecek hem de sorunları çözüp yeni özellikler ekleyerek sonraki aşamaya taşıyabilcektim.
+
+Bu postu yazdığım tarih itibariyle çalışmalar hala devam ediyor ve her geçen gün yeni buglar 🐛 ile karşılaşıp yeni çözümler üretiyorum. Her ne kadar bazı anlar çileden çıksam da bu işi yapmayı seviyorum. 🍀
+
+## Sonuç olarak
+
+Geliştirmekte olduğum ve sona yaklaştığım bu uygulamada birçok tecrübe edindim. Küçük projeler, her ne kadar yeni şeyler öğrenmek için birer fırsat olsa da orta ve büyük çaplı projelerin derinlemesine öğrenme için avantajlı olduğunu farkettim. Detaylara dikkat ettiğimde ne kadar çok incelikli noktanın olduğunu tecrübeyle öğrendim.
+
+Tüm bu öğrenmelerin dışında artık iş başvurusu için hazır olduğuma karar vermemde bana yardımcı olduğunu da söylemeden geçemeyeceğim. Her ne kadar mükemmel olmasa da fullstack bir uygulama yazabildiğimi görmek kendime olan güvenimi artırdı.
