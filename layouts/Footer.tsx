@@ -28,68 +28,71 @@ export const Footer = ({ alternate, contentType }: Props) => {
   const lang = isTR ? 'en' : 'tr';
 
   return (
-    <footer className="mx-auto max-w-2xl bg-red-400 w-full">
-      <div className="footer">
-        <ul className="flex flex-col gap-1 md:gap-0">
-          <h6 className="p-1 underline">{navigation}</h6>
-          <NextLink href="/portfolio">
-            <a className="p-1">{portfolio}</a>
-          </NextLink>
-          <NextLink href="/blog">
-            <a className="p-1">{blog}</a>
-          </NextLink>
-          <NextLink href="/about">
-            <a className="p-1">{about}</a>
-          </NextLink>
-          <NextLink href="/">
-            <a className="p-1">{home}</a>
-          </NextLink>
-          <NextLink href="/sitemap.xml">
-            <a className="p-1">{sitemap}</a>
-          </NextLink>
-        </ul>
-        <ul className="flex flex-col gap-1 md:gap-0">
-          <h6 className="p-1 underline">{connect}</h6>
-          <a href="https://twitter.com/uguremirmustafa" className="p-1">
-            Twitter
-          </a>
-          <a href="https://github.com/uguremirmustafa" className="p-1">
-            Github
-          </a>
-          <a href="https://instagram.com/uguremirmustafa" className="p-1">
-            Instagram
-          </a>
-          <a href="mailto:uguremirmustafa@gmail.com" className="p-1">
-            Email
-          </a>
-          {!contentPage && (
-            <>
-              {!isArticle && (
-                <ul className="flex gap-4 p-1">
-                  {locales.map((locale) => (
-                    <li key={locale}>
-                      <NextLink href={asPath} locale={locale}>
-                        {locale === 'tr' ? '🇹🇷' : '🇺🇸'}
-                      </NextLink>
-                    </li>
-                  ))}
-                </ul>
-              )}
-              {isArticle && (
-                <NextLink href={to} locale={lang}>
-                  <a className="p-1">🇹🇷/🇺🇸</a>
-                </NextLink>
-              )}
-            </>
-          )}
-        </ul>
-        <ul className="flex flex-col gap-1 md:gap-0">
-          <h6 className="p-1 underline">{unrelated}</h6>
-          <NextLink href="/gear">
-            <a className="p-1">{gear}</a>
-          </NextLink>
-        </ul>
-      </div>
-    </footer>
+    <>
+      <div className="divider"></div>
+      <footer className="mx-auto max-w-2xl bg-red-400 w-full">
+        <div className="footer">
+          <ul className="flex flex-col gap-1 md:gap-0">
+            <h6 className="p-1 underline">{navigation}</h6>
+            <NextLink href="/portfolio">
+              <a className="p-1">{portfolio}</a>
+            </NextLink>
+            <NextLink href="/blog">
+              <a className="p-1">{blog}</a>
+            </NextLink>
+            <NextLink href="/about">
+              <a className="p-1">{about}</a>
+            </NextLink>
+            <NextLink href="/">
+              <a className="p-1">{home}</a>
+            </NextLink>
+            <NextLink href="/sitemap.xml">
+              <a className="p-1">{sitemap}</a>
+            </NextLink>
+          </ul>
+          <ul className="flex flex-col gap-1 md:gap-0">
+            <h6 className="p-1 underline">{connect}</h6>
+            <a href="https://twitter.com/uguremirmustafa" className="p-1">
+              Twitter
+            </a>
+            <a href="https://github.com/uguremirmustafa" className="p-1">
+              Github
+            </a>
+            <a href="https://instagram.com/uguremirmustafa" className="p-1">
+              Instagram
+            </a>
+            <a href="mailto:uguremirmustafa@gmail.com" className="p-1">
+              Email
+            </a>
+            {!contentPage && (
+              <>
+                {!isArticle && (
+                  <ul className="flex gap-4 p-1">
+                    {locales.map((locale) => (
+                      <li key={locale}>
+                        <NextLink href={asPath} locale={locale}>
+                          {locale === 'tr' ? '🇹🇷' : '🇺🇸'}
+                        </NextLink>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+                {isArticle && (
+                  <NextLink href={to} locale={lang}>
+                    <a className="p-1">🇹🇷/🇺🇸</a>
+                  </NextLink>
+                )}
+              </>
+            )}
+          </ul>
+          <ul className="flex flex-col gap-1 md:gap-0">
+            <h6 className="p-1 underline">{unrelated}</h6>
+            <NextLink href="/gear">
+              <a className="p-1">{gear}</a>
+            </NextLink>
+          </ul>
+        </div>
+      </footer>
+    </>
   );
 };

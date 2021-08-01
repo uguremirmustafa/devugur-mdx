@@ -25,7 +25,7 @@ export default function BlurImage({ relativePath, width, height, imgBase64, alt,
           objectFit: 'cover',
           objectPosition: 'center',
           filter: 'blur(2rem)',
-          transform: 'scale(1.2)',
+          // transform: 'scale(1.2)',
           opacity: isLoaded ? '0' : '1',
           transition: 'opacity 0s ease',
           transitionDelay: '300ms',
@@ -38,13 +38,6 @@ export default function BlurImage({ relativePath, width, height, imgBase64, alt,
         height={height}
         onLoad={() => setLoaded(true)}
         alt={alt ? alt : ''}
-        // style={{
-        //   maxWidth: '100%',
-        //   height: 'auto',
-        //   opacity: isLoaded ? '1' : '0',
-        //   transition: 'opacity 300ms ease',
-        // }}
-        // loading="lazy"
         className={
           isLoaded
             ? className
