@@ -1,33 +1,20 @@
----
-title: Turkce blog
-summary: turkce blog aciklama
-publishedAt: '2019-12-26'
-image: '/static/images/how-to-add-twitter-tags-to-nextjs-blog/example.png'
-locale: tr
-tags: ['nextjs', 'seo', 'twitter', 'meta']
-isPublished: true
-alternate: '/blog/english-blog'
----
-
-<!-- <ImageWithTheme alt={`naber`} src="/images/image.jpg" width={800} height={300} /> -->
-
-```
 import Image from 'next/image';
 import React, { useState } from 'react';
 
 export default function BlurImage({ relativePath, width, height, imgBase64, alt, className }) {
   const [isLoaded, setLoaded] = useState(false);
 
-return (
-<div
-style={{
+  return (
+    <div
+      style={{
         position: 'relative',
         overflow: 'hidden',
-      }} >
-<img
-aria-hidden="true"
-src={imgBase64}
-style={{
+      }}
+    >
+      <img
+        aria-hidden="true"
+        src={imgBase64}
+        style={{
           position: 'absolute',
           top: '0px',
           right: '0px',
@@ -43,26 +30,29 @@ style={{
           transition: 'opacity 0s ease',
           transitionDelay: '300ms',
         }}
-className={className}
-/>
-<Image
-src={relativePath}
-width={width}
-height={height}
-onLoad={() => setLoaded(true)}
-alt={alt ? alt : ''}
-// style={{
+        className={className ? className : 'blurPlaceholder'}
+      />
+      <Image
+        src={relativePath}
+        width={width}
+        height={height}
+        onLoad={() => setLoaded(true)}
+        alt={alt ? alt : ''}
+        // style={{
         //   maxWidth: '100%',
         //   height: 'auto',
         //   opacity: isLoaded ? '1' : '0',
         //   transition: 'opacity 300ms ease',
         // }}
-loading="lazy"
-className={className}
-/>
-</div>
-);
+        // loading="lazy"
+        className={
+          isLoaded
+            ? className
+              ? `${className} opaqueBlurActualImage`
+              : 'opaqueBlurActualImage'
+            : 'transparentBlurActualImage'
+        }
+      />
+    </div>
+  );
 }
-```
-
-![Butterfly cat](./example.png)

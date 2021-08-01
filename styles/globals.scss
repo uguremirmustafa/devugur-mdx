@@ -352,3 +352,15 @@ table {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
 }
+.opaqueBlurActualImage {
+  max-width: 100%;
+  height: auto;
+  opacity: 1;
+  transition: opacity 300ms ease;
+}
+.transparentBlurActualImage {
+  max-width: 100%;
+  height: auto;
+  opacity: 0;
+  transition: opacity 300ms ease;
+}

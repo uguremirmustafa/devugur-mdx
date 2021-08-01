@@ -10,10 +10,11 @@ import dynamic from 'next/dynamic';
 // import YouTube from '@/components/metrics/Youtube';
 import Step from '@components/Utils/Step';
 import ImageWithTheme from '@components/Utils/ImageWithTheme';
-
+import BlurImage from '@components/Utils/BlurImage';
 const MDXComponents = {
   Image,
   ImageWithTheme,
+  BlurImage,
   a: CustomLink,
   //   Analytics,
   //   ConsCard,

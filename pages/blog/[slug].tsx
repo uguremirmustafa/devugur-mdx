@@ -3,7 +3,8 @@ import { GetStaticPaths, InferGetStaticPropsType } from 'next';
 import { getFiles, getFileBySlug } from '@lib/mdx';
 import MDXComponents from '@components/Utils/MDXComponents';
 import BlogLayout from 'layouts/BlogLayout';
-
+import { getRouteImageMeta } from '@utils/image-api';
+import path from 'path';
 const PostPage = ({ mdxSource, frontMatter }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <BlogLayout frontMatter={frontMatter}>

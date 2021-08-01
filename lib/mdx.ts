@@ -6,6 +6,9 @@ import matter from 'gray-matter';
 import readingTime from 'reading-time';
 import { serialize } from 'next-mdx-remote/serialize';
 import mdxPrism from 'mdx-prism';
+import { getRouteImageMeta } from '@utils/image-api';
+import visit from 'unist-util-visit';
+
 const { defaultLocale } = require('i18n.json');
 
 const root = process.cwd();
@@ -42,6 +45,9 @@ export async function getFiles(type: string, locales: string[]) {
 }
 
 export async function getFileBySlug(type: string, slug: string, locale: string) {
+  const base = type === 'blog' ? 'blog' : 'portfolio';
+  const imgMeta = await getRouteImageMeta(path.join(base, slug), true);
+
   const fullPath = path.join(root, 'data', type, slug);
 
   const source = fs.readFileSync(`${fullPath}.mdx`, 'utf8');
@@ -59,6 +65,26 @@ export async function getFileBySlug(type: string, slug: string, locale: string) 
         //     },
         //   },
         // ],
+        function () {
+          return transformer;
+
+          function transformer(tree) {
+            visit(tree, 'image', visitor);
+
+            function visitor(node) {
+              if (!imgMeta) return;
+              const meta = imgMeta[node.url.split('./')[1]];
+
+              node.type = 'jsx';
+              node.value = `<BlurImage
+                              fileName="${meta.fileName}"
+                              relativePath="${meta.relativePath}"
+                              width={${meta.width}}
+                              height={${meta.height}}
+                              imgBase64="${meta.imgBase64}" />`;
+            }
+          }
+        },
         require('remark-code-titles'),
       ],
       rehypePlugins: [mdxPrism],
