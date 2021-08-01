@@ -2,8 +2,20 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { Navbar } from 'layouts/Navbar';
 import { Footer } from 'layouts/Footer';
+import { ReactNode } from 'react';
 
-export default function Container(props: any) {
+interface Props {
+  children: ReactNode;
+  title: string;
+  description: string;
+  image: string;
+  date: string;
+  type: string;
+  alternate: string;
+  contentType: string;
+}
+
+export default function Container(props: Props) {
   const { children, ...customMeta } = props;
   const router = useRouter();
   const meta = {
@@ -13,6 +25,7 @@ export default function Container(props: any) {
     type: 'website',
     ...customMeta,
   };
+  // console.log(customMeta.contentType);
 
   return (
     <div className="bg-white dark:bg-gray-900 ">
@@ -35,13 +48,19 @@ export default function Container(props: any) {
         {meta.date && <meta property="article:published_time" content={meta.date} />}
       </Head>
 
-      <Navbar alternate={customMeta.alternate ? customMeta.alternate : ''} />
+      <Navbar
+        alternate={customMeta.alternate ? customMeta.alternate : ''}
+        contentType={customMeta.contentType}
+      />
       <main
         id="skip"
         className="flex flex-col justify-center px-6 bg-white dark:bg-gray-900 py-8 divide-y max-w-2xl w-full mx-auto"
       >
         {children}
-        <Footer alternate={customMeta.alternate ? customMeta.alternate : ''} />
+        <Footer
+          alternate={customMeta.alternate ? customMeta.alternate : ''}
+          contentType={customMeta.contentType}
+        />
       </main>
     </div>
   );

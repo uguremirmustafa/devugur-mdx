@@ -132,6 +132,7 @@ export async function getAllFilesFrontMatter(type: string, locale: string) {
           locale: string;
           isPublished: boolean;
           alternate: string;
+          type: string;
         }),
         files: fileNames,
       };

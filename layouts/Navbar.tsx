@@ -7,16 +7,17 @@ import { useRef, useState } from 'react';
 import useOnClickOutside from 'hooks/useOnClickOutside';
 interface Props {
   alternate: string;
+  contentType: string;
 }
 
-export const Navbar = ({ alternate }: Props) => {
+export const Navbar = ({ alternate, contentType }: Props) => {
   const { locales, asPath, locale } = useRouter();
   const { t } = useTranslation('common');
   const gear = t('nav.gear');
   const about = t('nav.about');
   const blog = t('nav.blog');
   const portfolio = t('nav.portfolio');
-
+  const contentPage = contentType === 'blog' || contentType === 'project';
   const isArticle = alternate != '';
   const isTR = locale === 'tr';
   const to = isTR ? alternate : `/tr${alternate}`;
@@ -48,21 +49,25 @@ export const Navbar = ({ alternate }: Props) => {
             </NextLink>
           </div>
           <div className="flex gap-4">
-            {!isArticle && (
-              <ul className="flex gap-4 p-1">
-                {locales.map((locale) => (
-                  <li key={locale}>
-                    <NextLink href={asPath} locale={locale}>
-                      {locale === 'tr' ? '🇹🇷' : '🇺🇸'}
-                    </NextLink>
-                  </li>
-                ))}
-              </ul>
-            )}
-            {isArticle && (
-              <NextLink href={to} locale={lang}>
-                <a className="p-1">🇹🇷/🇺🇸</a>
-              </NextLink>
+            {!contentPage && (
+              <>
+                {!isArticle && (
+                  <ul className="flex gap-4 p-1">
+                    {locales.map((locale) => (
+                      <li key={locale}>
+                        <NextLink href={asPath} locale={locale}>
+                          {locale === 'tr' ? '🇹🇷' : '🇺🇸'}
+                        </NextLink>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+                {isArticle && (
+                  <NextLink href={to} locale={lang}>
+                    <a className="p-1">🇹🇷/🇺🇸</a>
+                  </NextLink>
+                )}
+              </>
             )}
             <ThemeSwitcher />
           </div>

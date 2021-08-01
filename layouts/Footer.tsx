@@ -4,9 +4,10 @@ import React from 'react';
 import useTranslation from 'next-translate/useTranslation';
 interface Props {
   alternate: string;
+  contentType: string;
 }
 
-export const Footer = ({ alternate }: Props) => {
+export const Footer = ({ alternate, contentType }: Props) => {
   const { t } = useTranslation('common');
   const gear = t('nav.gear');
   const home = t('nav.home');
@@ -18,6 +19,8 @@ export const Footer = ({ alternate }: Props) => {
   const unrelated = t('unrelated');
   const connect = t('connect');
   const { locales, asPath, locale } = useRouter();
+
+  const contentPage = contentType === 'blog' || contentType === 'project';
 
   const isArticle = alternate !== '';
   const isTR = locale === 'tr';
@@ -59,21 +62,25 @@ export const Footer = ({ alternate }: Props) => {
           <a href="mailto:uguremirmustafa@gmail.com" className="p-1">
             Email
           </a>
-          {!isArticle && (
-            <ul className="flex gap-4 p-1">
-              {locales.map((locale) => (
-                <li key={locale}>
-                  <NextLink href={asPath} locale={locale}>
-                    {locale === 'tr' ? '🇹🇷' : '🇺🇸'}
-                  </NextLink>
-                </li>
-              ))}
-            </ul>
-          )}
-          {isArticle && (
-            <NextLink href={to} locale={lang}>
-              <a className="p-1">🇹🇷/🇺🇸</a>
-            </NextLink>
+          {!contentPage && (
+            <>
+              {!isArticle && (
+                <ul className="flex gap-4 p-1">
+                  {locales.map((locale) => (
+                    <li key={locale}>
+                      <NextLink href={asPath} locale={locale}>
+                        {locale === 'tr' ? '🇹🇷' : '🇺🇸'}
+                      </NextLink>
+                    </li>
+                  ))}
+                </ul>
+              )}
+              {isArticle && (
+                <NextLink href={to} locale={lang}>
+                  <a className="p-1">🇹🇷/🇺🇸</a>
+                </NextLink>
+              )}
+            </>
           )}
         </ul>
         <ul className="flex flex-col gap-1 md:gap-0">
