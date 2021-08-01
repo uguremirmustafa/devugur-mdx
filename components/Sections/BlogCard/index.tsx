@@ -21,7 +21,7 @@ export const BlogCard = ({ summary, slug, title }: Props) => {
           <div className="flex flex-col md:flex-row justify-between mb-2">
             <h4 className=" text-gray-900 dark:text-gray-100 p-0 m-0 w-full">{title}</h4>
             <p className="text-gray-500 text-left md:text-right mt-2 md:mt-0 min-w-4 text-sm">
-              {!data && 'loading...'}
+              {!data && <div className="animate-spin"></div>}
               {`${views ? new Number(views).toLocaleString() : '–––'} ${viewsText}`}
             </p>
           </div>

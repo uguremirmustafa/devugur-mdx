@@ -2,7 +2,6 @@ import BlurImage from '@components/Utils/BlurImage';
 import React, { useState } from 'react';
 import styles from './styles.module.scss';
 import Lightbox from 'react-image-lightbox';
-import Image from 'next/image';
 
 interface Props {
   imgMeta: any;
@@ -31,23 +30,13 @@ const captions = [
   ['Ikea Meltrop White 125x75', 'Brother HL1211W Wireless Printer'],
 ];
 
-const style = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-  },
-};
 export const Gallery = ({ imgMeta }: Props) => {
   const [photoIndex, setPhotoIndex] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className={styles.gallery}>
-      {images.map((i, index) => (
+      {thumb.map((i, index) => (
         <div
           key={index}
           onClick={() => {
@@ -56,12 +45,7 @@ export const Gallery = ({ imgMeta }: Props) => {
           }}
           className="cursor-pointer"
         >
-          {/* <BlurImage {...imgMeta[i]} alt={i} /> */}
-          <Image
-            src={`/${i}`}
-            height={imgMeta[thumb[index]].height}
-            width={imgMeta[thumb[index]].width}
-          />
+          <BlurImage {...imgMeta[i]} alt={i} />
         </div>
       ))}
 

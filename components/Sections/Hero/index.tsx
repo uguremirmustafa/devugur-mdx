@@ -313,7 +313,7 @@ export const Hero = (props: Props) => {
           </a>
         </div>
         <div className="flex justify-center gap-4 py-12">
-          <Link href="/portolio">
+          <Link href="/portfolio">
             <button className="btn">{t('home:portfolioBtn')}</button>
           </Link>
           <Link href="/blog">

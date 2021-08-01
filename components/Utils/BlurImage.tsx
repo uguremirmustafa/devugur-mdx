@@ -32,7 +32,7 @@ export default function BlurImage({ relativePath, width, height, imgBase64, alt,
         }}
         className={className ? className : 'blurPlaceholder'}
       />
-      <Image
+      <img
         src={relativePath}
         width={width}
         height={height}
@@ -45,7 +45,22 @@ export default function BlurImage({ relativePath, width, height, imgBase64, alt,
               : 'opaqueBlurActualImage'
             : 'transparentBlurActualImage'
         }
+        loading="lazy"
       />
+      {/* <Image
+        src={relativePath}
+        width={width}
+        height={height}
+        onLoad={() => setLoaded(true)}
+        alt={alt ? alt : ''}
+        className={
+          isLoaded
+            ? className
+              ? `${className} opaqueBlurActualImage`
+              : 'opaqueBlurActualImage'
+            : 'transparentBlurActualImage'
+        }
+      /> */}
     </div>
   );
 }

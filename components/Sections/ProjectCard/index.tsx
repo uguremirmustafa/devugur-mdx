@@ -22,6 +22,7 @@ export const ProjectCard = ({ summary, slug, title, techStack }: Props) => {
   const views = new Number(data?.total);
   const { t } = useTranslation('common');
   const viewsText = t('views');
+  
   return (
     <Link href={`/portfolio/${slug}`} key={slug}>
       <a className="w-full">
@@ -29,8 +30,8 @@ export const ProjectCard = ({ summary, slug, title, techStack }: Props) => {
           <div className="flex flex-col md:flex-row justify-between mb-2">
             <h4 className=" text-gray-900 dark:text-gray-100 p-0 m-0">{title}</h4>
             <p className="text-gray-500 text-left md:text-right mt-2 md:mt-0">
-              {!data && 'loading...'}
-              {`${views ? new Number(views).toLocaleString() : '–––'} ${viewsText}`}
+              {!data && <div className="animate-spin"></div>}
+              {data && `${views ? new Number(views).toLocaleString() : '–––'} ${viewsText}`}
             </p>
           </div>
           <p className="text-gray-600 dark:text-gray-400">{summary}</p>
