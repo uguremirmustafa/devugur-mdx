@@ -7,7 +7,7 @@
     "dev:watch": "next-remote-watch ./posts",
     "start": "next start",
     "lint": "next lint",
-    "build": "npm run next build",
+    "build": "next build",
     "process-images": "node scripts/process-images.js"
   },
   "dependencies": {
