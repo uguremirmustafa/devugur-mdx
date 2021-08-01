@@ -4,5 +4,7 @@
   "subTitle": "Popüler yazılarımdan bazıları",
   "allPosts": "Tüm blog yazılarım",
   "search": "Blogda ara",
-  "noPostsFind": "Üzgünüm, aramanıza uygun sonuç bulunamadı! Sanırım biraz daha çalışmalıyım. 😢"
+  "noPostsFind": "Üzgünüm, aramanıza uygun sonuç bulunamadı! Sanırım biraz daha çalışmalıyım. 😢",
+  "metaTitle": "Blog - Uğur Emirmustafaoğlu",
+  "metaDescription": "Burada frontend web development alanındaki blog yazılarımı bulabilirsiniz."
 }

@@ -8,11 +8,11 @@ interface Props {
   children: ReactNode;
   title: string;
   description: string;
-  image: string;
-  date: string;
-  type: string;
-  alternate: string;
-  contentType: string;
+  image?: string;
+  date?: string;
+  type?: string;
+  alternate?: string;
+  contentType?: string;
 }
 
 export default function Container(props: Props) {

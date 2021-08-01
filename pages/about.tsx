@@ -19,9 +19,14 @@ const About = ({ imgMeta }: Props) => {
   const about3 = t('about3');
   const about4 = t('about4');
   const metaTitle = t('meta-title');
+  const metaDescription = t('meta-description');
 
   return (
-    <Container title={metaTitle}>
+    <Container
+      title={metaTitle}
+      description={metaDescription}
+      image={`https://devugur.com/static/images/me.png`}
+    >
       <div className="flex flex-col justify-center items-start max-w-2xl mx-auto mb-16">
         <h1 className="font-bold text-3xl md:text-5xl tracking-tight mb-4 text-black dark:text-white">
           {title}

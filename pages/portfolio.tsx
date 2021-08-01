@@ -10,10 +10,7 @@ export default function Blog({ projects }: InferGetStaticPropsType<typeof getSta
   const subTitle = t('subTitle');
   const description = t('description');
   return (
-    <Container
-      title="Blog – Uğur Emirmustafaoğlu"
-      description="My personal developer blog and portfolio where I share my projects and thoughts on web development"
-    >
+    <Container title={`${title} - Uğur Emirmustafaoğlu`} description={description}>
       <div className="flex flex-col justify-center items-start max-w-2xl mx-auto mb-16">
         <h1 className="font-bold text-3xl md:text-5xl tracking-tight mb-4 text-black dark:text-white">
           {title}

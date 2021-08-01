@@ -1,8 +1,10 @@
 import { Hero } from '@components/Sections/Hero';
 import Container from '@components/Container';
-const Index = ({ imgMeta }) => {
+import useTranslation from 'next-translate/useTranslation';
+const Index = () => {
+  const { t } = useTranslation('home');
   return (
-    <Container>
+    <Container title={t('title')} description={t('description')}>
       <Hero />
     </Container>
   );

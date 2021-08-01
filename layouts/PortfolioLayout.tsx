@@ -27,6 +27,7 @@ export default function PortfolioLayout({ children, frontMatter }: Props) {
       date={new Date(frontMatter.publishedAt).toISOString()}
       type="article"
       alternate={frontMatter.alternate}
+      contentType={frontMatter.type}
     >
       <article className="flex flex-col justify-center items-start max-w-2xl mx-auto mb-16 w-full">
         <ArticleMeta

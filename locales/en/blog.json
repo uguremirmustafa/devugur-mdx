@@ -4,5 +4,7 @@
   "subTitle": "Most popular blogs",
   "allPosts": "All posts",
   "search": "Search",
-  "noPostsFind": "Sorry, no posts find for your search term!"
+  "noPostsFind": "Sorry, no posts find for your search term!",
+  "metaTitle": "Blog - Uğur Emirmustafaoğlu",
+  "metaDescription": "Here you can find my blogs related to frontend development!"
 }

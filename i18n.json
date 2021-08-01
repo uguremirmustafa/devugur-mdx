@@ -6,6 +6,7 @@
     "/": ["home"],
     "/about": ["about"],
     "/blog": ["blog"],
-    "/portfolio": ["portfolio"]
+    "/portfolio": ["portfolio"],
+    "/gear": ["gear"]
   }
 }
