@@ -28,9 +28,11 @@ export default function BlogLayout({ children, frontMatter }: Props) {
           readingTime={frontMatter.readingTime.minutes}
         />
         {frontMatter.alternate !== '' && (
-          <Link href={frontMatter.alternate} locale={frontMatter.locale === 'tr' ? 'en' : 'tr'}>
-            {frontMatter.locale === 'tr' ? 'read in 🇺🇸' : '🇹🇷 olarak oku'}
-          </Link>
+          <div className="mt-8 font-bold">
+            <Link href={frontMatter.alternate} locale={frontMatter.locale === 'tr' ? 'en' : 'tr'}>
+              {frontMatter.locale === 'tr' ? 'Read in English 🇺🇸' : 'Türkçe olarak oku 🇹🇷'}
+            </Link>
+          </div>
         )}
         <div className="prose dark:prose-dark w-full">{children}</div>
       </article>

@@ -6,6 +6,7 @@ import { FormattedDate } from '@components/Utils/FormattedDate';
 import { useRouter } from 'next/router';
 import useTranslation from 'next-translate/useTranslation';
 import { ArticleMeta } from '@components/Sections/ArticleMeta';
+import Link from 'next/link';
 
 // const editUrl = (slug) => `https://github.com/leerob/leerob.io/edit/main/data/blog/${slug}.mdx`;
 // const discussUrl = (slug) =>
@@ -58,6 +59,13 @@ export default function PortfolioLayout({ children, frontMatter }: Props) {
             ))}
           </div>
         </div>
+        {frontMatter.alternate !== '' && (
+          <div className="mt-8 font-bold">
+            <Link href={frontMatter.alternate} locale={frontMatter.locale === 'tr' ? 'en' : 'tr'}>
+              {frontMatter.locale === 'tr' ? 'Read in English 🇺🇸' : 'Türkçe olarak oku 🇹🇷'}
+            </Link>
+          </div>
+        )}
         <div className="prose dark:prose-dark max-w-none w-full">{children}</div>
       </article>
     </Container>

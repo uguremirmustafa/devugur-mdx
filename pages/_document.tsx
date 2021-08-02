@@ -47,29 +47,73 @@ class MyDocument extends Document {
           <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png"></link>
           <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96x96.png"></link>
           <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png"></link>
-
           <link rel="manifest" href="/manifest.json" />
-
           <meta name="msapplication-TileColor" content="#ffffff"></meta>
           <meta name="msapplication-TileImage" content="/ms-icon-144x144.png"></meta>
           <meta name="theme-color" content="#ffffff"></meta>
           <link
             rel="preload"
-            href="/fonts/Poppins/poppins-v15-latin-ext-regular.woff2"
+            href="/fonts/ubuntu-v15-latin-ext-regular.woff2"
             as="font"
-            type="font/woff"
+            type="font/woff2"
+            crossOrigin="anonymous"
           />
           <link
             rel="preload"
-            href="/fonts/Poppins/poppins-v15-latin-ext-500.woff2"
+            href="/fonts/ubuntu-v15-latin-ext-regular.woff"
             as="font"
             type="font/woff"
+            crossOrigin="anonymous"
           />
           <link
             rel="preload"
-            href="/fonts/Poppins/poppins-v15-latin-ext-700.woff2"
+            href="/fonts/ubuntu-v15-latin-ext-500.woff2"
+            as="font"
+            type="font/woff2"
+            crossOrigin="anonymous"
+          />
+          <link
+            rel="preload"
+            href="/fonts/ubuntu-v15-latin-ext-500.woff"
             as="font"
             type="font/woff"
+            crossOrigin="anonymous"
+          />
+          <link
+            rel="preload"
+            href="/fonts/ubuntu-v15-latin-ext-700.woff2"
+            as="font"
+            type="font/woff2"
+            crossOrigin="anonymous"
+          />
+          <link
+            rel="preload"
+            href="/fonts/ubuntu-v15-latin-ext-700.woff"
+            as="font"
+            type="font/woff"
+            crossOrigin="anonymous"
+          />
+          <link
+            rel="preload"
+            href="/fonts/sriracha-v5-latin-ext-regular.woff2"
+            as="font"
+            type="font/woff2"
+            crossOrigin="anonymous"
+          />
+          <link
+            rel="preload"
+            href="/fonts/sriracha-v5-latin-ext-regular.woff"
+            as="font"
+            type="font/woff"
+            crossOrigin="anonymous"
+          />
+
+          <link
+            rel="preload"
+            href="/fonts/SourceCodePro/source-code-pro-v14-latin-ext-600.woff"
+            as="font"
+            type="font/woff"
+            crossOrigin="anonymous"
           />
         </Head>
         <body className="dark:bg-gray-900">

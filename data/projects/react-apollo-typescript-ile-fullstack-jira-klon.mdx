@@ -12,7 +12,7 @@ isPublished: true
 
 Biz yazılımcıların işi temelde problemlere çözüm bulmak ve bunu yaparken de olabildiğince etkili ve verimli olabilmektir. Ancak bunun söylendiği kadar kolay olmadığını hepimiz biliyoruz. Bu nedenle verimliliğimizi artırmak için problemin başladığı andan itibaren işlerimizi kolaylaştırı araçlarla çalışıyoruz.
 
-Bu araçların arasında önemli bir yere sahip olan proje takip araçları da yer almaktadırlar. `Bug Tracker` olarak da adlandırılan bu araçlar arasında sektörde yer edinmiş olan [Jira](https://www.atlassian.com/software/jira) uygulamasını dünya çapında binlerce yazılımcı ve özellikle büyük organizasyonlar aktif olarak kullanmakta. Şu arayüz tanıdık gelecektir: 👇🏻
+Bu araçların arasında önemli bir yere sahip olan proje takip araçları da yer almaktadırlar. **Bug Tracker** olarak da adlandırılan bu araçlar arasında sektörde yer edinmiş olan [Jira](https://www.atlassian.com/software/jira) uygulamasını dünya çapında binlerce yazılımcı ve özellikle büyük organizasyonlar aktif olarak kullanmakta. Şu arayüz tanıdık gelecektir: 👇🏻
 
 ![Jira Uygulaması Arayüzü](./real-jira.png)
 
@@ -20,7 +20,7 @@ Bu da benim geliştirmiş olduğum versiyonu: 👇🏻
 
 ![Jira-Clone by uğur emirmustafaoğlu](./my-version-jira.png)
 
-Fullstack olarak tasarladığım uygulamada kullanıcı tarafında React kullanırken, backend tarafında ise [Hasura](https://hasura.io/)'dan faydalandım. Tamamen **GraphQL** ile çalışan uygulamada **Apollo Client** ile veri alışverişini sağladım. Bu noktada hiçbir `state management library` kullanmayıp kullanıcı tarafındaki bütün veriyi **Apollo Cache** ile yönettim. Arayüz tasarımında ise [popüler](https://hackernoon.com/5-most-popular-react-ui-component-libraries-5sx3t9c) bir tercih yaparak [Material-UI](https://material-ui.com/) kullandım.
+Fullstack olarak tasarladığım uygulamada kullanıcı tarafında React kullanırken, backend tarafında ise [Hasura](https://hasura.io/)'dan faydalandım. Tamamen **GraphQL** ile çalışan uygulamada **Apollo Client** ile veri alışverişini sağladım. Bu noktada hiçbir _state management library_ kullanmayıp kullanıcı tarafındaki bütün veriyi **Apollo Cache** ile yönettim. Arayüz tasarımında ise [popüler](https://hackernoon.com/5-most-popular-react-ui-component-libraries-5sx3t9c) bir tercih yaparak [Material-UI](https://material-ui.com/) kullandım.
 
 Bu kısa girişten sonra uygulamanın detaylarını ve geliştirme aşamalarını incelemeye başlayabiliriz.
 
@@ -42,9 +42,9 @@ Bu ekranları sıraladıktan sonra sıra hangi araçları kullanarak bu projeyi 
 
 ## 2. Araçlara karar verme
 
-Frontend developer olarak her ne kadar backend tarafı beni ilgilendirmiyormuş gibi görünse de aslında işin aslının öyle olmadığını da biliyordum. Zira yeteneklerimi göstermek için de bu gerekliydi. Gerçek bir işe başladığımda büyük ihtimalle basit bir `todo application` yapmayacağımı tahmin etmek zor değildi. Bunun yanı sıra benden sıfırdan bir GraphQL server yazmamı beklemeyeceklerini de düşünerek **Hasura**'yı kullanmaya karar verdim.
+Frontend developer olarak her ne kadar backend tarafı beni ilgilendirmiyormuş gibi görünse de aslında işin aslının öyle olmadığını da biliyordum. Zira yeteneklerimi göstermek için de bu gerekliydi. Gerçek bir işe başladığımda basit bir _todo application_ yapmayacağımı tahmin etmek zor değildi. Bunun yanı sıra benden sıfırdan bir GraphQL server yazmamı beklemeyeceklerini de düşünerek **Hasura**'yı kullanmaya karar verdim.
 
-Hasura, basitçe açıklamak gerekirse `backend as a service` olarak adlandırılabilecek bir uygulama. Girilen `Postgres` tablolarından otomatik olarak GraphQL endpointleri yaratmamıza yarayan Hasura'nın geliştirmiş olduğum **Jira-Clone** uygulamasının temel taşlarından birini teşkil ettiğini söylemem gerekir. İzinler ve yetkilendirme(authentication) noktasında da kullanmayı düşündüğüm `Auth0` ile mükemmel uyumlu çalışması sebebiyle tercihimi Hasura'dan yana yapmış oldum.
+Hasura, basitçe açıklamak gerekirse _backend as a service_ olarak adlandırılabilecek bir uygulama. Girilen `Postgres` tablolarından otomatik olarak GraphQL endpointleri yaratmamıza yarayan Hasura'nın geliştirmiş olduğum **Jira-Clone** uygulamasının temel taşlarından birini teşkil ettiğini söylemem gerekir. İzinler ve yetkilendirme(authentication) noktasında da kullanmayı düşündüğüm `Auth0` ile mükemmel uyumlu çalışması sebebiyle tercihimi Hasura'dan yana yapmış oldum.
 
 Authentication için sıfırdan kod yazmanın projenin odak noktasını kaybetmeme ve gereksiz zaman harcamama neden olacağını düşünerek de [Auth0](https://auth0.com/) ile kullanıcılarımın giriş/kayıt işlemlerini halletmiş oldum.
 
@@ -70,9 +70,14 @@ Apollo client gerçekten çok iyi bir iş çıkarıyor. Uzaktaki veriyi state il
 
 Bu aşamada beni zorlayan birkaç nokta oldu. Bunları kısaca listelemek istiyorum:
 
-- BeautifulDND ve Apollo Cache'i beraber kullanarak farklı sütunlar arasında itemleri taşımak bir zorlayıcıydı. Tam olarak şundan bahsediyorum. ![move issues between columns](./move-between-columns.gif)
+- BeautifulDND ve Apollo Cache'i beraber kullanarak farklı sütunlar arasında itemleri taşımak bir zorlayıcıydı. Tam olarak şundan bahsediyorum.
+
+![move issues between columns](./move-between-columns.gif)
+
 - Bu tarz bir uygulamada aynı veri üzerinde aynı anda birçok kişi çalışıyor olabilir. Bu da verinin gerçek zamanlı değişmesi zorunluluğunu beraberinde getiriyor. Bu da ek iş yükü demek fakat başarıldığında ne kadar zevk verici olduğunu tahmin edebilirsiniz. 🥰
-  İki farklı kullanıcının gerçek zamanlı çalışmasını izleyin: 👇 ![realtime update between columns](./realtime.gif)
+  İki farklı kullanıcının gerçek zamanlı çalışmasını izleyin: 👇
+
+![realtime update between columns](./realtime.gif)
 
 Sonraki aşamada ise uygulamayı bizzat kendi projem için kullanma var.
 
