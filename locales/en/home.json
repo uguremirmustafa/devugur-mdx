@@ -7,5 +7,7 @@
   "portfolioBtn": "See my work",
   "blogBtn": "Read tutorials",
   "title": "Uğur Emirmustafaoğlu - Frontend Web Developer, life-long learner ve amateur road biker.",
-  "description": "Hello my name is Uğur Emirmustafaoğlu. This is the part of internet that belongs to me, welcome! Here you will come across the work of a frontend web developer, his thoughts on the software world, and many blog posts."
+  "description": "Hello my name is Uğur Emirmustafaoğlu. This is the part of internet that belongs to me, welcome! Here you will come across the work of a frontend web developer, his thoughts on the software world, and many blog posts.",
+  "highlightedPosts": "Highlighted Posts",
+  "highlightedProjects": "Highlighted Projects"
 }

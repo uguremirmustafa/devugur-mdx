@@ -129,7 +129,7 @@ a {
 
 em {
   font-family: 'Sriracha';
-  @apply text-red-500 dark:text-red-400;
+  @apply text-red-500 dark:text-red-400 px-1;
 }
 @layer components {
   .btn {
@@ -239,7 +239,7 @@ em {
 }
 
 .prose code {
-  @apply text-red-500 dark:text-gray-100 px-0.5 py-px rounded-sm bg-gray-100 border border-gray-200 dark:border-gray-300 dark:bg-gray-800 text-base;
+  @apply text-red-500 dark:text-gray-100 px-0.5 pb-px rounded-sm bg-gray-100 border border-gray-200 dark:border-gray-300 dark:bg-gray-800 text-base;
 }
 
 .prose img {
@@ -317,7 +317,7 @@ em {
 
 code[class*='language-'],
 pre[class*='language-'] {
-  @apply text-blue-900 dark:text-gray-50 overflow-x-hidden leading-6 bg-gray-50 dark:bg-gray-800 text-sm;
+  @apply text-blue-900 dark:text-gray-50 overflow-x-scroll leading-6 bg-gray-50 dark:bg-gray-800 text-sm;
 }
 code[class*='language-'] {
   @apply border-none;
@@ -325,16 +325,6 @@ code[class*='language-'] {
 .prose pre {
   @apply overflow-x-scroll md:overflow-x-hidden;
 }
-
-// pre::-webkit-scrollbar {
-//   display: none;
-// }
-
-// pre {
-//   -ms-overflow-style: none; /* IE and Edge */
-//   scrollbar-width: none; /* Firefox */
-// }
-
 .remark-code-title {
   @apply px-5 py-3 font-mono text-sm font-bold text-gray-800 bg-gray-200 border border-b-0 border-gray-200 rounded-t dark:text-gray-200 dark:border-gray-700 dark:bg-gray-800;
 }
@@ -370,6 +360,29 @@ input[type='email'] {
 .prose .tweet a {
   text-decoration: inherit;
   font-weight: inherit;
+}
+.prose blockquote {
+  display: flex;
+  align-items: center;
+  @apply mt-2 mb-4 p-2 rounded-sm border border-red-200 bg-red-50 dark:border-blue-200 dark:bg-blue-100;
+
+  &::before {
+    content: '!';
+    font-size: 2rem;
+    margin-right: 2rem;
+    margin-left: 1.5rem;
+    @apply text-red-600 dark:text-blue-800 font-bold;
+  }
+  p,
+  a,
+  span,
+  code,
+  pre {
+    @apply text-sm p-0 m-0;
+  }
+  p {
+    @apply dark:text-gray-900;
+  }
 }
 
 table {

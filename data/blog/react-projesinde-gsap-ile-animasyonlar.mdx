@@ -1,0 +1,105 @@
+---
+title: Gsap kütüphansini kullanarak React projesinde animasyonlar yaratma
+summary: Çarpıcı ve bir o kadar da performanslı animasyonlar kullanarak React projenize nasıl renk ve canlılık katacağınızı öğrenin.
+publishedAt: '2021-08-02'
+image: '/static/images/blog/react-projesinde-gsap-ile-animasyonlar/kapak.png'
+locale: tr
+tags: ['animasyon', 'ux', 'ui', 'design', 'gsap', 'react']
+isPublished: true
+alternate: ''
+type: blog
+selected: true
+---
+
+![Kapak resmi](./kapak.png)
+[GSAP](https://greensock.com/gsap/) Javascript projelerinde sıklıkla kullanılan ve performansı ile öne çıkan bir animasyon kütüphanesi. Eminim ki siz de yanarlı dönerli sitelerin nasıl yapıldığını hayatınızda en az bir kez olsun merak etmişsinizdir.
+
+![Gsap ile yapılmış havalı bir site](./gsap-showcase.gif)
+
+Her ne kadar bu kadar havalı bir siteyi bu tarz bir blog yazısına sığdırmak mümkün olmasa da **Gsap** ile neler yapılabileceğini görmek ve _React_ ve _GSAP3_ kütüphanelerinin beraber nasıl çalıştığını anlamak istiyorsanız okumaya devam edin. 📖
+
+## Kütüphanenin projeye eklenmesi
+
+Her şeyden önce kütüphaneyi projemize ekleyelim.
+
+```bash
+yarn add gsap
+```
+
+> GSAP3 ile API biraz değiştiği için eski birçok makale kütüphanenin kullanımına rehberlik etme noktasında yetersiz kalabilir. Karşılacağınız farklılıklar kafa karışıklığı yaratabilir. O yüzden 2 Kasım 2019'da yayınlanan [sürüm notlarına](https://greensock.com/3-release-notes) göz atabilirsiniz. Bu makale _React Hooks_ ve _GSAP3_ kullanılarak hazırlandığı için gönül rahatlığı ile takip edebilirsiniz.
+
+Şimdi de kütüphaneyi dosyamıza dahil edelim.
+
+```jsx
+import React, { useEffect } from 'react';
+import gsap from 'gsap';
+
+const ProjectList = () => {
+  return (
+    <div className="flex gap-4">
+      {[1, 2, 3, 4, 5].map((item, index) => (
+        //bunlar sadece tailwind classları,
+        //kırmızı renkli 5 adet kutu oluşturuyoruz.
+        //sondaki 'kutucuk' className'i ise componenti seçmek için
+        <div
+          key={index}
+          className={`w-12 h-12 
+            rounded-sm flex justify-center items-center bg-red-500 kutucuk`}
+        >
+          {item}
+        </div>
+      ))}
+    </div>
+  );
+};
+export default ProjectList;
+```
+
+Farkettiyseniz `useEffect` 'i de dahil ettik. Bunun nedenini biraz sonra anlayacaksınız. 👌🏻
+
+## Timeline oluşturma
+
+Timeline adından da anlaşılabileceği gibi bir zaman çizgisi. Animasyonlarımızın zaman içindeki hareketlerini takip etmemizi ve onları düzenlememizi sağlayacak. `gsap` objesine eklenen bir method ile timeline aktif hale getirilebilir.
+
+```jsx
+// ...
+const t1 = gsap.timeline();
+```
+
+`t1` adını verdiğimiz sabit ile artık zaman çizelgesini kullanabileceğiz.
+
+## Animasyonu tanımlama
+
+Timeline'ı kullanmak için `useEffect` hookdan faydalanacağız. Bildiğiniz üzere `useEffect` aldığı ikinci parametrede boş bir `[]` array görürse `componentDidMount` gibi davranmaktaydı. Bu da tam olarak bizim ihtiyacımız olan şey. Çünkü animasyonumuzu component DOM'a bağlandığında çalıştırmak istiyoruz.
+
+```jsx
+// ...
+const t1 = gsap.timeline();
+useEffect(() => {
+  t1.fromTo('.kutucuk', { opacity: 0 }, { opacity: 1, duration: 10 });
+}, []);
+```
+
+İşte bu kadar basit. Gayet anlaşılır bir API sunan GSAP bize kısa ve anlaşılır bir kodla animasyonlar yaratma imkanı sağlıyor. t1'e eklediğimiz **fromTo** metodunun ilk parametresi seçeceğimiz elementi işaret ediyor. Biz burada _kutucuk_ className'ine sahip elementleri seçiyoruz. Ardından ikinci parametrede elementin ilk durumdaki özelliklerini, üçüncü parametrede ise son durumdaki özelliklerini giriyoruz. Ayrıca üçüncü parametreye animasyonun ne kadar süreceğini gösteren _duration_ özelliğini giriyoruz.
+
+> İlk parametremiz `querySelectorAll` ile aynı şekilde çalışıyor.
+
+Tahmin ettiğiniz üzere ilk başta görünmeyen kutucuklarımız onuncu saniyenin sonunda tamamen görünür hale geliyor.
+
+![Opacity](./opacity.gif)
+
+## Bir adım öte
+
+Peki kutucukların hepsinin aynı anda değil de birbirnin ardına gelmesini isteseydik? Sadece _stagger_ özelliğini ekleyerek bunu başarabiliriz. Efekt süresini ise 1sn olarak ayarlayalım.
+
+```jsx
+useEffect(() => {
+  t1.fromTo('.kutucuk', { opacity: 0 }, { opacity: 1, duration: 1, stagger: 0.5 });
+}, []);
+```
+
+![Stagger efekti](./stagger.gif)
+
+Ne kadar kolay ve aynı zamanda bir o kadar da basit değil mi? GSAP ile yapabilecekleriniz bunlarla sınırlı değil elbette. _ScrollTrigger_ özelliği ile sayfadaki scroll hareketlerimize göre animasyonları ayaralayabiliriz. Nasıl yapılacağını merak ediyorsanız diğer yazımı bekleyin. Eminim burada bırakmayacaksınız, şimdiden iyi eğlenceler. 😄
+
+Beni [twitterda](https://twitter.com/uguremirmustafa) takip etmeyi unutmayın. Sonraki blog yazımızda görüşmek üzere!

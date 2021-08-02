@@ -3,8 +3,9 @@ import { ThemeSwitcher } from '@components/Utils/ThemeSwitcher';
 import { Logo } from '@components/Utils/Logo';
 import { useRouter } from 'next/router';
 import useTranslation from 'next-translate/useTranslation';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import useOnClickOutside from 'hooks/useOnClickOutside';
+
 interface Props {
   alternate: string;
   contentType: string;
@@ -26,6 +27,7 @@ export const Navbar = ({ alternate, contentType }: Props) => {
   const [open, setOpen] = useState(false);
   const ref = useRef();
   useOnClickOutside(ref, () => setOpen(false));
+
   return (
     <>
       <nav className="text-gray-900 sticky-nav md:my-8 dark:bg-opacity-100 dark:text-gray-100 ">

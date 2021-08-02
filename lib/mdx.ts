@@ -105,14 +105,17 @@ export async function getFileBySlug(type: string, slug: string, locale: string) 
   };
 }
 
-export async function getAllFilesFrontMatter(type: string, locale: string) {
+export async function getAllFilesFrontMatter(
+  type: string,
+  locale: string,
+  onlySelected: boolean = false
+) {
   const fileNames = fs.readdirSync(path.join(root, 'data', type));
-  // console.log(fileNames);
-  // locale = 'en';
+
   const allPostData = fileNames
     .map((file) => {
       // read full file
-      // const fileName = locale === defaultLocale ? 'index.mdx' : `index.${locale}.mdx`;
+
       const fullPath = path.join(root, 'data', type, file);
 
       const slug = file.replace('.mdx', '');
@@ -133,6 +136,7 @@ export async function getAllFilesFrontMatter(type: string, locale: string) {
           isPublished: boolean;
           alternate: string;
           type: string;
+          selected?: boolean;
         }),
         files: fileNames,
       };
@@ -141,5 +145,8 @@ export async function getAllFilesFrontMatter(type: string, locale: string) {
     .filter((post) => post.isPublished)
     .sort((a, b) => Number(new Date(b.publishedAt)) - Number(new Date(a.publishedAt)));
 
+  if (onlySelected) {
+    return allPostData.filter((post) => post.selected);
+  }
   return allPostData;
 }

@@ -2,7 +2,8 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { Navbar } from 'layouts/Navbar';
 import { Footer } from 'layouts/Footer';
-import { ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
+import gsap from 'gsap';
 
 interface Props {
   children: ReactNode;
@@ -26,7 +27,18 @@ export default function Container(props: Props) {
     ...customMeta,
   };
   // console.log(customMeta.contentType);
-
+  const t1 = gsap.timeline();
+  useEffect(() => {
+    t1.from('.card', {
+      scrollTrigger: {
+        trigger: '.card',
+        start: 'top center',
+      },
+      opacity: 0,
+      stagger: 0.25,
+      duration: 1,
+    });
+  }, []);
   return (
     <div className="bg-white dark:bg-gray-900 ">
       <Head>

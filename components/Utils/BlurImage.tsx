@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import React, { useState } from 'react';
 
 export default function BlurImage({ relativePath, width, height, imgBase64, alt, className }) {

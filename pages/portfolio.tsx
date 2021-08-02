@@ -2,7 +2,7 @@ import Container from '@components/Container';
 import { getAllFilesFrontMatter } from '@lib/mdx';
 import { InferGetStaticPropsType } from 'next';
 import useTranslation from 'next-translate/useTranslation';
-import { ProjectCard } from '@components/Sections/ProjectCard';
+import { Card } from '@components/Sections/Card';
 
 export default function Blog({ projects }: InferGetStaticPropsType<typeof getStaticProps>) {
   const { t } = useTranslation('portfolio');
@@ -23,7 +23,7 @@ export default function Blog({ projects }: InferGetStaticPropsType<typeof getSta
 
         <div className="flex flex-col gap-4 w-full">
           {projects.map((frontMatter) => (
-            <ProjectCard key={frontMatter.slug} {...frontMatter} />
+            <Card key={frontMatter.slug} {...frontMatter} cardType="portfolio" />
           ))}
         </div>
       </div>

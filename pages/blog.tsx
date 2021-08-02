@@ -1,11 +1,9 @@
 import { useState } from 'react';
-
 import Container from '@components/Container';
-import { BlogCard } from '@components/Sections/BlogCard';
 import { getAllFilesFrontMatter } from '@lib/mdx';
 import { InferGetStaticPropsType } from 'next';
 import useTranslation from 'next-translate/useTranslation';
-import useSWR from 'swr';
+import { Card } from '@components/Sections/Card';
 
 export default function Blog({ posts }: InferGetStaticPropsType<typeof getStaticProps>) {
   const { t } = useTranslation('blog');
@@ -53,15 +51,15 @@ export default function Blog({ posts }: InferGetStaticPropsType<typeof getStatic
             />
           </svg>
         </div>
-        <h3 className="font-bold text-2xl md:text-4xl tracking-tight mb-4 mt-8 text-black dark:text-white">
+        <h2 className="font-bold text-2xl md:text-4xl tracking-tight mb-4 mt-8 text-black dark:text-white">
           {allPosts}
-        </h3>
+        </h2>
         {!filteredBlogPosts.length && (
           <p className="text-gray-600 dark:text-gray-400 mb-4">{noPostsFind}</p>
         )}
-        <div className="flex flex-col gap-2 w-full">
+        <div id="title" className="flex flex-col gap-2 w-full">
           {filteredBlogPosts.map((frontMatter) => (
-            <BlogCard key={frontMatter.slug} {...frontMatter} />
+            <Card key={frontMatter.slug} {...frontMatter} cardType="blog" />
           ))}
         </div>
       </div>
