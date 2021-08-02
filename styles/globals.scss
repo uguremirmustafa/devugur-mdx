@@ -114,6 +114,11 @@ a {
   pre {
     @apply text-sm;
   }
+  p,
+  a,
+  div {
+    @apply text-lg;
+  }
 }
 
 @layer components {
@@ -217,7 +222,7 @@ a {
 }
 
 .prose code {
-  @apply text-red-400 dark:text-gray-100 px-1 py-0.5 rounded-sm bg-gray-50 dark:bg-gray-800;
+  @apply text-red-400 dark:text-gray-100 px-1 py-0.5 rounded-sm bg-gray-50 dark:bg-gray-600;
 }
 
 .prose img {
@@ -295,7 +300,7 @@ a {
 
 code[class*='language-'],
 pre[class*='language-'] {
-  @apply text-blue-900 dark:text-gray-50 overflow-x-hidden leading-6;
+  @apply text-blue-900 dark:text-gray-50 overflow-x-hidden leading-6 bg-gray-50 dark:bg-gray-800;
 }
 .prose pre {
   @apply overflow-x-scroll md:overflow-x-hidden;
