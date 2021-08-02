@@ -1,7 +1,6 @@
 import Container from '@components/Container';
 import { ReactNode } from 'react';
 import { ArticleMeta } from '@components/Sections/ArticleMeta';
-import { useRouter } from 'next/router';
 import Link from 'next/link';
 
 interface Props {

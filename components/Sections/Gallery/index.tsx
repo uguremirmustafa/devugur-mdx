@@ -2,6 +2,7 @@ import BlurImage from '@components/Utils/BlurImage';
 import React, { useState } from 'react';
 import styles from './styles.module.scss';
 import Lightbox from 'react-image-lightbox';
+import Image from 'next/image';
 
 interface Props {
   imgMeta: any;
@@ -46,6 +47,12 @@ export const Gallery = ({ imgMeta }: Props) => {
           className="cursor-pointer"
         >
           <BlurImage {...imgMeta[i]} alt={i} />
+          {/* <Image
+            alt={captions[index][0]}
+            src={`/images/gear/${i}`}
+            width={imgMeta[i].width}
+            height={imgMeta[i].height}
+          /> */}
         </div>
       ))}
 

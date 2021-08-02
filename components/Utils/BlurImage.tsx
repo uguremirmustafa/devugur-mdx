@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import React, { useState } from 'react';
 
 export default function BlurImage({ relativePath, width, height, imgBase64, alt, className }) {
@@ -31,7 +32,7 @@ export default function BlurImage({ relativePath, width, height, imgBase64, alt,
         }}
         className={className ? className : 'blurPlaceholder'}
       />
-      <img
+      {/* <img
         src={relativePath}
         width={width}
         height={height}
@@ -45,8 +46,8 @@ export default function BlurImage({ relativePath, width, height, imgBase64, alt,
             : 'transparentBlurActualImage'
         }
         loading="lazy"
-      />
-      {/* <Image
+      /> */}
+      <Image
         src={relativePath}
         width={width}
         height={height}
@@ -59,7 +60,7 @@ export default function BlurImage({ relativePath, width, height, imgBase64, alt,
               : 'opaqueBlurActualImage'
             : 'transparentBlurActualImage'
         }
-      /> */}
+      />
     </div>
   );
 }

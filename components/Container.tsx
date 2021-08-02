@@ -22,7 +22,7 @@ export default function Container(props: Props) {
   const meta = {
     title: 'Uğur Emirmustafaoğlu - Frontend Developer, blogger, ex lawyer.',
     description: `Front-end developer, open source enthusiast and Linux fan.`,
-    image: 'https://devugur.com/static/images/me.png',
+    image: 'https://devugur.com/me.png',
     type: 'website',
     ...customMeta,
   };

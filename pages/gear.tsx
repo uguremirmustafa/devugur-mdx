@@ -15,7 +15,7 @@ const Gear = ({ imgMeta }: Props) => {
   const heading = t('heading');
   return (
     <>
-      <Container title={title} description={description}>
+      <Container title={title} description={description} image={'/images/gear/1.jpg'}>
         <h2 className="mb-8">{heading}</h2>
         <Gallery imgMeta={imgMeta} />
       </Container>

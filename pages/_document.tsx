@@ -60,23 +60,9 @@ class MyDocument extends Document {
           />
           <link
             rel="preload"
-            href="/fonts/ubuntu-v15-latin-ext-regular.woff"
-            as="font"
-            type="font/woff"
-            crossOrigin="anonymous"
-          />
-          <link
-            rel="preload"
             href="/fonts/ubuntu-v15-latin-ext-500.woff2"
             as="font"
             type="font/woff2"
-            crossOrigin="anonymous"
-          />
-          <link
-            rel="preload"
-            href="/fonts/ubuntu-v15-latin-ext-500.woff"
-            as="font"
-            type="font/woff"
             crossOrigin="anonymous"
           />
           <link
@@ -88,26 +74,11 @@ class MyDocument extends Document {
           />
           <link
             rel="preload"
-            href="/fonts/ubuntu-v15-latin-ext-700.woff"
-            as="font"
-            type="font/woff"
-            crossOrigin="anonymous"
-          />
-          <link
-            rel="preload"
             href="/fonts/sriracha-v5-latin-ext-regular.woff2"
             as="font"
             type="font/woff2"
             crossOrigin="anonymous"
           />
-          <link
-            rel="preload"
-            href="/fonts/sriracha-v5-latin-ext-regular.woff"
-            as="font"
-            type="font/woff"
-            crossOrigin="anonymous"
-          />
-
           <link
             rel="preload"
             href="/fonts/SourceCodePro/source-code-pro-v14-latin-ext-600.woff"
