@@ -1,13 +1,101 @@
 ---
 title: Fullstack Jira-Clone Application with React, Apollo and Typescript
-summary: English summary of the project
-publishedAt: '2019-12-26'
-image: '/static/images/how-to-add-twitter-tags-to-nextjs-blog/example.png'
+summary: In this project I created a issue/bug tracker application with React, Typescript and Graphql. It is simply a Jira-Clone where users can keep track of their software development process by creating project stages/columns and issues. It supports role based access control which means every user will have different access capabilities to different parts of the project.
+publishedAt: '2021-08-02'
+image: '/static/images/portfolio/fullstack-jira-clone-with-react-apollo-and-typescrip/my-version-jira.png'
 techStack: ['React', 'Apollo', 'GraphQL', 'Hasura', 'Postgres', 'Auth0', 'Material-UI']
 locale: en
 alternate: '/portfolio/react-apollo-typescript-ile-fullstack-jira-klon'
 type: project
 isPublished: true
+selected: true
 ---
 
-## What the hack
+Our mission as developers is simply finding solutions to the problems and while doing that being efficent and productive as much as we can do. We all know that it is not as easy as it sounds. That's why we use lots of productivity boosting tools to help us in this process.
+
+**Bug tracking applications** like [Jira](https://www.atlassian.com/software/jira) have a pretty important place among all these tools. You might be familiar with this interface 👇🏻
+
+![Jira Application Interface](./real-jira.png)
+
+And this is the one that I build. Pretty similar hah! 😆
+
+![Jira-Clone by uğur emirmustafaoğlu](./my-version-jira.png)
+
+I designed this application as a fullstack one, while using React and Apollo on the client side I used [Hasura](https://hasura.io/) on the backend. It is totally based on **Graphql.** As a data fetching library I prefered the _Apollo Client_ and it helped me with the _state management_ too. Apollo cache was a great solution for _client data caching_ with its **in-memory-cache.** And finally for the user interface - most probably you have guessed it already - I use [Material-UI.](https://material-ui.com/)
+
+After this short(!) intro, we can skip to the details of the project and its development steps.
+
+## 1. Application design document
+
+Firstly, I made a brainstorming in order to decide what kind of screens will users come across. It was a really important step to prevent tons of headaches might occur in the later steps of the project. That's why I took my time and created a list of possible screens and scenarios in the project:
+
+- Login/register screen
+- Create a new project screen
+- Project details page
+- Delete project screen
+- Add new members to the project
+- List project members, adjust their access capabilities
+- Adding a new column to the project(todo, in-progress, archived, done)
+- Reordering columns
+- Adding new issues to the columns
+- Manipulating issue details...
+
+I guess you have realized that there are tons of work here, at least it was like that for me. 🤔 Next step was deciding on the tools. 🛠 🪚 🪛
+
+## 2. Deciding on the tools
+
+As I have mentioned in the intro part, I used Hasura for the backend. For the people who have never heard about **Hasura** before, it is a _backend as a service_ tool which creates **Graphql** endpoints based on the data structure you provide to the application. As a frontend developer, I thought it was a good idea to use this kind of tool instead of creating my Graphql server from scratch which is currently behind of my capabilities.
+
+Before starting the project I knew that Hasura and [Auth0](https://auth0.com/) works pretty well together, so I used Auth0 for my authentication needs.
+
+[Apollo Client](https://www.apollographql.com/docs/react/) is my another star in this project. It makes pretty easy working with the Graphql data. I was planning to use it as a _state management library_ too. In the end, it was a no-brainer to choose Apollo for this project.
+
+Design is always a thing. I didn't make any bold moves and decided with the popular and awesome UI library, _Material UI._ 🌈
+
+After deciding on the tools for the project, it was time to burn my brain with designing the data structure. 🧠 🔥
+
+## 3. Designing the data structure and creating database
+
+This step was crucial for the project's destiny because I was supposed to define all the relations, permissions and all other jazz correctly. To prevent potential misconfiguration of the database, I opened my browser and created this info-graphic.
+
+![Database graphic](./draw.png)
+
+This represents my initial thoughts on the data but the data had some other ideas. 😵 Anyway, I changed my data structure a few times during the project but it is fine right now. 😄
+
+It is time to move on the fun part, _React._ 💙
+
+## 4. Creating the client with React
+
+In a project with good amount of complexity like this one, working with _Typescript_ is a smart move. While it prevents the stupid bugs, with tools like [Graphql code generator](https://www.graphql-code-generator.com/) creating all the `types` was incredibly easy. Creating all the `query` and `mutation` hooks, with their `lazy` versions was just as easy as running this command: 👇🏻
+
+```bash
+yarn gen
+```
+
+Using Apollo and its cache was a wonderful experience. I didn't have to deal with state for the remote data, it is all done by _Apollo Cache._
+
+Even though Apollo helped me a lot, I struggled at some points like these:
+
+- I used [React Beautiful DND](https://github.com/atlassian/react-beautiful-dnd) for drag-drop functionality in my dashboard. Reordering the items in the columns, and moving them between different columns was not that much hard but handling with that logic inside of the Apollo Cache was really tricky for me.
+
+![move issues between columns](./move-between-columns.gif)
+
+- In this kind of application, real time data matters. Multiple users might be working with the data at the same time, and that requires real time data especially while working on the drag and drop dashboard. And from developer's point of view, it means tons of extra work but the final outcome puts a smile on my face. 😇 Watch the realtime collaboration of two different users: 👇🏻
+
+![realtime update between columns](./realtime.gif)
+
+In the next step, I will use the project for tracking the progress of my own project. 😲
+
+## 5. Track the project with itself
+
+As the project grows, the amount of bugs and errors growed too. That's why I decided to track the errors and bugs within the project by creating new _issues_ and _columns._ By this way, I would be able to test my application and at the same time I could solve the problems of the project and add new features to it in a trackable manner.
+
+By the time I write this article, I am still working on the project and chasing some bugs. 🐛 Although I get outraged from time to time, I like dealing with this kind of problems. 🍀
+
+## Finally
+
+I almost finished the project and I can say that I learnt a lot from it. I agree that small projects are great opportunities to learn new stuff, but middle and large sized projects give opportunity to solve unique problems and learn deeply.
+
+Apart from the knowledge and experience I got during the project, it helped me to realize that I can create a fullstack application, however it is not perfect. This signals to me that after a year of hard work, it's time to start applying for jobs. 😋
+
+I hope you liked my short project review. When the project is finally over, I will release another blog post but you can [test the project](http://jira-clone-devugur.vercel.app/) and [give feedback.](https://twitter.com/uguremirmustafa) Your thoughts are really valuable for me. Thanks for your time. 🙏
