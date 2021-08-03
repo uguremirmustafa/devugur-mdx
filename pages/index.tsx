@@ -4,25 +4,40 @@ import useTranslation from 'next-translate/useTranslation';
 import { getAllFilesFrontMatter } from '@lib/mdx';
 import { ListTitle } from '@components/Sections/ListTitle';
 import { Card } from '@components/Sections/Card';
-import ProjectList from '@components/Sections/Playground';
+import { useEffect } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 
 const Index = ({ posts, projects }) => {
   const { t } = useTranslation('home');
+
+  // gsap
+  const t1 = gsap.timeline();
+  gsap.registerPlugin(ScrollTrigger);
+  useEffect(() => {
+    t1.from('#cards', {
+      scrollTrigger: {
+        trigger: '#cards',
+        start: 'top 80%',
+        scrub: true,
+      },
+      opacity: 0.3,
+      stagger: 0.2,
+      duration: 0.7,
+    });
+  }, []);
   return (
     <Container title={t('title')} description={t('description')}>
       <Hero />
-
-      {/* <ProjectList /> */}
-
       {projects.length > 0 && <ListTitle title={t('highlightedProjects')} />}
-      <div className="flex flex-col gap-4 w-full">
+      <div id="cards" className="flex flex-col gap-4 w-full">
         {projects.map((frontMatter) => (
           <Card key={frontMatter.slug} {...frontMatter} cardType="portfolio" />
         ))}
       </div>
 
       {posts.length > 0 && <ListTitle title={t('highlightedPosts')} />}
-      <div className="flex flex-col gap-4 w-full">
+      <div id="cards" className="flex flex-col gap-4 w-full">
         {posts.map((frontMatter) => (
           <Card key={frontMatter.slug} {...frontMatter} cardType="blog" />
         ))}

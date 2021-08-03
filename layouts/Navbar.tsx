@@ -35,18 +35,19 @@ export const Navbar = ({ alternate, contentType }: Props) => {
   useEffect(() => {
     t2.fromTo(
       '.mobile-link',
-      { color: '#fff', opacity: 0.9 },
+      { color: '#fff', opacity: 0.9, filter: 'blur(0.5rem)' },
       {
         color: '#FBBF24',
+        filter: 'none',
         opacity: 1,
-        duration: 1,
+        duration: 0.5,
         stagger: 0.2,
         delay: 0.2,
-        yoyoEase: true,
-        yoyo: true,
+        // yoyoEase: true,
+        // yoyo: true,
       }
     );
-  }, [open]);
+  }, [open, setOpen]);
 
   return (
     <>
@@ -95,7 +96,12 @@ export const Navbar = ({ alternate, contentType }: Props) => {
           </div>
         </div>
       </nav>
-      <button id="openerHam" className="hamburgerBtn" onClick={() => setOpen(true)}>
+
+      <button
+        id="openerHam"
+        className={`hamburgerBtn ${open ? 'openHamburger' : 'closedHamburger'}`}
+        onClick={() => setOpen(true)}
+      >
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
           <path fill="none" d="M0 0h24v24H0z" />
           <path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z" className="hamburgerPath" />
@@ -106,7 +112,7 @@ export const Navbar = ({ alternate, contentType }: Props) => {
         {paths.map((path) => (
           <NextLink href={`/${path === 'home' ? '' : path}`}>
             <a
-              className="mobile-link p-1 text-gray-900 sm:p-4 dark:text-gray-100"
+              className="mobile-link p-1 text-gray-900 sm:p-4 dark:text-gray-100 cursor-pointer"
               onClick={() => {
                 setTimeout(() => {
                   setOpen(false);

@@ -52,6 +52,9 @@ export default function BlurImage({ relativePath, width, height, imgBase64, alt,
         width={width}
         height={height}
         onLoad={() => setLoaded(true)}
+        // datatype="base64"
+        placeholder="blur"
+        blurDataURL={imgBase64}
         alt={alt ? alt : ''}
         className={
           isLoaded

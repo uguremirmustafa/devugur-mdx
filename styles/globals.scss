@@ -176,6 +176,18 @@ em {
   right: 1rem;
   padding: 0.5rem;
   border-radius: 0.5rem;
+  z-index: 60;
+  @media (min-width: 768px) {
+    display: none;
+  }
+}
+.openHamburger {
+  visibility: hidden;
+  display: none;
+}
+.closeHamburger {
+  visibility: visible;
+  display: block;
 }
 html.dark .hamburgerBtn {
   background-color: #1f2937; // gray-800

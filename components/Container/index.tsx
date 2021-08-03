@@ -2,8 +2,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { Navbar } from 'layouts/Navbar';
 import { Footer } from 'layouts/Footer';
-import { ReactNode, useEffect } from 'react';
-import gsap from 'gsap';
+import { ReactNode } from 'react';
 
 interface Props {
   children: ReactNode;
@@ -27,22 +26,8 @@ export default function Container(props: Props) {
     ...customMeta,
   };
 
-  // gsap
-  const t1 = gsap.timeline();
-  useEffect(() => {
-    t1.from('.card', {
-      scrollTrigger: {
-        trigger: '.card',
-        start: 'top center',
-      },
-      opacity: 0,
-      stagger: 0.25,
-      duration: 1,
-    });
-  }, []);
-
   return (
-    <div className="bg-white dark:bg-gray-900 " data-barba="wrapper">
+    <div className="bg-white dark:bg-gray-900 ">
       <Head>
         <title>{meta.title}</title>
         <meta name="robots" content="follow, index" />
@@ -67,7 +52,6 @@ export default function Container(props: Props) {
         contentType={customMeta.contentType}
       />
       <main
-        data-barba="container"
         id="skip"
         className="new flex flex-col justify-center px-6 bg-white dark:bg-gray-900 pt-4 pb-8 max-w-2xl w-full mx-auto"
       >
