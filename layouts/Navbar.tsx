@@ -59,6 +59,21 @@ export const Navbar = ({ alternate, contentType }: Props) => {
       }
     );
   }, [open]);
+  useEffect(() => {
+    t2.fromTo(
+      '.close',
+      { color: '#fff', opacity: 0.9 },
+      {
+        color: '#FBBF24',
+        opacity: 1,
+        duration: 1,
+        stagger: 0.2,
+        delay: 0.2,
+        yoyoEase: true,
+        yoyo: true,
+      }
+    );
+  }, [open]);
 
   return (
     <>
@@ -68,7 +83,7 @@ export const Navbar = ({ alternate, contentType }: Props) => {
             Skip to content
           </a>
           <Logo />
-          <div ref={ref} className={`gap-2 overflow-scroll navlinks`}>
+          <div className={`gap-2 overflow-scroll navlinks`}>
             <NextLink href="/portfolio">
               <a className="p-1 text-gray-900 sm:p-4 dark:text-gray-100">{portfolio}</a>
             </NextLink>
@@ -129,6 +144,7 @@ export const Navbar = ({ alternate, contentType }: Props) => {
             </a>
           </NextLink>
         ))}
+
         <button className="close hamburger" onClick={() => setOpen(false)}>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
             <path fill="none" d="M0 0h24v24H0z" />
