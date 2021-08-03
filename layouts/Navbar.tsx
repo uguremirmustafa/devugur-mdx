@@ -129,7 +129,11 @@ export const Navbar = ({ alternate, contentType }: Props) => {
         </svg>
       </button>
 
-      <div ref={ref} className={`gap-2 overflow-scroll ${open ? 'openmenu' : 'closemenu'}`}>
+      <div
+        ref={ref}
+        id="navmenu"
+        className={`gap-2 overflow-scroll ${open ? 'openmenu' : 'closemenu'}`}
+      >
         {paths.map((path) => (
           <NextLink href={`/${path === 'home' ? '' : path}`}>
             <a
