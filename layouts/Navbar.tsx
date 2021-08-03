@@ -5,11 +5,13 @@ import { useRouter } from 'next/router';
 import useTranslation from 'next-translate/useTranslation';
 import { useEffect, useRef, useState } from 'react';
 import useOnClickOutside from 'hooks/useOnClickOutside';
-
+import gsap from 'gsap';
 interface Props {
   alternate: string;
   contentType: string;
 }
+
+const paths = ['home', 'portfolio', 'blog', 'about', 'gear'];
 
 export const Navbar = ({ alternate, contentType }: Props) => {
   const { locales, asPath, locale } = useRouter();
@@ -27,6 +29,36 @@ export const Navbar = ({ alternate, contentType }: Props) => {
   const [open, setOpen] = useState(false);
   const ref = useRef();
   useOnClickOutside(ref, () => setOpen(false));
+
+  //hamburger button animation
+  const t1 = gsap.timeline();
+  const t2 = gsap.timeline();
+
+  useEffect(() => {
+    t1.from('#openerHam', {
+      x: 100,
+      backgroundColor: '#FBBF24',
+      color: 'red',
+      duration: 1.5,
+      delay: 1,
+      ease: 'elastic',
+    });
+  }, []);
+  useEffect(() => {
+    t2.fromTo(
+      '.mobile-link',
+      { color: '#fff', opacity: 0.9 },
+      {
+        color: '#FBBF24',
+        opacity: 1,
+        duration: 1,
+        stagger: 0.2,
+        delay: 0.2,
+        yoyoEase: true,
+        yoyo: true,
+      }
+    );
+  }, [open]);
 
   return (
     <>
@@ -75,31 +107,37 @@ export const Navbar = ({ alternate, contentType }: Props) => {
           </div>
         </div>
       </nav>
-      <button className="hamburger p-2 outline-none" onClick={() => setOpen(!open)}>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          width="24"
-          height="24"
-          fill="currentColor"
-        >
+      <button id="openerHam" className="hamburger " onClick={() => setOpen(true)}>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
           <path fill="none" d="M0 0h24v24H0z" />
-          <path d="M3 4h18v2H3V4zm6 7h12v2H9v-2zm-6 7h18v2H3v-2z" />
+          <path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z" className="hamburgerPath" />
         </svg>
       </button>
+
       <div ref={ref} className={`gap-2 overflow-scroll ${open ? 'openmenu' : 'closemenu'}`}>
-        <NextLink href="/portfolio">
-          <a className="p-1 text-gray-900 sm:p-4 dark:text-gray-100">{portfolio}</a>
-        </NextLink>
-        <NextLink href="/blog">
-          <a className="p-1 text-gray-900 sm:p-4 dark:text-gray-100">{blog}</a>
-        </NextLink>
-        <NextLink href="/about">
-          <a className="p-1 text-gray-900 sm:p-4 dark:text-gray-100">{about}</a>
-        </NextLink>
-        <NextLink href="/gear">
-          <a className="p-1 text-gray-900 sm:p-4 dark:text-gray-100">{gear}</a>
-        </NextLink>
+        {paths.map((path) => (
+          <NextLink href={`/${path === 'home' ? '' : path}`}>
+            <a
+              className="mobile-link p-1 text-gray-900 sm:p-4 dark:text-gray-100"
+              onClick={() => {
+                setTimeout(() => {
+                  setOpen(false);
+                }, 300);
+              }}
+            >
+              {t(`nav.${path}`)}
+            </a>
+          </NextLink>
+        ))}
+        <button className="close hamburger" onClick={() => setOpen(false)}>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+            <path fill="none" d="M0 0h24v24H0z" />
+            <path
+              d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636z"
+              className="closePath"
+            />
+          </svg>
+        </button>
       </div>
     </>
   );

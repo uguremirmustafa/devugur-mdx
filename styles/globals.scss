@@ -168,10 +168,27 @@ em {
   @apply hidden md:flex;
 }
 .hamburger {
-  @apply fixed md:hidden bottom-4 right-4 p-2 dark:bg-gray-800 rounded-full border-2 dark:border-gray-200 bg-gray-200 border-gray-800;
+  @apply fixed md:hidden bottom-4 right-4 p-2 dark:bg-white rounded-full bg-gray-900
+  text-white dark:text-gray-900 z-50 border-2 border-gray-900 dark:border-white;
 }
+.close {
+  @apply border-gray-900 dark:border-white;
+}
+.hamburgerPath {
+  @apply fill-current text-white;
+}
+.closePath {
+  @apply fill-current;
+}
+
 .openmenu {
-  @apply fixed bottom-4 right-4 flex flex-col justify-end items-end translate-x-0  bg-gray-100 dark:bg-gray-800 p-4 rounded-md w-32 font-bold border-gray-900 border-2 dark:border-gray-300;
+  @apply fixed top-0 left-0 w-screen h-screen flex flex-col gap-4 justify-end items-center py-24 translate-x-0 
+   bg-black bg-opacity-80 dark:bg-black dark:bg-opacity-50 font-bold z-50;
+  backdrop-filter: saturate(180%) blur(20px);
+  transition: background-color 0.1 ease-in-out;
+  a {
+    font-size: xx-large !important;
+  }
 }
 .closemenu {
   @apply hidden;

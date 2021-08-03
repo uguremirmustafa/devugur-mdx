@@ -18,7 +18,7 @@ export const Hero = (props: Props) => {
   }, []);
 
   return (
-    <div className={`text-base md:text-lg py-4 md:mb-8 ${styles.test}`}>
+    <div className={`text-base md:text-lg pb-4 md:mb-8 ${styles.test}`}>
       <h2
         ref={headerRef}
         className={`leading-8 text-2xl md:text-4xl md:leading-relaxed font-bold text-center ${styles.heading}`}
@@ -28,14 +28,14 @@ export const Hero = (props: Props) => {
         <span className="text-red-400 dark:text-red-400">{t('home:heroText.part3')}</span>
       </h2>
 
-      <div className="max-w-md mx-auto py-8">
+      <div className="max-w-md mx-auto py-4 md:py-8">
         <Town />
       </div>
-      <div className="my-4 flex flex-col justify-center items-center ">
+      <div className="mb-4 md:my-4 flex flex-col justify-center items-center ">
         <a
           href="https://twitter.com/uguremirmustafa"
           target="_blank"
-          className="underline pb-4 block text-center"
+          className="underline mb-4 block text-center"
           rel="noreferrer"
         >
           Ugur Emirmustafa{' '}
@@ -68,7 +68,7 @@ export const Hero = (props: Props) => {
             <Twitter />
           </a>
         </div>
-        <div className="flex justify-center gap-4 py-12">
+        <div className="flex justify-center gap-4 my-4 md:my-12">
           <Link href="/portfolio">
             <button className="btn">{t('home:portfolioBtn')}</button>
           </Link>
