@@ -1,0 +1,141 @@
+---
+title: Create Simple Carousel For React
+summary: Most of the time we need simple sliders (carousels if you like) in our applications to show array of items visually. There are huge libraries for this work but it might be an overkill using a library sometimes for small projects.
+publishedAt: '2021-02-16'
+image: '/images/blog/simple-react-carousel/banner.jpg'
+locale: en
+tags: ['data-fetching', 'hooks', 'react', 'nextjs', 'swr']
+isPublished: true
+alternate: ''
+type: blog
+---
+
+![Banner carousel](./banner.png)
+
+Most of the time we need simple sliders (carousels if you like) in our applications to show array of items visually. There are huge libraries for this work but it might be an overkill using a library sometimes for small projects.
+
+![Heaviest object in the universe](./heavy.png)
+
+From that perspective it might be a good idea to create your own slider. Let's see how we can manage it!
+
+```jsx
+import React from 'react';
+
+function Slider() {
+  const slides = [1, 2, 3, 4, 5];
+  return (
+    <div className="slider">
+      {slides.map((item, index) => {
+        return (
+          <div key={index} className="slide" style={{ transform: `translateX(${x}%)` }}>
+            <div>{item}</div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+export default Slider;
+```
+
+Above, we created the slider component and mapped through the arbitrary array of slides.
+
+```jsx
+<div className="buttonWrapper">
+  <button onClick={toLeft}>
+    <FaChevronLeft />
+  </button>
+  <button onClick={toRight}>
+    <FaChevronRight />
+  </button>
+</div>
+```
+
+After the slider element, we add the slide changing buttons. These buttons will trigger `toLeft` and `toRight` functions to change the slide. I use _react-icons_ package in my project for icons but you can use whatever you want.
+
+Well, this is the important part. We will create the functions to change the slide.
+
+```jsx
+const [x, setX] = useState(0);
+const toLeft = () => {
+  x === 0 ? setX(-100 * (slides.length - 1)) : setX(x + 100);
+};
+const toRight = () => {
+  x === -100 * (slides.length - 1) ? setX(0) : setX(x - 100);
+};
+```
+
+We use `useState` hook from react to hold `x` and `setX`. Well, what is the usage of the x for this project? Look at the code below.
+
+```jsx
+//...
+return (
+  <>
+    <div className="slider">
+      {slides.map((item, index) => {
+        return (
+          <div key={index} className="slide" style={{ transform: `translateX(${x}%)` }}>
+            <div>{item}</div>
+          </div>
+        );
+      })}
+    </div>
+    <div className="buttonWrapper">
+      <button onClick={toLeft}>left</button>
+      <button onClick={toRight}>right</button>
+    </div>
+  </>
+);
+```
+
+We store the x value for CSS3 `tranform:translateX()` property. This property will push the "slide" to left or right by its width. When the x is equal to 0 it will be its initial position. After we set it to 100, it will be pushed to the left by 100% width. To achieve having one slide per view, we need to write some CSS.
+
+```css
+* {
+  box-sizing: border-box;
+}
+.slider {
+  background: rgb(197, 91, 91);
+  /* we make the slides side by side */
+  display: flex;
+  margin: 0;
+  padding: 0;
+  height: 300px;
+  width: 100%;
+  align-items: center;
+  /*we hide the other slides apart from the current one*/
+  overflow: hidden;
+}
+.slide {
+  position: relative;
+  /* little effect */
+  transition: 0.5s;
+  /* one slide per view */
+  min-width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 60px;
+}
+.buttonWrapper {
+  top: 0;
+  position: absolute;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+.buttonWrapper button {
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: none;
+  height: 300px;
+}
+```
+
+Well, that's it! You have a nice and very lightweight slider. Enjoy it.
+
+![result](./result.gif)
+
+I hope you liked the this tutorial about creating a simple image slider in react library. Don't forget me following on [twitter](https://twitter.com/uguremirmustafa) and have a nice day! 😉

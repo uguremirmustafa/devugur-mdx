@@ -1,0 +1,162 @@
+---
+title: Create Custom Social Share Buttons For React
+summary: In this tutorial we are going to build a simple social share buttons component for a react application.
+publishedAt: '2021-02-18'
+image: '/images/blog/social-share-buttons-for-react/banner.jpg'
+locale: en
+tags: ['social-buttons', 'share', 'react', 'css']
+isPublished: true
+alternate: ''
+type: blog
+---
+
+In this tutorial we are going to build a simple social share buttons component for a react application. You can see the final result down below. 👇
+
+![final-result](./final-result.gif)
+
+## 1.Create the component skeleton
+
+First of all, we need to create the skeleton of the component. In the component we will have a toggle button to show and hide the other social media buttons.
+
+```jsx
+import React from 'react';
+//next two lines are for icons. I use react-icons package for my icons.
+import { FaFacebook, FaLinkedin, FaTimes, FaTwitter } from 'react-icons/fa';
+import { RiShareBoxLine } from 'react-icons/ri';
+import styles from './SocialShare.module.css';
+
+function SocialShare() {
+  return (
+    <div className={styles.container}>
+      <div className={styles.toggle}>toggle</div>
+      <div className={styles.buttonsContainer}>
+        <a href="#">
+          <FaFacebook />
+        </a>
+        <a href="#">
+          <FaTwitter />
+        </a>
+        <a href="#">
+          <FaLinkedin />
+        </a>
+      </div>
+    </div>
+  );
+}
+
+export default SocialShare;
+```
+
+> I use CSS modules for style management in my application. That's why my _className_ properties might be little different if you are not familiar with it but in the end it is CSS and it works same.
+
+## 2.Manage state for toggling
+
+In order to decide showing the buttons or not, we need a state property. We can use _useState_ hook for state management here. And we can change the icon of the toggle button with the same logic.
+
+```jsx
+import React, { useState } from 'react';
+import { FaFacebook, FaLinkedin, FaTimes, FaTwitter } from 'react-icons/fa';
+import { RiShareBoxLine } from 'react-icons/ri';
+import styles from './SocialShare.module.css';
+function SocialShare() {
+  const [shareOpen, setShareOpen] = useState(false);
+  const [toggleText, setToggleText] = useState(<RiShareBoxLine />);
+
+  const toggle = () => {
+    if (shareOpen) {
+      setShareOpen(false);
+      setToggleText(<RiShareBoxLine />);
+    } else {
+      setShareOpen(true);
+      setToggleText(<FaTimes />);
+    }
+  };
+
+  return (
+    <div className={styles.container}>
+      <div className={styles.toggle} onClick={toggle}>
+        {toggleText}
+      </div>
+      <div className={styles.buttonsContainer} style={{ display: shareOpen ? 'flex' : 'none' }}>
+        <a href="#">
+          <FaFacebook />
+        </a>
+        <a href="#">
+          <FaTwitter />
+        </a>
+        <a href="#">
+          <FaLinkedin />
+        </a>
+      </div>
+    </div>
+  );
+}
+
+export default SocialShare;
+```
+
+We keep the state of share buttons container in _shareOpen_. _toggle_ function is changing the state of the container according to its previous state and also changing the icon of the toggle button with _setToggleText_.
+
+And finally we change the style of the button container from 'none' to 'flex' according to the _shareOpen._
+
+## 3. Adding styles to component
+
+In order to see the change of the state visually we need to add some styling to our component. Remember, we added the styles module in the beginning.
+
+```css
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.toggle {
+  background: #fff;
+  padding: 8px;
+  border-radius: 5px;
+  box-shadow: 0 0 20px 10px rgba(1, 1, 1, 0.1);
+  cursor: pointer;
+}
+.buttonsContainer {
+  position: absolute;
+  z-index: 3;
+  flex-direction: column;
+  bottom: 40px;
+}
+.buttonsContainer a {
+  margin: 4px;
+  padding: 8px;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 20px 10px rgba(1, 1, 1, 0.1);
+  transition: all ease-in-out 0.3s;
+}
+.buttonsContainer a:hover {
+  transform: scale(1.2);
+}
+```
+
+## 4. Sharing functionality
+
+Well the most important part is the url structure of the social media buttons. Sometimes the social media platforms change their url structure but these are the current url structure. I will try to update this guide whenever some change occurs.
+
+```jsx
+//you can get the current url of the page
+const url = window.location.href;
+
+//(`https://socialmediaproviderurl${url}`)
+const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+const twitterUrl = `https://twitter.com/intent/tweet?url=${url}`;
+const linkedinUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${url}`;
+
+//...
+//pass the sharing url to href property
+<a href={facebookUrl}>
+  <FaFacebook />
+</a>;
+//...
+```
+
+## 5. Final Result
+
+And that's it! You have a social media sharing buttons component for your react application. Don't forget to follow me on [twitter](https://twitter.com/uguremirmustafa) where I share tutorials for React and Nextjs.

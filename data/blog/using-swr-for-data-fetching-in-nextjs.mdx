@@ -1,0 +1,65 @@
+---
+title: Using SWR For Data Fetching In NextJS
+summary: SWR is a data fetching library created by Vercel. Learn how to fetch your remote data easily with useSWR hook.
+publishedAt: '2021-02-19'
+image: '/images/blog/using-swr-for-data-fetching-in-nextjs/banner.png'
+locale: en
+tags: ['data-fetching', 'hooks', 'react', 'nextjs', 'swr']
+isPublished: true
+alternate: ''
+type: blog
+---
+
+![Swr logo banner](./banner.png)
+
+SWR is a react hooks library for data fetching created by _Vercel_ - the team created _NextJS_ also. It is the shorthened form of _stale-while-revalidate._ "SWR is a strategy to first return the data from cache (stale), then send the fetch request (revalidate), and finally come with the up-to-date data." as mentioned on their website.
+
+You can install the library by simply running this command: 👇
+
+```bash
+yarn add swr
+```
+
+In order to fetch data with swr we can use useSWR hook from swr.
+
+```jsx
+import useSWR from 'swr';
+```
+
+`useSWR` hook can be used with a custom data fetching function. I will use native `fetch` function to create my custom `fetcher` function.
+
+```jsx
+const fetcher = (...args) => fetch(...args).then((res) => res.json());
+```
+
+This function pushes the arguments to the fetch and returns the response as json data in the then block. Now we can use the useSWR hook with our custom fetcher function.
+
+```jsx
+function Home() {
+  const url = 'https://jsonplaceholder.typicode.com/todos';
+  const { data, error } = useSWR(url, fetcher);
+
+  if (!data) return <div>Loading...</div>;
+  if (error) return <div>there is an error!</div>;
+
+  return <div>{JSON.stringify(data, null, 2)}</div>;
+}
+
+export default Home;
+```
+
+We pass the _url_ and _fetcher_ to the `useSWR` hook and we get an object from it which includes the data and the error items. If there is no data it means it is in loading state, so we return a div with loading text. If there is an error we pause the flow and return an error message. And finally if we pass these steps, we return the data as json string.
+
+Normally whenever we change our tab or lose focus on window and turn back to that window and gain focus again, `useSWR` will fetch the latest data again. By this feature you are sure that your data is updated. But sometimes you may want to close this feature. You can achive it by passing another parameter to the hook.
+
+```jsx
+const { data, error } = useSWR(url, fetcher, { revalidateOnFocus: false });
+```
+
+You can check the network tab in the developer console with and without this parameter.
+
+![result](./result.gif)
+
+And that is for all know. We will discuss mutate feature of swr later and this post will be updated.
+
+Don't forget to follow me on [twitter](https://twitter.com/uguremirmustafa) and happy coding! 😋

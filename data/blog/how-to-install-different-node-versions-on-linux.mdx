@@ -1,0 +1,69 @@
+---
+title: How To Install Multiple Node Versions On Ubuntu 20.04
+summary: Learn how to manage multiple node versions on your Linux machine
+publishedAt: '2021-07-04'
+image: '/images/blog/how-to-install-different-node-versions-on-linux/node-nvm.jpg'
+locale: en
+tags: ['linux', 'node', 'npm', 'fedora']
+isPublished: true
+alternate: ''
+type: blog
+---
+
+![Node version manager](./node-nvm.jpg)
+
+I am sure you face some situations that your application requires different version of Node. There is a tool called _nvm_ (Node Version Manager), which allows you to install multiple Node version and jump between them easily. Today we will install it on _Ubuntu 20.04_, my new favourite Linux distro.
+
+## Prerequisites
+
+- Your favourite terminal application
+- _curl_ - command line tool and library for transferring data with URLs.
+- _sudo_ privileges
+
+## Let's Start!
+
+This command will fetch the installer script with curl and run it for you. It will create .nvm folder in your home directory and it will put all the necessary files there for you.
+
+```bash
+curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
+```
+
+In order to activate the changes close your terminal and re-open it. Let's check if it is installed by asking for the version number of it.
+
+```bash
+nvm -v
+```
+
+## How to install a specific node version with NVM?
+
+You can install node easily by typing `nvm install node`. This will install the latest version of node. Let's say your application runs on node 14.17.2. It is just as easy as typing:
+
+```bash
+nvm install 14.17.2
+```
+
+After the installation, you will be using that version. You can check which version you are running by typing:
+
+```bash
+nvm current
+```
+
+In order to use an installed version of node you can use this command:
+
+```bash
+nvm use <version number>
+```
+
+If you would like to learn more about _nvm_, you can always check the help page by typing:
+
+```bash
+nvm --help
+```
+
+or you can visit their [github repo.](https://github.com/nvm-sh/nvm)
+
+## Conclusion
+
+And that's it! You have learned how to install a specific node version on Ubuntu 20.04. Actually this tutorial doesn't include any Ubuntu specific customisation, which means you can follow this tutorial on any Linux distribution.
+
+Have a nice day and follow me on [Twitter.](https://twitter.com/uguremirmustafa)

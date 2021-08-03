@@ -41,10 +41,8 @@ export const Navbar = ({ alternate, contentType }: Props) => {
         filter: 'none',
         opacity: 1,
         duration: 0.5,
-        stagger: 0.2,
+        stagger: 0.1,
         delay: 0.2,
-        // yoyoEase: true,
-        // yoyo: true,
       }
     );
   }, [open, setOpen]);

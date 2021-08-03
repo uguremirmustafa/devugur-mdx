@@ -90,6 +90,14 @@ export const Footer = ({ alternate, contentType }: Props) => {
             <NextLink href="/gear">
               <a className="p-1">{gear}</a>
             </NextLink>
+            <a
+              href="https://github.com/uguremirmustafa/.dotfiles"
+              className="p-1"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Dotfiles
+            </a>
           </ul>
         </div>
       </footer>
