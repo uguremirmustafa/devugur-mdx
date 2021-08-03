@@ -30,38 +30,11 @@ export const Navbar = ({ alternate, contentType }: Props) => {
   const ref = useRef();
   useOnClickOutside(ref, () => setOpen(false));
 
-  //hamburger button animation
-  const t1 = gsap.timeline();
   const t2 = gsap.timeline();
 
   useEffect(() => {
-    t1.from('#openerHam', {
-      x: 100,
-      backgroundColor: '#FBBF24',
-      color: 'red',
-      duration: 1.5,
-      delay: 1,
-      ease: 'elastic',
-    });
-  }, []);
-  useEffect(() => {
     t2.fromTo(
       '.mobile-link',
-      { color: '#fff', opacity: 0.9 },
-      {
-        color: '#FBBF24',
-        opacity: 1,
-        duration: 1,
-        stagger: 0.2,
-        delay: 0.2,
-        yoyoEase: true,
-        yoyo: true,
-      }
-    );
-  }, [open]);
-  useEffect(() => {
-    t2.fromTo(
-      '.close',
       { color: '#fff', opacity: 0.9 },
       {
         color: '#FBBF24',
@@ -122,18 +95,14 @@ export const Navbar = ({ alternate, contentType }: Props) => {
           </div>
         </div>
       </nav>
-      <button id="openerHam" className="hamburger " onClick={() => setOpen(true)}>
+      <button id="openerHam" className="hamburgerBtn" onClick={() => setOpen(true)}>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
           <path fill="none" d="M0 0h24v24H0z" />
           <path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z" className="hamburgerPath" />
         </svg>
       </button>
 
-      <div
-        ref={ref}
-        id="navmenu"
-        className={`gap-2 overflow-scroll ${open ? 'openmenu' : 'closemenu'}`}
-      >
+      <div id="navmenu" className={`gap-2 overflow-scroll ${open ? 'openmenu' : 'closemenu'}`}>
         {paths.map((path) => (
           <NextLink href={`/${path === 'home' ? '' : path}`}>
             <a
@@ -149,7 +118,7 @@ export const Navbar = ({ alternate, contentType }: Props) => {
           </NextLink>
         ))}
 
-        <button className="close hamburger" onClick={() => setOpen(false)}>
+        <button className="closeBtn" onClick={() => setOpen(false)}>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
             <path fill="none" d="M0 0h24v24H0z" />
             <path

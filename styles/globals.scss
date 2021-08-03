@@ -168,18 +168,39 @@ em {
 .navlinks {
   @apply hidden md:flex;
 }
-.hamburger {
-  @apply fixed md:hidden bottom-4 right-4 p-2 dark:bg-white rounded-full bg-gray-900
-  text-white dark:text-gray-900 z-50 border-2 border-gray-900 dark:border-white;
+
+.hamburgerBtn {
+  border: 2px solid;
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
 }
-.close {
-  @apply border-gray-900 dark:border-white relative top-4 bottom-0 left-0 right-0;
+html.dark .hamburgerBtn {
+  background-color: #1f2937; // gray-800
+  border-color: white;
+  .hamburgerPath {
+    fill: white;
+  }
 }
-.hamburgerPath {
-  @apply fill-current text-white;
+html.light .hamburgerBtn {
+  // background-color: #1f2937; // gray-800
+  background-color: white;
+  border-color: #1f2937;
+  .hamburgerPath {
+    fill: #1f2937;
+  }
 }
-.closePath {
-  @apply fill-current;
+.closeBtn {
+  border: 2px solid;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  background-color: white; // gray-800
+  border-color: #1f2937;
+  .hamburgerPath {
+    fill: #1f2937;
+  }
 }
 
 .openmenu {
@@ -191,7 +212,11 @@ em {
     font-size: xx-large !important;
   }
 }
-
+@-moz-document url-prefix() {
+  .openmenu {
+    @apply bg-gray-800 dark:bg-gray-900;
+  }
+}
 .closemenu {
   @apply hidden;
 }
