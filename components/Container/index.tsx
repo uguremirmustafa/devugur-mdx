@@ -26,7 +26,8 @@ export default function Container(props: Props) {
     type: 'website',
     ...customMeta,
   };
-  // console.log(customMeta.contentType);
+
+  // gsap
   const t1 = gsap.timeline();
   useEffect(() => {
     t1.from('.card', {
@@ -39,8 +40,9 @@ export default function Container(props: Props) {
       duration: 1,
     });
   }, []);
+
   return (
-    <div className="bg-white dark:bg-gray-900 ">
+    <div className="bg-white dark:bg-gray-900 " data-barba="wrapper">
       <Head>
         <title>{meta.title}</title>
         <meta name="robots" content="follow, index" />
@@ -65,8 +67,9 @@ export default function Container(props: Props) {
         contentType={customMeta.contentType}
       />
       <main
+        data-barba="container"
         id="skip"
-        className="flex flex-col justify-center px-6 bg-white dark:bg-gray-900 pt-4 pb-8 max-w-2xl w-full mx-auto"
+        className="new flex flex-col justify-center px-6 bg-white dark:bg-gray-900 pt-4 pb-8 max-w-2xl w-full mx-auto"
       >
         {children}
         <Footer
