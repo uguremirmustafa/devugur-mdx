@@ -35,10 +35,9 @@ export const Navbar = ({ alternate, contentType }: Props) => {
   useEffect(() => {
     t2.fromTo(
       '.mobile-link',
-      { color: '#fff', opacity: 0.9, filter: 'blur(0.5rem)' },
+      { color: '#fff', opacity: 0.9 },
       {
         color: '#FBBF24',
-        filter: 'none',
         opacity: 1,
         duration: 0.5,
         stagger: 0.1,
@@ -108,7 +107,7 @@ export const Navbar = ({ alternate, contentType }: Props) => {
 
       <div id="navmenu" className={`gap-2 overflow-scroll ${open ? 'openmenu' : 'closemenu'}`}>
         {paths.map((path) => (
-          <NextLink href={`/${path === 'home' ? '' : path}`}>
+          <NextLink href={`/${path === 'home' ? '' : path}`} key={path}>
             <a
               className="mobile-link p-1 text-gray-900 sm:p-4 dark:text-gray-100 cursor-pointer"
               onClick={() => {

@@ -1,15 +1,11 @@
 const fs = require('fs');
 const path = require('path');
-// import fs from 'fs';
-// import path from 'path';
 import matter from 'gray-matter';
 import readingTime from 'reading-time';
 import { serialize } from 'next-mdx-remote/serialize';
 import mdxPrism from 'mdx-prism';
 import { getRouteImageMeta } from '@utils/image-api';
 import visit from 'unist-util-visit';
-
-const { defaultLocale } = require('i18n.json');
 
 const root = process.cwd();
 

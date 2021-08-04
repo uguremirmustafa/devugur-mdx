@@ -30,7 +30,7 @@ export const Footer = ({ alternate, contentType }: Props) => {
   return (
     <>
       <div className="divider"></div>
-      <footer className="mx-auto max-w-2xl bg-red-400 w-full">
+      <footer className="mx-auto max-w-2xl w-full">
         <div className="footer">
           <ul className="flex flex-col gap-1 md:gap-0">
             <h6 className="p-1 underline">{navigation}</h6>

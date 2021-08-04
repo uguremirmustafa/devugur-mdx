@@ -21,7 +21,7 @@ const Index = ({ posts, projects }) => {
         start: 'top 80%',
         scrub: true,
       },
-      opacity: 0.3,
+      opacity: 0.4,
       stagger: 0.2,
       duration: 0.7,
     });

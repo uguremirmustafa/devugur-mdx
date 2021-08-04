@@ -2,6 +2,8 @@ import Container from '@components/Container';
 import { ReactNode } from 'react';
 import { ArticleMeta } from '@components/Sections/ArticleMeta';
 import Link from 'next/link';
+import { TagIcon } from '@components/Svgs/Tag';
+import { Tag } from '@components/Sections/Tag';
 
 interface Props {
   frontMatter: any;
@@ -26,6 +28,12 @@ export default function BlogLayout({ children, frontMatter }: Props) {
           slug={frontMatter.slug}
           readingTime={frontMatter.readingTime.minutes}
         />
+        <div className="flex gap-2 flex-wrap my-2 items-center">
+          <TagIcon />
+          {frontMatter.tags.map((t) => (
+            <Tag key={t}>{t}</Tag>
+          ))}
+        </div>
         {frontMatter.alternate !== '' && (
           <div className="mt-8 font-bold">
             <Link href={frontMatter.alternate} locale={frontMatter.locale === 'tr' ? 'en' : 'tr'}>
