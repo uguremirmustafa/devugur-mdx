@@ -2,13 +2,11 @@ import React, { useEffect } from 'react';
 import Link from 'next/link';
 import useSWR from 'swr';
 import fetcher from '@lib/fetcher';
-
 import useTranslation from 'next-translate/useTranslation';
 import { Tool } from '@components/Svgs/Tool';
-import { Tag } from '../Tag';
-import { TagIcon } from '@components/Svgs/Tag';
 import { gsap } from 'gsap';
 import { Eye } from '@components/Svgs/Eye';
+
 interface Props {
   files: string[];
   publishedAt: string;
@@ -31,26 +29,26 @@ export const Card = ({ summary, slug, title, cardType, techStack, tags }: Props)
 
   //animation
   const t1 = gsap.timeline();
-  // useEffect(() => {
-  //   t1.fromTo(
-  //     '#border',
-  //     { y: 10 },
-  //     {
-  //       y: -10,
-  //       repeat: -1,
-  //       duration: 1,
-  //       yoyo: true,
-  //     }
-  //   );
-  // }, []);
+  useEffect(() => {
+    t1.fromTo(
+      '#border',
+      { borderColor: "random(['#F87171','#FBBF24'])" },
+      {
+        borderColor: "random(['#F87171','#FBBF24'])",
+        repeat: -1,
+        duration: 1,
+        yoyoEase: 'ease',
+      }
+    );
+  }, []);
 
   return (
     <div className="card">
       <Link href={`/${cardType}/${slug}`} key={slug}>
-        <a className="w-full ">
+        <a className="w-full">
           <div
             id="border"
-            className="w-full shadow-lg hover:shadow-xl dark:shadow-none transition duration-300 p-4 rounded-md border border-gray-200 dark:bg-gray-800"
+            className={`w-full shadow-lg hover:shadow-xl dark:shadow-none transition duration-300 p-4 rounded-md border border-gray-200 dark:bg-gray-800`}
           >
             <div className="flex flex-col md:flex-row justify-between mb-2">
               <h4 className=" text-gray-900 dark:text-gray-100 p-0 m-0 w-full">{title}</h4>{' '}
