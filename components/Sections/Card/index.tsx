@@ -50,7 +50,7 @@ export const Card = ({ summary, slug, title, cardType, techStack, tags }: Props)
         <a className="w-full ">
           <div
             id="border"
-            className="w-full md:shadow-lg md:hover:shadow-xl dark:shadow-none transition duration-300 p-4 rounded-md border border-gray-200 dark:bg-gray-800"
+            className="w-full shadow-lg hover:shadow-xl dark:shadow-none transition duration-300 p-4 rounded-md border border-gray-200 dark:bg-gray-800"
           >
             <div className="flex flex-col md:flex-row justify-between mb-2">
               <h4 className=" text-gray-900 dark:text-gray-100 p-0 m-0 w-full">{title}</h4>{' '}
