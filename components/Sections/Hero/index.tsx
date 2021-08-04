@@ -7,6 +7,7 @@ import { Town } from '@components/Svgs/Town';
 import { Github } from '@components/Svgs/Github';
 import { Twitter } from '@components/Svgs/Twitter';
 import { Instagram } from '@components/Svgs/Instagram';
+import { LinkedIn } from '@components/Svgs/LinkedIn';
 
 interface Props {}
 
@@ -66,6 +67,13 @@ export const Hero = (props: Props) => {
             rel="noreferrer"
           >
             <Twitter />
+          </a>
+          <a
+            href="https://www.linkedin.com/in/u%C4%9Fur-emirmustafao%C4%9Flu-09047b14a/"
+            className={`icon ${styles.socialIcon}`}
+            rel="noreferrer"
+          >
+            <LinkedIn />
           </a>
         </div>
         <div className="flex justify-center gap-4 my-4 md:my-12">
