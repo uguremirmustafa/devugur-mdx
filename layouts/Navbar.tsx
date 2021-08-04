@@ -14,7 +14,7 @@ interface Props {
 const paths = ['home', 'portfolio', 'blog', 'about', 'gear'];
 
 export const Navbar = ({ alternate, contentType }: Props) => {
-  const { locales, asPath, locale } = useRouter();
+  const { locales, asPath, locale, pathname } = useRouter();
   const { t } = useTranslation('common');
   const gear = t('nav.gear');
   const about = t('nav.about');
@@ -31,6 +31,8 @@ export const Navbar = ({ alternate, contentType }: Props) => {
   useOnClickOutside(ref, () => setOpen(false));
 
   const t2 = gsap.timeline();
+
+  console.log(pathname);
 
   useEffect(() => {
     t2.fromTo(
@@ -55,18 +57,18 @@ export const Navbar = ({ alternate, contentType }: Props) => {
           </a>
           <Logo />
           <div className={`gap-2 overflow-scroll navlinks`}>
-            <NextLink href="/portfolio">
-              <a className="p-1 text-gray-900 sm:p-4 dark:text-gray-100">{portfolio}</a>
-            </NextLink>
-            <NextLink href="/blog">
-              <a className="p-1 text-gray-900 sm:p-4 dark:text-gray-100">{blog}</a>
-            </NextLink>
-            <NextLink href="/about">
-              <a className="p-1 text-gray-900 sm:p-4 dark:text-gray-100">{about}</a>
-            </NextLink>
-            <NextLink href="/gear">
-              <a className="p-1 text-gray-900 sm:p-4 dark:text-gray-100">{gear}</a>
-            </NextLink>
+            {paths.map((path) => (
+              <NextLink href={`/${path === 'home' ? '' : path}`} key={path}>
+                <a
+                  className={`p-1 text-gray-900 sm:p-4 dark:text-gray-100 ${
+                    pathname === (path === 'home' ? '/' : '/' + path) ? 'font-bold' : ''
+                  }`}
+                >
+                  {' '}
+                  {t(`nav.${path}`)}
+                </a>
+              </NextLink>
+            ))}
           </div>
           <div className="flex gap-4">
             {!contentPage && (
