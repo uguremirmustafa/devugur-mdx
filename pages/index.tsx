@@ -27,7 +27,7 @@ const Index = ({ posts, projects }) => {
     });
   }, []);
   return (
-    <Container title={t('title')} description={t('description')} image="/me.png">
+    <Container title={t('title')} description={t('description')}>
       <Hero />
       {projects.length > 0 && <ListTitle title={t('highlightedProjects')} />}
       <div id="cards" className="flex flex-col gap-4 w-full">
