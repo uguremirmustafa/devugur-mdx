@@ -16,7 +16,7 @@ export const Hero = (props: Props) => {
   const { t } = useTranslation();
   let headerRef = useRef<HTMLHeadingElement | null>(null);
   useEffect(() => {
-    gsap.from(headerRef.current, { opacity: 0, y: 20, duration: 1, delay: 0.5 });
+    gsap.from(headerRef.current, { opacity: 0, y: 20, duration: 1, ease: 'bounce' });
   }, []);
 
   return (

@@ -46,7 +46,7 @@ export const Navbar = ({ alternate, contentType }: Props) => {
   return (
     <>
       <nav className="text-gray-900 sticky-nav md:my-8 dark:bg-opacity-100 dark:text-gray-100 ">
-        <div className="flex justify-between items-center w-full max-w-4xl mx-auto py-4 my-0 px-4">
+        <div className="flex justify-between items-center w-full max-w-lg mx-auto py-4 my-0 px-4">
           <a href="#skip" className="skip-nav">
             Skip to content
           </a>

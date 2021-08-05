@@ -2,7 +2,9 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { Navbar } from 'layouts/Navbar';
 import { Footer } from 'layouts/Footer';
-import { ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 
 interface Props {
   children: ReactNode;
@@ -26,6 +28,22 @@ export default function Container(props: Props) {
     ...customMeta,
   };
 
+  gsap.registerPlugin(ScrollTrigger);
+  useEffect(() => {
+    const cards = gsap.utils.toArray('#card');
+    cards.forEach((card: any) => {
+      gsap.to(card, {
+        autoAlpha: 0,
+        scrollTrigger: {
+          trigger: card,
+          start: 'top top+=100',
+          scrub: true,
+          end: '+=300',
+        },
+        duration: 2,
+      });
+    });
+  }, []);
   return (
     <div className="bg-white dark:bg-gray-900 ">
       <Head>

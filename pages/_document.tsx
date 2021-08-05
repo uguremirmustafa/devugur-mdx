@@ -7,11 +7,11 @@ class MyDocument extends Document {
     return (
       <Html lang="en" className="dark">
         <Head>
-          {/* <script
+          <script
             async
             src={`https://www.googletagmanager.com/gtag/js?id=${process.env.GA_MEASUREMENT_ID}`}
-          /> */}
-          {/* <script
+          />
+          <script
             // eslint-disable-next-line react/no-danger
             dangerouslySetInnerHTML={{
               __html: `
@@ -23,7 +23,7 @@ class MyDocument extends Document {
                 });
               `,
             }}
-          /> */}
+          />
           <meta
             name="description"
             content="This is my personal website where I share my knowledge and experience about software development, linux and web development."
