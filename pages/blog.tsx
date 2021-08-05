@@ -4,7 +4,19 @@ import { getAllFilesFrontMatter } from '@lib/mdx';
 import { InferGetStaticPropsType } from 'next';
 import useTranslation from 'next-translate/useTranslation';
 import { Card } from '@components/Sections/Card';
-import { getRouteImageMeta } from '@utils/image-api';
+import { motion, useViewportScroll } from 'framer-motion';
+
+const wrapperVariants = {
+  initial: {
+    opacity: 0,
+  },
+  animate: {
+    opacity: 1,
+    transition: {
+      duration: 1,
+    },
+  },
+};
 
 export default function Blog({ posts }: InferGetStaticPropsType<typeof getStaticProps>) {
   const { t } = useTranslation('blog');
@@ -21,6 +33,10 @@ export default function Blog({ posts }: InferGetStaticPropsType<typeof getStatic
   const filteredBlogPosts = posts
     .sort((a, b) => Number(new Date(b.publishedAt)) - Number(new Date(a.publishedAt)))
     .filter((frontMatter) => frontMatter.title.toLowerCase().includes(searchValue.toLowerCase()));
+
+  //framer animations
+  // const { scrollYProgress } = useViewportScroll();
+  // console.log(scrollYProgress);
 
   return (
     <Container title={metaTitle} description={metaDescription}>
@@ -58,11 +74,18 @@ export default function Blog({ posts }: InferGetStaticPropsType<typeof getStatic
         {!filteredBlogPosts.length && (
           <p className="text-gray-600 dark:text-gray-400 mb-4">{noPostsFind}</p>
         )}
-        <div id="title" className="flex flex-col gap-8 w-full">
+        <motion.div
+          initial="initial"
+          animate="animate"
+          exit="exit"
+          variants={wrapperVariants}
+          id="title"
+          className="flex flex-col gap-8 w-full"
+        >
           {filteredBlogPosts.map((frontMatter) => (
             <Card key={frontMatter.slug} {...frontMatter} cardType="blog" />
           ))}
-        </div>
+        </motion.div>
       </div>
     </Container>
   );

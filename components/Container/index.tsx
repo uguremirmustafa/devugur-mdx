@@ -3,9 +3,7 @@ import { useRouter } from 'next/router';
 import { Navbar } from 'layouts/Navbar';
 import { Footer } from 'layouts/Footer';
 import { ReactNode, useEffect } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-
+import { AnimatePresence, motion } from 'framer-motion';
 interface Props {
   children: ReactNode;
   title: string;
@@ -16,6 +14,24 @@ interface Props {
   alternate?: string;
   contentType?: string;
 }
+
+const contentVariants = {
+  initial: {
+    opacity: 0,
+  },
+  animate: {
+    opacity: 1,
+    transition: {
+      duration: 1,
+    },
+  },
+  exit: {
+    opacity: 0,
+    transition: {
+      duration: 1,
+    },
+  },
+};
 
 export default function Container(props: Props) {
   const { children, ...customMeta } = props;
@@ -28,22 +44,6 @@ export default function Container(props: Props) {
     ...customMeta,
   };
 
-  gsap.registerPlugin(ScrollTrigger);
-  useEffect(() => {
-    const cards = gsap.utils.toArray('#card');
-    cards.forEach((card: any) => {
-      gsap.to(card, {
-        autoAlpha: 0,
-        scrollTrigger: {
-          trigger: card,
-          start: 'top top+=100',
-          scrub: true,
-          end: '+=300',
-        },
-        duration: 2,
-      });
-    });
-  }, []);
   return (
     <div className="bg-white dark:bg-gray-900 ">
       <Head>
@@ -69,7 +69,13 @@ export default function Container(props: Props) {
         alternate={customMeta.alternate ? customMeta.alternate : ''}
         contentType={customMeta.contentType}
       />
-      <main
+
+      <motion.main
+        key={router.route}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        variants={contentVariants}
         id="skip"
         className="new flex flex-col justify-center px-6 bg-white dark:bg-gray-900 pt-4 pb-8 max-w-2xl w-full mx-auto"
       >
@@ -78,7 +84,7 @@ export default function Container(props: Props) {
           alternate={customMeta.alternate ? customMeta.alternate : ''}
           contentType={customMeta.contentType}
         />
-      </main>
+      </motion.main>
     </div>
   );
 }

@@ -3,9 +3,10 @@ import { ThemeSwitcher } from '@components/Utils/ThemeSwitcher';
 import { Logo } from '@components/Utils/Logo';
 import { useRouter } from 'next/router';
 import useTranslation from 'next-translate/useTranslation';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import useOnClickOutside from 'hooks/useOnClickOutside';
-import gsap from 'gsap';
+import { AnimatePresence, motion } from 'framer-motion';
+
 interface Props {
   alternate: string;
   contentType: string;
@@ -13,6 +14,50 @@ interface Props {
 
 const paths = ['home', 'portfolio', 'blog', 'about', 'gear'];
 
+const navmenuVariants = {
+  initial: {
+    opacity: 0,
+    x: '100vw',
+  },
+  animate: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.2,
+      staggerChildren: 0.1,
+    },
+  },
+  exit: {
+    opacity: 0,
+    x: '-100vw',
+    transition: {
+      duration: 0.2,
+      staggerChildren: 0.1,
+      when: 'afterChildren',
+    },
+  },
+};
+const linkVariants = {
+  initial: {
+    opacity: 0,
+    x: '-100vw',
+  },
+  animate: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.4,
+    },
+  },
+  exit: {
+    opacity: 0,
+    x: '100vw',
+    transition: {
+      duration: 0.3,
+      // when: 'beforeParent',
+    },
+  },
+};
 export const Navbar = ({ alternate, contentType }: Props) => {
   const { locales, asPath, locale, pathname } = useRouter();
   const { t } = useTranslation('common');
@@ -27,22 +72,6 @@ export const Navbar = ({ alternate, contentType }: Props) => {
   const ref = useRef();
   useOnClickOutside(ref, () => setOpen(false));
 
-  const t2 = gsap.timeline();
-
-  useEffect(() => {
-    t2.fromTo(
-      '.mobile-link',
-      { color: '#fff', opacity: 0.9 },
-      {
-        color: '#FBBF24',
-        opacity: 1,
-        duration: 0.5,
-        stagger: 0.1,
-        delay: 0.2,
-      }
-    );
-  }, [open, setOpen]);
-
   return (
     <>
       <nav className="text-gray-900 sticky-nav md:my-8 dark:bg-opacity-100 dark:text-gray-100 ">
@@ -54,13 +83,15 @@ export const Navbar = ({ alternate, contentType }: Props) => {
           <div className={`gap-2 navlinks`}>
             {paths.map((path) => (
               <NextLink href={`/${path === 'home' ? '' : path}`} key={path}>
-                <a
+                <motion.a
+                  whileTap={{ scale: 1.2 }}
+                  whileHover={{ scale: 1.03, cursor: 'pointer' }}
                   className={`p-1 text-gray-900 sm:p-4 dark:text-gray-100  ${
                     pathname === (path === 'home' ? '/' : '/' + path) ? 'font-bold' : ''
                   }`}
                 >
                   {t(`nav.${path}`)}
-                </a>
+                </motion.a>
               </NextLink>
             ))}
           </div>
@@ -107,33 +138,48 @@ export const Navbar = ({ alternate, contentType }: Props) => {
           <path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z" className="hamburgerPath" />
         </svg>
       </button>
+      <AnimatePresence exitBeforeEnter onExitComplete={() => setOpen(false)}>
+        {open && (
+          <motion.div
+            id="navmenu"
+            className={`gap-2 overflow-scroll ${open ? 'openmenu' : 'closemenu'}`}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            variants={navmenuVariants}
+          >
+            {paths.map((path) => (
+              <NextLink href={`/${path === 'home' ? '' : path}`} key={path}>
+                <motion.a
+                  variants={linkVariants}
+                  className="mobile-link p-1 text-gray-900 sm:p-4 dark:text-gray-100 cursor-pointer"
+                  onClick={() => {
+                    setTimeout(() => {
+                      setOpen(false);
+                    }, 300);
+                  }}
+                >
+                  {t(`nav.${path}`)}
+                </motion.a>
+              </NextLink>
+            ))}
 
-      <div id="navmenu" className={`gap-2 overflow-scroll ${open ? 'openmenu' : 'closemenu'}`}>
-        {paths.map((path) => (
-          <NextLink href={`/${path === 'home' ? '' : path}`} key={path}>
-            <a
-              className="mobile-link p-1 text-gray-900 sm:p-4 dark:text-gray-100 cursor-pointer"
-              onClick={() => {
-                setTimeout(() => {
-                  setOpen(false);
-                }, 300);
-              }}
+            <motion.button
+              variants={linkVariants}
+              className="closeBtn"
+              onClick={() => setOpen(false)}
             >
-              {t(`nav.${path}`)}
-            </a>
-          </NextLink>
-        ))}
-
-        <button className="closeBtn" onClick={() => setOpen(false)}>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-            <path fill="none" d="M0 0h24v24H0z" />
-            <path
-              d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636z"
-              className="closePath"
-            />
-          </svg>
-        </button>
-      </div>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                <path fill="none" d="M0 0h24v24H0z" />
+                <path
+                  d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636z"
+                  className="closePath"
+                />
+              </svg>
+            </motion.button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 };

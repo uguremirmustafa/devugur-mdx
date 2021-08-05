@@ -5,7 +5,6 @@ import useSWR from 'swr';
 import fetcher from '@lib/fetcher';
 import useTranslation from 'next-translate/useTranslation';
 import { Tool } from '@components/Svgs/Tool';
-import { gsap } from 'gsap';
 import { Eye } from '@components/Svgs/Eye';
 
 interface Props {
@@ -44,12 +43,12 @@ export const Card = ({ summary, slug, title, cardType, techStack }: Props) => {
             {/* </h4> */}
             {/* <h4 className=" text-gray-900 dark:text-gray-100 p-0 m-0 w-full card-title">{title}</h4>{' '} */}
             {!data && <div className="animate-spin"></div>}
-            <p className="flex items-start gap-2 text-gray-500 text-left md:text-right mt-2 md:mt-0 min-w-4 text-sm">
+            <div className="flex items-start gap-2 text-gray-500 text-left md:text-right mt-2 md:mt-0 min-w-4 text-sm">
               <p className="flex w-32 items-center gap-2 md:justify-end text-sm">
                 {views ? `${new Number(views).toLocaleString()} ${viewsText}` : `0 ${viewsText}`}
                 <Eye />
               </p>
-            </p>
+            </div>
           </div>
 
           {techStack && (

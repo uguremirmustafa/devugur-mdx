@@ -229,9 +229,9 @@ html.light .hamburgerBtn {
     @apply bg-gray-800 dark:bg-gray-900;
   }
 }
-.closemenu {
-  @apply hidden;
-}
+// .closemenu {
+//   @apply hidden;
+// }
 /* end of navbar */
 .prose {
   @apply text-gray-900 dark:text-gray-100 text-lg;

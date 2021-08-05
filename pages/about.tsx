@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import useTranslation from 'next-translate/useTranslation';
 import BlurImage from '@components/Utils/BlurImage';
 import { getRouteImageMeta } from '@utils/image-api';
-import gsap from 'gsap';
+import { motion } from 'framer-motion';
 interface Props {
   imgMeta: any;
 }
@@ -17,22 +17,6 @@ const About = ({ imgMeta }: Props) => {
   const about4 = t('about4');
   const metaTitle = t('meta-title');
   const metaDescription = t('meta-description');
-
-  const t1 = gsap.timeline();
-  const t2 = gsap.timeline();
-
-  useEffect(() => {
-    t1.from('.image', {
-      opacity: 0,
-      duration: 1,
-    });
-    t2.from('.about', {
-      opacity: 0,
-      duration: 1,
-      stagger: 0.3,
-      ease: 'easeOut',
-    });
-  }, []);
 
   return (
     <Container

@@ -1,6 +1,5 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import styles from './style.module.scss';
-import gsap from 'gsap';
 import useTranslation from 'next-translate/useTranslation';
 import Link from 'next/link';
 import { Town } from '@components/Svgs/Town';
@@ -9,26 +8,57 @@ import { Twitter } from '@components/Svgs/Twitter';
 import { Instagram } from '@components/Svgs/Instagram';
 import { LinkedIn } from '@components/Svgs/LinkedIn';
 import { ArrowDown } from '@components/Svgs/ArrowDown';
+import { motion } from 'framer-motion';
 
-interface Props {}
+const headingVariants = {
+  initial: {
+    opacity: 0,
+    y: 20,
+  },
+  animate: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 1,
+      delay: 0.2,
+      staggerChildren: 0.2,
+    },
+  },
+};
 
-export const Hero = (props: Props) => {
+const spanVariants = {
+  initial: {
+    opacity: 0,
+    y: 20,
+  },
+  animate: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 1,
+    },
+  },
+};
+
+export const Hero = () => {
   const { t } = useTranslation();
-  let headerRef = useRef<HTMLHeadingElement | null>(null);
-  useEffect(() => {
-    gsap.from(headerRef.current, { opacity: 0, y: 20, duration: 1, ease: 'bounce' });
-  }, []);
-
   return (
     <div className={`text-base md:text-lg pb-4 md:mb-8 ${styles.test}`}>
-      <h2
-        ref={headerRef}
+      <motion.h2
         className={`leading-8 text-2xl md:text-4xl md:leading-relaxed font-bold text-center ${styles.heading}`}
+        initial="initial"
+        animate="animate"
+        variants={headingVariants}
       >
-        {t('home:heroText.part1')}
-        <br></br> {t('home:heroText.part2')} <br></br>
-        <span className="text-red-400 dark:text-red-400">{t('home:heroText.part3')}</span>
-      </h2>
+        <motion.span variants={spanVariants}>{t('home:heroText.part1')}</motion.span>
+        <motion.span variants={spanVariants}>
+          <br></br> {t('home:heroText.part2')}
+        </motion.span>
+        <motion.span variants={spanVariants} className="text-red-400 dark:text-red-400">
+          <br></br>
+          {t('home:heroText.part3')}
+        </motion.span>
+      </motion.h2>
 
       <div className="max-w-md mx-auto py-4 md:py-8">
         <Town />
@@ -85,7 +115,7 @@ export const Hero = (props: Props) => {
             <button className="btn-contained ">{t('home:blogBtn')}</button>
           </Link>
         </div>
-        <div className="animate-bounce">
+        <div className="animate-bounce mt-2">
           <ArrowDown />
         </div>
       </div>
