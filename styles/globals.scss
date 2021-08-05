@@ -217,11 +217,12 @@ html.light .hamburgerBtn {
 
 .openmenu {
   @apply fixed top-0 left-0 w-screen h-screen flex flex-col gap-4 justify-center items-center py-24 translate-x-0 
-   bg-black bg-opacity-80 dark:bg-black dark:bg-opacity-50 font-bold z-50;
+   bg-black  bg-opacity-80 dark:bg-black dark:bg-opacity-50 font-bold z-50;
   backdrop-filter: saturate(180%) blur(20px);
   transition: background-color 0.1 ease-in-out;
   a {
     font-size: xx-large !important;
+    color: white;
   }
 }
 @-moz-document url-prefix() {

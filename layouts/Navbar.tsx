@@ -29,9 +29,8 @@ const navmenuVariants = {
   },
   exit: {
     opacity: 0,
-    x: '-100vw',
     transition: {
-      duration: 0.2,
+      duration: 0.1,
       staggerChildren: 0.1,
       when: 'afterChildren',
     },
@@ -128,7 +127,7 @@ export const Navbar = ({ alternate, contentType }: Props) => {
         </div>
       </nav>
 
-      <button
+      <motion.button
         id="openerHam"
         className={`hamburgerBtn ${open ? 'openHamburger' : 'closedHamburger'}`}
         onClick={() => setOpen(true)}
@@ -137,7 +136,7 @@ export const Navbar = ({ alternate, contentType }: Props) => {
           <path fill="none" d="M0 0h24v24H0z" />
           <path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z" className="hamburgerPath" />
         </svg>
-      </button>
+      </motion.button>
       <AnimatePresence exitBeforeEnter onExitComplete={() => setOpen(false)}>
         {open && (
           <motion.div
