@@ -8,6 +8,7 @@ import { Github } from '@components/Svgs/Github';
 import { Twitter } from '@components/Svgs/Twitter';
 import { Instagram } from '@components/Svgs/Instagram';
 import { LinkedIn } from '@components/Svgs/LinkedIn';
+import { ArrowDown } from '@components/Svgs/ArrowDown';
 
 interface Props {}
 
@@ -83,6 +84,9 @@ export const Hero = (props: Props) => {
           <Link href="/blog">
             <button className="btn-contained ">{t('home:blogBtn')}</button>
           </Link>
+        </div>
+        <div className="animate-bounce">
+          <ArrowDown />
         </div>
       </div>
     </div>

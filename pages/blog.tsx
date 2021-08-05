@@ -4,6 +4,7 @@ import { getAllFilesFrontMatter } from '@lib/mdx';
 import { InferGetStaticPropsType } from 'next';
 import useTranslation from 'next-translate/useTranslation';
 import { Card } from '@components/Sections/Card';
+import { getRouteImageMeta } from '@utils/image-api';
 
 export default function Blog({ posts }: InferGetStaticPropsType<typeof getStaticProps>) {
   const { t } = useTranslation('blog');
@@ -69,5 +70,6 @@ export default function Blog({ posts }: InferGetStaticPropsType<typeof getStatic
 
 export const getStaticProps = async ({ locale }) => {
   const posts = await getAllFilesFrontMatter('blog', locale);
+
   return { props: { posts } };
 };

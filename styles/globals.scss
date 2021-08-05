@@ -82,7 +82,7 @@ a {
     @apply text-gray-900 dark:text-gray-200;
   }
   a {
-    @apply hover:text-red-400 transition duration-300;
+    @apply hover:text-red-400  transition duration-300;
   }
   h1 {
     @apply text-4xl md:text-6xl;
@@ -152,7 +152,7 @@ em {
   max-width: 48rem;
 }
 .sticky-nav a {
-  @apply dark:hover:text-red-400;
+  @apply dark:hover:text-yellow-400;
 }
 .skip-nav {
   @apply absolute px-4 py-2 transition-transform duration-200 transform -translate-y-12 left-1/4 focus:translate-y-3 -top-8;
@@ -460,4 +460,11 @@ table {
   height: 1px;
   background-color: lightgray;
   margin-top: 1rem;
+}
+
+.card-title:hover {
+  @apply from-yellow-500 to-yellow-600 transition duration-1000 ease-in-out;
+}
+.card-button:hover {
+  @apply underline  dark:text-yellow-500 transition duration-1000 ease-in-out;
 }

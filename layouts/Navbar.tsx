@@ -55,7 +55,7 @@ export const Navbar = ({ alternate, contentType }: Props) => {
             {paths.map((path) => (
               <NextLink href={`/${path === 'home' ? '' : path}`} key={path}>
                 <a
-                  className={`p-1 text-gray-900 sm:p-4 dark:text-gray-100 ${
+                  className={`p-1 text-gray-900 sm:p-4 dark:text-gray-100  ${
                     pathname === (path === 'home' ? '/' : '/' + path) ? 'font-bold' : ''
                   }`}
                 >

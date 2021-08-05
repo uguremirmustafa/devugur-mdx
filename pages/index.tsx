@@ -37,7 +37,7 @@ const Index = ({ posts, projects }) => {
       </div>
 
       {posts.length > 0 && <ListTitle title={t('highlightedPosts')} />}
-      <div id="cards" className="flex flex-col gap-4 w-full">
+      <div id="cards" className="flex flex-col gap-4 w-full mb-8">
         {posts.map((frontMatter) => (
           <Card key={frontMatter.slug} {...frontMatter} cardType="blog" />
         ))}
