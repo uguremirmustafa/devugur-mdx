@@ -59,6 +59,7 @@ export async function getFileBySlug(type: string, slug: string, locale: string) 
             linkProperties: {
               className: ['anchor'],
             },
+            behaviour: 'prepend',
           },
         ],
         function () {

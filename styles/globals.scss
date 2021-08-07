@@ -261,21 +261,28 @@ html.light .hamburgerBtn {
 }
 
 .prose .anchor {
-  @apply absolute invisible;
-  margin-left: -1em;
-  padding-right: 3em;
-  width: 80%;
-  max-width: 700px;
-  cursor: pointer;
+  visibility: hidden;
+  display: block;
+  position: absolute;
+  width: 100%;
+  // height: 100%;
+  // background: rgba(1, 1, 1, 0.1);
 }
 
 .anchor:hover {
   @apply visible no-underline;
 }
-
-.prose .anchor:after {
+.prose h2,
+.prose h3,
+.prose h4 {
+  position: relative;
+  scroll-margin-top: 80px;
+}
+.prose .anchor:before {
   @apply text-gray-300 dark:text-gray-700;
   content: '#   ';
+  position: relative;
+  right: 20px;
 }
 
 .prose *:hover > .anchor {
