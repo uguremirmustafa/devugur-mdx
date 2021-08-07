@@ -8,21 +8,15 @@ import useTranslation from 'next-translate/useTranslation';
 import { ArticleMeta } from '@components/Sections/ArticleMeta';
 import Link from 'next/link';
 
-// const editUrl = (slug) => `https://github.com/leerob/leerob.io/edit/main/data/blog/${slug}.mdx`;
-// const discussUrl = (slug) =>
-//   `https://mobile.twitter.com/search?q=${encodeURIComponent(`https://leerob.io/blog/${slug}`)}`;
 interface Props {
   frontMatter: any;
   children: ReactNode;
 }
 
 export default function PortfolioLayout({ children, frontMatter }: Props) {
-  const { locale } = useRouter();
-  const { t } = useTranslation('common');
-  const readTime = t('readTime');
   return (
     <Container
-      title={`${frontMatter.title} – Lee Robinson`}
+      title={`${frontMatter.title} – Uğur Emirmustafaoğlu`}
       description={frontMatter.summary}
       image={`https://devugur.com${frontMatter.image}`}
       date={new Date(frontMatter.publishedAt).toISOString()}

@@ -53,14 +53,14 @@ export async function getFileBySlug(type: string, slug: string, locale: string) 
     mdxOptions: {
       remarkPlugins: [
         require('remark-slug'),
-        // [
-        //   require('remark-autolink-headings'),
-        //   {
-        //     linkProperties: {
-        //       className: ['anchor'],
-        //     },
-        //   },
-        // ],
+        [
+          require('remark-autolink-headings'),
+          {
+            linkProperties: {
+              className: ['anchor'],
+            },
+          },
+        ],
         function () {
           return transformer;
 
