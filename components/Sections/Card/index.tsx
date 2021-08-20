@@ -54,6 +54,7 @@ export const Card = ({
           <div className="flex gap-4 w-full -top-8 -mb-2 relative">
             {images.map((image) => (
               <motion.div
+                key={image}
                 whileHover={{ scale: 1.2, transformOrigin: 'center center', zIndex: 10 }}
                 whileTap={{ scale: 1.2, transformOrigin: 'center center', zIndex: 10 }}
                 className="relative overflow-hidden w-40 h-24 md:w-80 md:h-48 rounded-md border border-gray-300 shadow-lg bg-gray-200 cursor-pointer"

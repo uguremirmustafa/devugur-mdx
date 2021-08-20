@@ -12,8 +12,8 @@ interface Props {
   publishedAt: string;
   slug: string;
   readingTime: number;
-  github: string;
-  demo: string;
+  github?: string;
+  demo?: string;
 }
 
 export const ArticleMeta = ({ title, publishedAt, slug, readingTime, github, demo }: Props) => {
