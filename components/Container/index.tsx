@@ -77,7 +77,7 @@ export default function Container(props: Props) {
         exit="exit"
         variants={contentVariants}
         id="skip"
-        className="new flex flex-col justify-center px-6 bg-white dark:bg-gray-900 pt-4 pb-8 max-w-2xl w-full mx-auto"
+        className="new flex flex-col justify-center px-6 bg-white dark:bg-gray-900 pt-4 pb-8 max-w-2xl w-full mx-auto "
       >
         {children}
         <Footer

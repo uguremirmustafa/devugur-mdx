@@ -83,7 +83,7 @@ export const Hero = () => {
             rel="noreferrer"
             className={`icon ${styles.socialIcon}`}
           >
-            <Github />
+            <Github size="md" />
           </a>
           <a
             href="https://instagram.com/uguremirmustafa"

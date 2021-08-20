@@ -17,7 +17,7 @@ export default function Blog({ projects }: InferGetStaticPropsType<typeof getSta
         </h1>
         <p className="text-gray-600 dark:text-gray-400 mb-4">{description}</p>
 
-        <h3 className="font-bold text-2xl md:text-4xl tracking-tight mb-4 mt-8 text-black dark:text-white">
+        <h3 className="font-bold text-2xl md:text-4xl tracking-tight mb-16 mt-8 text-black dark:text-white">
           {subTitle}
         </h3>
 

@@ -82,25 +82,25 @@ a {
     @apply text-gray-900 dark:text-gray-200;
   }
   a {
-    @apply hover:text-red-400  transition duration-300;
+    @apply hover:text-red-400 dark:hover:text-yellow-400  transition duration-300;
   }
   h1 {
-    @apply text-4xl md:text-6xl;
+    @apply text-4xl md:text-6xl mt-12;
   }
   h2 {
-    @apply text-2xl md:text-3xl;
+    @apply text-2xl md:text-3xl mt-10;
   }
   h3 {
-    @apply text-xl md:text-2xl;
+    @apply text-xl md:text-2xl mt-8;
   }
   h4 {
-    @apply text-lg md:text-xl;
+    @apply text-lg md:text-xl mt-6;
   }
   h5 {
-    @apply text-base md:text-lg;
+    @apply text-base md:text-lg mt-4;
   }
   h6 {
-    @apply text-base md:text-lg;
+    @apply text-base md:text-lg mt-4;
   }
   h1,
   h2,
@@ -108,7 +108,7 @@ a {
   h4,
   h5,
   h6 {
-    @apply font-bold mb-2 mt-4 text-gray-900 dark:text-gray-200;
+    @apply font-bold mb-2 text-gray-900 dark:text-gray-200;
   }
   pre {
     @apply text-sm;
@@ -126,13 +126,13 @@ em {
 }
 @layer components {
   .btn {
-    @apply font-bold py-1 sm:py-2 px-4 sm:px-6 text-sm sm:text-base rounded-full border-2 border-red-400 text-red-400  hover:bg-red-400 hover:text-white transition duration-300 ease-in-out;
+    @apply font-bold py-1 sm:py-2 px-4 sm:px-6 text-sm sm:text-base rounded-full border-2 border-red-400 dark:border-yellow-400 text-red-400 dark:text-yellow-400  hover:bg-red-400 dark:hover:bg-yellow-400 hover:text-white dark:hover:text-gray-900 transition duration-300 ease-in-out;
   }
   .btn-sm {
     @apply btn py-1 px-4 text-sm;
   }
   .btn-contained {
-    @apply btn bg-red-400 text-white hover:bg-white dark:hover:bg-gray-900 hover:text-red-400;
+    @apply btn bg-red-400 dark:bg-yellow-400 text-white dark:text-gray-800 hover:bg-white dark:hover:bg-gray-900 hover:text-red-400 dark:hover:text-yellow-400;
   }
   .icon {
     @apply p-1 hover:bg-red-100 rounded-full;
@@ -240,6 +240,12 @@ html.light .hamburgerBtn {
 .prose h2 {
   @apply text-red-500 dark:text-yellow-400;
 }
+.prose h3 {
+  @apply text-blue-500 dark:text-purple-400;
+}
+.prose h4 {
+  @apply text-blue-500 dark:text-purple-400;
+}
 .prose ul {
   @apply pl-4 mb-4;
 }
@@ -250,11 +256,15 @@ html.light .hamburgerBtn {
   content: '✔';
   @apply pr-4 text-red-500 dark:text-yellow-400;
 }
+.prose li ul li::before {
+  content: '➤';
+  @apply pr-4 pl-4 text-red-500 dark:text-yellow-300;
+}
 .prose a {
   @apply underline text-blue-500 hover:text-blue-400;
 }
 .prose p {
-  @apply mb-4;
+  @apply mb-4 leading-loose;
 }
 .prose strong {
   @apply font-bold;
@@ -265,6 +275,7 @@ html.light .hamburgerBtn {
   display: block;
   position: absolute;
   width: 100%;
+  min-width: 300px;
   // height: 100%;
   // background: rgba(1, 1, 1, 0.1);
 }
@@ -420,7 +431,7 @@ input[type='email'] {
 .prose blockquote {
   display: flex;
   align-items: center;
-  @apply mt-2 mb-4 p-2 rounded-sm border border-red-200 bg-red-50 dark:border-blue-200 dark:bg-blue-100;
+  @apply mt-2 mb-4 px-2 py-6 rounded-sm border border-red-200 bg-red-50 dark:border-blue-200 dark:bg-blue-100;
 
   &::before {
     content: '!';
@@ -434,13 +445,15 @@ input[type='email'] {
   span,
   code,
   pre {
-    @apply text-sm p-0 m-0;
+    @apply text-sm py-px px-1 m-0 leading-loose;
   }
   p {
     @apply dark:text-gray-900;
   }
 }
-
+.techTag {
+  font-size: 12px !important;
+}
 table {
   display: block;
   overflow-y: scroll;

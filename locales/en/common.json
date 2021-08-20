@@ -12,5 +12,7 @@
   "navigation": "Navigation",
   "connect": "Connect",
   "unrelated": "Unrelated",
-  "readMore": "Read more"
+  "readMore": "Read more",
+  "demo": "See Live Demo",
+  "github": "Visit on Github"
 }

@@ -1,0 +1,435 @@
+---
+title: Setup React Development Environment on Ubuntu
+summary: Do you want to switch to Ubuntu as a React developer? You can setup React development environment on Ubuntu by following this full guide. Vscode, terminal, fonts, themes and many other tools and utilities...
+publishedAt: '2021-08-10'
+image: '/images/blog/setup-react-development-environment-on-ubuntu/banner.png'
+locale: en
+tags: ['react', 'development environment', 'ubuntu', 'setup']
+isPublished: true
+alternate: ''
+type: blog
+selected: true
+---
+
+As a Linux enthusiast and React developer, I enjoy the experience on Ubuntu. In this full-fledged guide, I will try to explain all the details of my React development environment on Ubuntu. My development setup consist of these sections: 👇
+
+- Terminal setup
+  - Urxvt terminal emulator
+  - Git and Curl (!)
+  - ZSH setup
+  - Fonts
+- Browser
+  - Brave Browser
+  - Extensions
+  - React developer tools
+- VSCode
+  - Github SSH connection (!)
+  - Extensions (!)
+  - Theme
+  - Fonts
+- Node (!)
+  - Node Version Manager (NVM)
+  - Yarn
+- API Client
+  - Insomnia
+  - Curl (!)
+- Design Tools and Image Manipulation
+  - Figma (!)
+  - Gimp
+  - Gthumb
+- Extras
+  - Password Manager - Keepassxc (!)
+  - App launcher - Rofi (!)
+  - Emoji tool - Rofi
+
+I know, this is a fairly long list but you don't need to follow all the steps. I marked most crucial parts with an exclamation mark (!) on the end of the item.
+
+## Prerequisites
+
+In order to follow this guide you will need a Ubuntu based system, like main Ubuntu release, Mint or etc. You won't need any deep Linux knowledge to follow, as I will guide you through all the process step by step. If you are coming from Windows or Mac, there are tons of tutorials and videos about installing Ubuntu on your machine out there, so I will skip this step.
+
+> I would like to mention an important point about my Ubuntu setup. I prefer using tiling window managers over stacking window managers. The following steps won't be different for Gnome Desktop Environment (Ubuntu's default desktop environment) but yours will look a bit different.
+
+## Let's Start
+
+First of all I will start by the most important tool while using your new system, the terminal.
+
+## 1. Terminal
+
+GUI applications are cool and easy to use, but terminal gives to power users much more flexibility and efficiency. That's why it is crucial to have a nice terminal setup for a better usability for developers. There are lot's of _terminal emulators_ out there but my choice is Urxvt, known as _rxvt-unicode._
+
+### 1.1. Install Urxvt
+
+In order to install new applications in Ubuntu, you can use default terminal application, _gnome-terminal._
+
+> Press `ctrl` + `alt` + `T` to open your gnome terminal.
+
+Let's install our new terminal application with this command.
+
+```bash
+sudo apt install rxvt-unicode
+```
+
+You can launch your new terminal by typing `urxvt`. It will look ugly first but it is highly configurable and it will look like this in the end.
+
+![urxvt final look](./urxvt.png)
+
+Theming your urxvt is possible by modifying _.Xresources_ file in your **home** folder. For example you can change the font family of your terminal by adding this line into your .Xresources file.
+
+> I will explain how to add new fonts to your system down below.
+
+```bash
+urxvt*font: xft:Source Code Pro Black:style=Regular:size=14
+```
+
+> You can find all of my configuration files [here](https://www.github.com/uguremirmustafa/.dotfiles) including _.Xresources_ file.
+
+<ProTip tip="I use a tool called 'stow' to manage my dotfiles. I will be sharing a seperate blog post on 'stow' later but for now you can just manually place the dotfiles to their required locations." />
+
+### 1.2. Install Git and Curl
+
+_Git_ is a must and you know this.
+
+```bash
+sudo apt install git
+```
+
+_Curl_ is a terminal based data transfer tool. It is used for many purposes especially for fetching packages and making API calls. You will most likely need this tool.
+
+```bash
+sudo apt install curl
+```
+
+### 1.3. Setup ZSH
+
+[ZSH](https://www.zsh.org/) is a powerfull shell used in Unix systems. It enriches the terminal experience with lots of plugins, themes etc. It is similar to _fish_ shell but I like ZSH more because of the large community behind it.
+
+```bash
+sudo apt install zsh
+```
+
+After installing the zsh itself, we need to change our default shell as zsh with this command:
+
+```bash
+chsh -s $(which zsh)
+```
+
+Now logout and login to use your newly installed shell. After opening your terminal, zsh will ask you for your configuration settings. You can skip it by hitting `q`, we will use our custom `.zshrc` file. Now you can check the shell version with `$SHELL --version`.
+
+Who doesn't want superpowers? Your terminal wants too. [Oh-My-Zsh](https://ohmyz.sh/) will put your zsh setup to the next level. Just run this command, and you are done! 👇
+
+```bash
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+```
+
+And now the plugins...
+
+#### zsh-autosuggestions
+
+Your terminal will suggest you your latest commands after installing this plugin. We will add it in our configuration later, in _.zshrc_. Just install it for now.
+
+```bash
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+```
+
+![zsh-autosuggestions](./zsh-autosuggestions.png)
+
+#### zsh-syntax-highlighting
+
+This plugin will provide syntax highlightinh on the zsh shell.
+
+```bash
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+```
+
+Okey, now we need to put our _.zshrc_ to the `home` folder. You can copy [mine](https://github.com/uguremirmustafa/.dotfiles/blob/master/zsh/.zshrc) to this location: 👉 `/home/<your-username>/.zshrc`. Don't forget to put your username instead of mine(_anomy_) in the file.
+
+Now you must see the changes after closing and re-opening the terminal. If you face any problem, you can hit me on [twitter](https://twitter.com/uguremirmustafa) and I will try to help you.
+
+### 1.4. Fonts
+
+On Ubuntu you can store your favourite fonts on this location: 👉 `/home/<your-username>/.fonts`
+
+I use _Source Code Pro_ as my terminal and VSCode font. You can get the same font files from my [.dotfiles](https://github.com/uguremirmustafa/.dotfiles) or from [Google Fonts.](https://fonts.google.com/specimen/Source+Code+Pro) After downloading the files, don't forget to put them in `.fonts` folder in the home.
+
+## 2. Browser
+
+We, web developers, need to handle cross-browser compatibility issues, so we need to test our application in all major browsers. But it is a fact that, we all have a favorite browser. Mine is [Brave Browser.](https://brave.com/)
+
+Check this out 👇
+
+![Brave](./brave.png)
+
+If you're convinced too, let's install it!
+
+### 2.1. Install Brave Browser
+
+We will follow the [official installation page](https://brave.com/linux/) on the website of the Brave browser. Just run these commands one after the other.
+
+```bash
+sudo apt install apt-transport-https curl
+
+sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+
+echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-release.list
+
+sudo apt update
+
+sudo apt install brave-browser
+```
+
+### 2.2. Configure Brave Browser
+
+Brave Browser has some default settings to prevent cookies and third party scripts. It might cause some _CORS_ issues. You can change these settings on `settings > shields > cookies.`
+
+### 2.3. Install Extensions
+
+Brave Browser uses _chromium engine_ so you can install Chrome extensions easily on it. Let's install some major extensions to boost up our productivity while creating React applications.
+
+- [React Developer Tools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi)
+- [ColorZilla](https://chrome.google.com/webstore/detail/colorzilla/bhlhnicpbhignbdhedgjhgdocnmhomnp/related?authuser=1)
+
+## 3. VSCode
+
+VSCode is an open source text editor developed and maintained by Microsoft, which is very popular among web developers. Its highly customisable structure is one of the reasons behind its popularity. So today we will install VSCode and some extensions for react development. After that we will make our text-editor beautiful with _gruvbox_ theme and icons. Let's get going!
+
+### 3.1. Install VSCode on Ubuntu
+
+There are a few community based versions of VSCode but we will stick to the official version. In order to install it, we will follow [official guide.](https://code.visualstudio.com/docs/setup/linux) Just click [here](https://go.microsoft.com/fwlink/?LinkID=760868) to download VSCode. After that open your terminal in the location of downloaded file and simply install it by running this command: 👇
+
+```bash
+sudo apt install ./<downloaded-file-name>.deb
+```
+
+After the installation process, you can run the application by typing `code` in your terminal.
+
+### 3.2. Install Most Popular React Extensions on VSCode
+
+I use these extensions to extend my productivity and save some time and effort.
+
+> In order to install an extension in Linux, you can hit `ctrl` + `p` and then paste the extension installer snippet (I will list them down below) and finally hit `enter`.
+
+- VS Code ES7 React/Redux/React-Native/JS snippets
+
+Simple extensions for React, Redux and Graphql in JS/TS with ES7 syntax
+
+```bash
+ext install dsznajder.es7-react-js-snippets
+```
+
+- React Hooks Snippets
+
+Code snippets for React Hooks, easily call useState, useEffect and many more!
+
+```bash
+ext install AlDuncanson.react-hooks-snippet
+```
+
+- Prettier Formatter for Visual Studio Code
+
+Code formatter using prettier.
+
+```bash
+ext install esbenp.prettier-vscode
+```
+
+- GraphQL for VSCode
+
+GraphQL syntax highlighting, linting, auto-complete, and more!
+
+```bash
+ext install kumar-harsh.graphql-for-vscode
+```
+
+### 3.3. Give a nice look to your VSCode with Gruvbox Theme and Icons
+
+We all want to have a nice looking setup but at the same time easy on the eyes. From that perspective, I find [Gruvbox](https://github.com/morhetz/gruvbox) as a perfect choice.
+
+![Gruvbox Theme Palette](./gruvbox.png)
+
+There are lots of gruvbox themes in the VSCode Marketplace but I prefer [this one](https://marketplace.visualstudio.com/items?itemName=jdinhlife.gruvbox) from the author [jdinhlife](https://marketplace.visualstudio.com/publishers/jdinhlife). Let's install it with this command after hitting `ctrl` + `shift` + `p`.
+
+```bash
+ext install jdinhlife.gruvbox
+```
+
+After installing the theme, it will be available in the theme menu. You can reach to the menu by hitting `ctrl` + `k` than `ctrl` + `t`.
+
+For the icon set, I use [Gruvbox Material Icon Theme](https://marketplace.visualstudio.com/items?itemName=JonathanHarty.gruvbox-material-icon-theme) from [Jonathon Hardy.](https://marketplace.visualstudio.com/publishers/JonathanHarty)
+
+```bash
+ext install JonathanHarty.gruvbox-material-icon-theme
+```
+
+### 3.4. Change the fonts on VSCode
+
+Changing the font on VSCode is an easy task. It includes two steps to follow:
+
+1.  Install the fonts to your system
+2.  Change font settings on your VSCode `settings.json` file
+
+#### 3.4.1 Install your desired font to your Ubuntu system
+
+There are tons of places to find awesome fonts but today we will install _Source Code Pro_ font from [Google Fonts.](https://fonts.google.com/) You can download this font by executing this command:👇
+
+```bash
+curl https://fonts.google.com/download\?family\=Source%20Code%20Pro --output font.zip
+```
+
+> Notice that we used `curl` utility to fetch remote data from command line and we specified the output file with `--output` flag.
+
+After downloading font file we need to put it in the correct place in our system. Make sure you have `.fonts` folder in your home directory. This zip file will include all variants of the font family. After extracting the downloaded zip file into `.fonts` folder, it will be available throughout your system. Sometimes it may require you to re-login.
+
+> Remember that folders and files starting with dot (.) are hidden in Linux. In order to list all hidden files use `ls -la` command.
+
+#### 3.4.2 Change font settings in `settings.json` file
+
+You can find your VSCode settings in `settings.json` file. In order to open that file
+
+- open command panel by hitting `ctrl` + `shift` + `p`
+- type 'open settings'
+- choose preferences: Open Settings (JSON)
+
+You can specifiy your preferred font for editor and integrated terminal with these lines: 👇
+
+```js
+"editor.fontFamily": "'Source Code Pro Semibold','monospace'",
+"terminal.integrated.fontFamily": "Source Code Pro Semibold"
+```
+
+## 4. Node
+
+Node.js and npm are two fundamental tools for Javascript developers. You will need them in allmost all your projects.
+
+### 4.1. Node Version Manager (NVM)
+
+Sometimes you may need different versions of _node_ and _npm_ because of the different requirements of your project. It is a better idea to manage your node and npm versions with a utility rather than doing it manually. So I explained how to manage multiple node versions in Ubuntu with _nvm_ [in this article.](https://www.devugur.com/blog/how-to-install-different-node-versions-on-linux) Please refer to that article for this section of the guide.
+
+### 4.2. Yarn
+
+I don't want to bore you with this huge discussion: yarn or npm, which one is better? I like yarn more because of its shorter syntax. Install it globally with this one-liner:👇
+
+```bash
+npm install --global yarn
+```
+
+Check the installation with `yarn --version`.
+
+## 5. API Client
+
+Working with APIs is a huge part of React development. Most of the time we use `console.log` to test our API but there are tools for testing APIs. I use _Insomnia_ mainly but sometimes _Curl_ is also a nice handy terminal tool to hit APIs. Let's install them on our system.
+
+### 5.1. Install Insomnia on Ubuntu 20.04
+
+You can download Insomnia from [this address.](https://insomnia.rest/download) It will download a _.deb_ file which can be installed by running this command after changing directory to the download folder:👇
+
+```bash
+cd ~/Downloads
+sudo dpkg -i <name-of-the-file.deb>
+```
+
+### 5.2. Install Curl on Ubuntu 20.04
+
+We have installed _Curl_ on previous steps but if you have skipped, you can install it with this command:👇
+
+```bash
+sudo apt install curl
+```
+
+## 6. Basic Design Tools for React Developer on Ubuntu
+
+Having a consistent design throughout your application or website is crucial. There is a big discussion on this topic, whether a frontend developer should know designing concepts or not, but I will skip that never-ending discussion and jump into the tools that many developers use on daily basis.
+
+### 6.1. Installing Figma on Ubuntu
+
+Figma is a widely used designing tool for web design. It is relatively easy to learn and setup. Let's install it via _snap._
+
+> Snap is pre-installed on Ubuntu 20.04 but if it is not installed on your system, you can check the setup process on [snap store.](https://snapcraft.io/store)
+
+```bash
+sudo snap install figma-linux
+```
+
+### 6.2. GNU Image Manipulation Program (GIMP) - Open Source Photoshop Replacement
+
+Adobe products are not available on Linux so you cannot use Adobe Photoshop on Ubuntu. But don't worry, there is a great open source alternative in Linux: Gimp. It has a steep learning curve but you can do anything with it that you do with Photoshop.
+
+```bash
+sudo apt install gimp
+```
+
+### 6.3. Gthumb - Small Image Viewing and Editing Tool
+
+You can view your images and make small adjustment like cropping, adding filters, rotating etc. with [Gthumb.](https://wiki.gnome.org/Apps/Gthumb)
+
+```bash
+sudo apt install gthumb
+```
+
+## 7. Extras
+
+In this section I will share some of my tools that I use often in my Ubuntu setup to boost up my productivity and make it more enjoyable.
+
+### 7.1. Keepassxc - Password Manager
+
+These days remembering all your passwords is becoming impossible if you don't use the same password in every website you visit, which is definetely a very bad idea.
+
+There are different tools to manage your all passwords. Some of them store your password in an online database like [LastPass.](https://www.lastpass.com/) It is a kind of risky choice to rely on a company for saving all of your passwords. That's why I prefer [Keepassxc](https://keepassxc.org/), which stores your passwords in a encrypted database file on your local machine. You can save it somewhere safe and that's it. In order to share it with your other devices, you can use services like Dropbox or NextCloud.
+
+You can install it with this command: 👇
+
+```bash
+sudo apt install keepassxc
+```
+
+### 7.2. Rofi - Application Launcher
+
+Rofi is like a Swiss Knife, you can do lots of things with it but its main purpose is window switching and application launching. I personally use it to launch my applications and for _copying emojis to clipboard._
+
+You can install it with this command: 👇
+
+```bash
+sudo apt install rofi
+```
+
+After installing it, you can launch it with your terminal like this: `rofi -show drun`
+
+It is not a good idea to open it via terminal. You can set a keybinding to this command and easily launch your applications.
+
+### 7.3. Rofimoji - Rofi Emoji Selector
+
+As I mentioned above, you can use rofi for many use cases, for example _as an emoji selector._ We will install a utility called [rofimoji]() to get this functionality.
+
+It can be installed via _pip,_ so we need to install pip and other dependencies first.
+
+```bash
+sudo apt install python3-pip fonts-emojione python3 rofi xdotool xsel
+```
+
+Than the package itself:
+
+```bash
+sudo pip install rofimoji
+```
+
+Now it must be ready. You can launch rofimoji with `-a copy` flag. It will allow you to copy selected emoji and close the rofi.
+
+```bash
+rofimoji -a copy
+```
+
+You can simply add a keybinding to this command and launch your emoji selector easily.
+
+## Conclusion
+
+Congradulations! 🎉🎉
+
+You have managed to set your Ubuntu system for React development.
+
+I hope you enjoyed the guide and learned lots of new valuable information.
+
+If you have any questions about any step feel free to reach me via [email](mailto:uguremirmustafa@gmail.com) or [twitter](https://twitter.com/uguremirmustafa). If you liked this guide, please consider following me on [twitter](https://twitter.com/uguremirmustafa) and [github](https://github.com/uguremirmustafa). It means a lot for me!
+
+Thanks for your time ⌛ and feedback 💭 in advance!
+
+Have a wonderful day! 🥳

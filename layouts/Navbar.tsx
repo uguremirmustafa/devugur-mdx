@@ -12,7 +12,7 @@ interface Props {
   contentType: string;
 }
 
-const paths = ['home', 'portfolio', 'blog', 'about', 'gear'];
+const paths = ['home', 'portfolio', 'blog', 'about'];
 
 const navmenuVariants = {
   initial: {
@@ -129,6 +129,8 @@ export const Navbar = ({ alternate, contentType }: Props) => {
 
       <motion.button
         id="openerHam"
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 1.1 }}
         className={`hamburgerBtn ${open ? 'openHamburger' : 'closedHamburger'}`}
         onClick={() => setOpen(true)}
       >

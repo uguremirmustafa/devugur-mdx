@@ -6,7 +6,6 @@ import { serialize } from 'next-mdx-remote/serialize';
 import mdxPrism from 'mdx-prism';
 import { getRouteImageMeta } from '@utils/image-api';
 import visit from 'unist-util-visit';
-
 const root = process.cwd();
 
 export async function getSlugs(type: string, locale: string) {
@@ -49,6 +48,7 @@ export async function getFileBySlug(type: string, slug: string, locale: string) 
   const source = fs.readFileSync(`${fullPath}.mdx`, 'utf8');
 
   const { data, content } = matter(source);
+
   const mdxSource = await serialize(content, {
     mdxOptions: {
       remarkPlugins: [
@@ -126,7 +126,7 @@ export async function getAllFilesFrontMatter(
           publishedAt: string;
           title: string;
           summary: string;
-          image: string;
+          images: string[];
           techStack?: string[];
           tags?: string[];
           locale: string;
@@ -134,6 +134,8 @@ export async function getAllFilesFrontMatter(
           alternate: string;
           type: string;
           selected?: boolean;
+          github?: string;
+          demo?: string;
         }),
         files: fileNames,
       };

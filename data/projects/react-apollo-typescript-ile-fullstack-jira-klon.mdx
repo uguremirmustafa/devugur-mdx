@@ -2,7 +2,11 @@
 title: React, Apollo ve Typescript ile Fullstack Jira Klonu
 summary: Bu projede kullanıcıların bütün bir yazılım projesinin gelişimini takip edebilecekleri sektörde sıklıkla kullanılan Jira uygulamasının bir klonu oluşturulmaya çalışılmıştır. Farklı kullanıcı katmanları ve bu kullanıcıların sahip olduğu erişim düzeyleri sayesinde çalışma ekibine güvenle yeni üyeler eklenebilmektedir. Bunların dışında birçok özelliğe sahip uygulamayı hemen inceleyin.
 publishedAt: '2021-08-02'
-image: '/images/portfolio/react-apollo-typescript-ile-fullstack-jira-klon/real-jira.png'
+images:
+  [
+    '/images/portfolio/fullstack-jira-clone-with-react-apollo-and-typescript/jira-yellow-board.png',
+    '/images/portfolio/fullstack-jira-clone-with-react-apollo-and-typescript/jira-yellow-issue-dialog.png',
+  ]
 techStack: ['React', 'Apollo', 'GraphQL', 'Hasura', 'Postgres', 'Auth0', 'Material-UI']
 tags: ['react', 'graphql', 'typescript']
 locale: tr
@@ -10,7 +14,11 @@ alternate: '/portfolio/fullstack-jira-clone-with-react-apollo-and-typescript'
 type: project
 isPublished: true
 selected: true
+github: https://github.com/uguremirmustafa/jira-clone
+demo: https://jira-clone-devugur.vercel.app
 ---
+
+![jira-issue-dialog](./jira-yellow-issue-dialog.png)
 
 Biz yazılımcıların işi temelde problemlere çözüm bulmak ve bunu yaparken de olabildiğince etkili ve verimli olabilmektir. Ancak bunun söylendiği kadar kolay olmadığını hepimiz biliyoruz. Bu nedenle verimliliğimizi artırmak için problemin başladığı andan itibaren işlerimizi kolaylaştırı araçlarla çalışıyoruz.
 
@@ -20,7 +28,7 @@ Bu araçların arasında önemli bir yere sahip olan proje takip araçları da y
 
 Bu da benim geliştirmiş olduğum versiyonu: 👇🏻
 
-![Jira-Clone by uğur emirmustafaoğlu](./my-version-jira.png)
+![Jira-Clone by uğur emirmustafaoğlu](./jira-yellow-board.png)
 
 Fullstack olarak tasarladığım uygulamada kullanıcı tarafında React kullanırken, backend tarafında ise [Hasura](https://hasura.io/)'dan faydalandım. Tamamen **GraphQL** ile çalışan uygulamada **Apollo Client** ile veri alışverişini sağladım. Bu noktada hiçbir _state management library_ kullanmayıp kullanıcı tarafındaki bütün veriyi **Apollo Cache** ile yönettim. Arayüz tasarımında ise [popüler](https://hackernoon.com/5-most-popular-react-ui-component-libraries-5sx3t9c) bir tercih yaparak [Material-UI](https://material-ui.com/) kullandım.
 
@@ -60,7 +68,7 @@ Böylece kullanacağım araçlara da karar vermiş oluyordum. Sırada ise veri y
 
 Bu aşama uygulamadaki verilerin birbirleri ile ne şekilde ilişki kuracaklarını belirlediğim aşama olacaktı. Yani her şey bunun üzerine kurulacaktı. O yüzden tabloları ve aralarındaki ilişkiyi gösteren bir grafik çizdim. Ancak malesef bu aşamada biraz da olsa çuvalladım. Bütün ilişkileri bir anda kafamda canlandırmak açıkçası biraz zordu fakat sonunda başardım. Bu ilk olarak çizmiş olduğum grafik fakat bunu çizdikten sonra köprünün altından çok sular geçti. 😅😅
 
-![Veritabanı grafiği](./draw.png)
+![Veritabanı grafiği](./jira-yellow-draw.png)
 
 Veri yapısını da hallettikten sonra artık sıra `React` 💕 yazmaya geldi.
 

@@ -1,8 +1,12 @@
 ---
 title: Fullstack Jira-Clone Application with React, Apollo and Typescript
-summary: In this project I created a issue/bug tracker application with React, Typescript and Graphql. It is simply a Jira-Clone where users can keep track of their software development process by creating project stages/columns and issues. It supports role based access control which means every user will have different access capabilities to different parts of the project.
+summary: In this project I created an issue/bug tracker application with React, Typescript and Graphql. It is simply a Jira-Clone where users can keep track of their software development process by creating project stages/columns and issues. It supports role based access control which means every user will have different access capabilities to different parts of the project.
 publishedAt: '2021-08-02'
-image: '/images/portfolio/fullstack-jira-clone-with-react-apollo-and-typescript/my-version-jira.png'
+images:
+  [
+    '/images/portfolio/fullstack-jira-clone-with-react-apollo-and-typescript/jira-yellow-board.png',
+    '/images/portfolio/fullstack-jira-clone-with-react-apollo-and-typescript/jira-yellow-issue-dialog.png',
+  ]
 techStack: ['React', 'Apollo', 'GraphQL', 'Hasura', 'Postgres', 'Auth0', 'Material-UI']
 tags: ['react', 'graphql', 'typescript']
 locale: en
@@ -10,7 +14,11 @@ alternate: '/portfolio/react-apollo-typescript-ile-fullstack-jira-klon'
 type: project
 isPublished: true
 selected: true
+github: https://github.com/uguremirmustafa/jira-clone
+demo: https://jira-clone-devugur.vercel.app
 ---
+
+![jira-issue-dialog](./jira-yellow-issue-dialog.png)
 
 Our mission as developers is simply finding solutions to the problems and while doing that being efficent and productive as much as we can do. We all know that it is not as easy as it sounds. That's why we use lots of productivity boosting tools to help us in this process.
 
@@ -20,7 +28,7 @@ Our mission as developers is simply finding solutions to the problems and while 
 
 And this is the one that I build. Pretty similar hah! 😆
 
-![Jira-Clone by uğur emirmustafaoğlu](./my-version-jira.png)
+![Jira-Clone by uğur emirmustafaoğlu](./jira-yellow-board.png)
 
 I designed this application as a fullstack one, while using React and Apollo on the client side I used [Hasura](https://hasura.io/) on the backend. It is totally based on **Graphql.** As a data fetching library I prefered the _Apollo Client_ and it helped me with the _state management_ too. Apollo cache was a great solution for _client data caching_ with its **in-memory-cache.** And finally for the user interface - most probably you have guessed it already - I use [Material-UI.](https://material-ui.com/)
 
@@ -59,7 +67,7 @@ After deciding on the tools for the project, it was time to burn my brain with d
 
 This step was crucial for the project's destiny because I was supposed to define all the relations, permissions and all other jazz correctly. To prevent potential misconfiguration of the database, I opened my browser and created this info-graphic.
 
-![Database graphic](./draw.png)
+![Database graphic](./jira-yellow-draw.png)
 
 This represents my initial thoughts on the data but the data had some other ideas. 😵 Anyway, I changed my data structure a few times during the project but it is fine right now. 😄
 
