@@ -21,7 +21,7 @@ export default function BlogLayout({ children, frontMatter }: Props) {
       alternate={frontMatter.alternate}
       contentType={frontMatter.type}
     >
-      <article className="flex flex-col justify-center items-start max-w-2xl mx-auto mb-16 w-full">
+      <article className="flex flex-col justify-center items-start max-w-3xl mx-auto mb-16 w-full">
         <ArticleMeta
           title={frontMatter.title}
           publishedAt={frontMatter.publishedAt}

@@ -3,6 +3,7 @@ import '@styles/globals.scss';
 import 'react-image-lightbox/style.css';
 import { ThemeProvider } from 'next-themes';
 import { AnimatePresence } from 'framer-motion';
+import SearchModal from '@components/Sections/SearchModal';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

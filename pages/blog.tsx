@@ -4,7 +4,9 @@ import { getAllFilesFrontMatter } from '@lib/mdx';
 import { InferGetStaticPropsType } from 'next';
 import useTranslation from 'next-translate/useTranslation';
 import { Card } from '@components/Sections/Card';
-import { motion, useViewportScroll } from 'framer-motion';
+import { motion } from 'framer-motion';
+import { useHotkeys } from 'react-hotkeys-hook';
+import SearchModal from '@components/Sections/SearchModal';
 
 const wrapperVariants = {
   initial: {
@@ -15,6 +17,23 @@ const wrapperVariants = {
     transition: {
       duration: 1,
     },
+  },
+};
+
+const variants = {
+  initial: {
+    opacity: 0,
+    y: -100,
+  },
+  animate: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+    },
+  },
+  exit: {
+    opacity: 0,
   },
 };
 
@@ -34,45 +53,39 @@ export default function Blog({ posts }: InferGetStaticPropsType<typeof getStatic
     .sort((a, b) => Number(new Date(b.publishedAt)) - Number(new Date(a.publishedAt)))
     .filter((frontMatter) => frontMatter.title.toLowerCase().includes(searchValue.toLowerCase()));
 
-  //framer animations
-  // const { scrollYProgress } = useViewportScroll();
-  // console.log(scrollYProgress);
+  const [showSearch, setShowSearch] = useState(false);
+
+  const handleShortcut = () => {
+    setShowSearch((showSearch) => !showSearch);
+  };
+
+  useHotkeys('ctrl+y', handleShortcut, {
+    filterPreventDefault: false,
+    enableOnTags: ['INPUT'],
+  });
 
   return (
     <Container title={metaTitle} description={metaDescription}>
       <div className="flex flex-col justify-center items-start max-w-2xl mx-auto mb-16">
-        <h1 className="font-bold text-3xl md:text-5xl tracking-tight mb-8 text-black dark:text-white">
-          {title}
-        </h1>
-        <p className="text-gray-600 dark:text-gray-400 mb-4">{description}</p>
-        <div className="relative w-full mb-4">
-          <input
-            aria-label={search}
-            type="text"
-            onChange={(e) => setSearchValue(e.target.value)}
-            placeholder={search}
-            className="outline-none px-4 py-2 border border-gray-300 dark:border-gray-900 focus:ring-red-500 focus:border-gray-400 block w-full rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
-          />
-          <svg
-            className="absolute right-3 top-3 h-5 w-5 text-gray-400 dark:text-gray-300"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-            />
-          </svg>
-        </div>
-        <h2 className="font-bold text-2xl md:text-4xl tracking-tight my-8 text-black dark:text-white">
-          {allPosts}
-        </h2>
+        <SearchModal
+          open={showSearch}
+          setOpen={setShowSearch}
+          search={search}
+          setSearchValue={setSearchValue}
+        />
+        {!showSearch && (
+          <motion.div initial="initial" animate="animate" exit="exit" variants={variants}>
+            <h1 className="font-bold text-3xl md:text-5xl tracking-tight mb-8 text-black dark:text-white">
+              {title}
+            </h1>
+            <p className="text-gray-600 dark:text-gray-400 mb-4">{description}</p>
+            <h2 className="font-bold text-2xl md:text-4xl tracking-tight my-8 text-black dark:text-white">
+              {allPosts}
+            </h2>
+          </motion.div>
+        )}
         {!filteredBlogPosts.length && (
-          <p className="text-gray-600 dark:text-gray-400 mb-4">{noPostsFind}</p>
+          <p className="text-gray-600 dark:text-gray-400 mb-4 w-full">{noPostsFind}</p>
         )}
         <motion.div
           initial="initial"

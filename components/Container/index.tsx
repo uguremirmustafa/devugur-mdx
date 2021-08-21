@@ -4,6 +4,7 @@ import { Navbar } from 'layouts/Navbar';
 import { Footer } from 'layouts/Footer';
 import { ReactNode, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import SearchModal from '@components/Sections/SearchModal';
 interface Props {
   children: ReactNode;
   title: string;
@@ -69,7 +70,6 @@ export default function Container(props: Props) {
         alternate={customMeta.alternate ? customMeta.alternate : ''}
         contentType={customMeta.contentType}
       />
-
       <motion.main
         key={router.route}
         initial="initial"
@@ -77,7 +77,7 @@ export default function Container(props: Props) {
         exit="exit"
         variants={contentVariants}
         id="skip"
-        className="new flex flex-col justify-center px-6 bg-white dark:bg-gray-900 pt-4 pb-8 max-w-2xl w-full mx-auto "
+        className="new flex flex-col justify-center px-6 bg-white dark:bg-gray-900 pt-4 pb-8 max-w-3xl w-full mx-auto"
       >
         {children}
         <Footer
