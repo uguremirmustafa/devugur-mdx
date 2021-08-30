@@ -5,7 +5,7 @@ publishedAt: '2021-08-22'
 image: '/images/blog/ubuntu-react-kurulumu/banner.png'
 locale: tr
 tags: ['react', 'geliştirme ortamı', 'ubuntu', 'kurulum', 'kılavuz', 'terminal']
-isPublished: false
+isPublished: true
 alternate: '/blog/setup-react-development-environment-on-ubuntu'
 type: blog
 selected: true
@@ -82,7 +82,7 @@ Urxvt terminalizin temasını değiştirmek istiyorsanız yapacağınız tek **h
 urxvt*font: xft:Source Code Pro Black:style=Regular:size=14
 ```
 
-<ProTip tip="_.Xresources_ dosyasına yapmış olduğunuz değişikliklerin geçerlilik kazanması için `xrdb -merge ~/.Xresources` kodunu çalıştırmanız gerekmektedir." />
+<ProTip tip=".Xresources dosyasına yapmış olduğunuz değişikliklerin geçerlilik kazanması için `xrdb -merge ~/.Xresources` kodunu çalıştırmanız gerekmektedir." />
 
 > _.Xresources_ dosyası da dahil olmak üzere bu kılavuzda kuracağımız tüm uygulamalara ve daha fazlasına ait konfigürasyon dosyalarının yer aldığı repoyu [burada](https://www.github.com/uguremirmustafa/.dotfiles) bulabilirsiniz.
 
@@ -213,3 +213,103 @@ Piyasada topluluk destekli birkaç VSCode sürümü olmakla beraber biz Microsof
 ```bash
 sudo apt install ./<downloaded-file-name>.deb
 ```
+
+Kurulumun ardından terminalde `code` yazarak VSCode uygulamanızı çalıştırabilirsiniz! 🥳
+
+### 3.2. React Geliştiricileri İçin En Popüler VSCode Eklentileri
+
+Kod yazarken tekrar eden eylemler bir süre sonra can sıkıcı bir hal almaya başlayabiliyor. Bu yüzden hem verimliliğimi artırmak hem de zaman kazanmak için bazı eklentiler ile VSCode çalışma ortamımı zenginleştiriyorum. Şimdi bunlara göz atalım ve ardından kolayca sistemimize kuralım.
+
+> VSCode'da eklenti kurmak için `ctrl` + `p` kombinasyonu ile komut panelini açıyoruz. Ardından da birazdan aşağıda sıralayacağım kodları her bir eklenti için yapıştırıp çalıştırıyoruz.
+
+- VS Code ES7 React/Redux/React-Native/JS snippets
+
+Bu bir vazgeçilmez! Hızlı bir şekilde React componenti iskeletini oluşturmana yarayan bu eklenti Redux ve Graphql için de kullanılabilir.
+
+```bash
+ext install dsznajder.es7-react-js-snippets
+```
+
+- React Hooks Snippets
+
+React Hook yapıları için kod parçacıkları. Kolaylıkla useState, useEffect ve birçok diğer hook yapısı!
+
+```bash
+ext install AlDuncanson.react-hooks-snippet
+```
+
+- Prettier Formatter for Visual Studio Code
+
+Prettier kodunuzun daha okunabilir görünmesi için geliştirilmiş bir eklenti. Kodunuzu her kaydettiğinizde boşluklar, noktalı virgüller, girintiler vs. kendiliğinden düzenlensin.
+
+```bash
+ext install esbenp.prettier-vscode
+```
+
+- GraphQL for VSCode
+
+GraphQL için söz dizimi renklendirme, linting, auto-complete ve daha fazlası!
+
+```bash
+ext install kumar-harsh.graphql-for-vscode
+```
+
+### 3.3. VSCode Kurulumunuzu Gruvbox Teması ve İconları ile Şenlendirin 😄
+
+Uzun saatler ekrana bakmanın gözlerimiz üzerindeki etkisini hepimiz biliyoruz. Uzun ekran süresinin gözümüz üzerindeki olumsuz etkisini azaltmak için doğru tema seçimi gerçekten önemli. Hem görsellik hem de göz sağlığı açısından ben [Gruvbox](https://github.com/morhetz/gruvbox) renk paletini tercih ediyorum.
+
+![Gruvbox Theme Palette](./gruvbox.png)
+
+VSCode marketinde birçok Gruvbox teması var fakat ben [jdinhlife'ın](https://marketplace.visualstudio.com/publishers/jdinhlife) geliştirmiş olduğu [bu](https://marketplace.visualstudio.com/items?itemName=jdinhlife.gruvbox) temayı kullanıyorum. Kurmak için `ctrl` + `p` kombinasyonu ile paneli açalım ve ardından aşağıdaki kodu yapıştıralım.
+
+```bash
+ext install jdinhlife.gruvbox
+```
+
+Temayı kurduğumuza göre artık etkinleştirebiliriz. Tema tercih menüsüne önce `ctrl` + `k` ardından `ctrl` + `t` kısayolu ile ulaşabiliriz.
+
+İcon seti için ise [Jonathon Hardy'nin](https://marketplace.visualstudio.com/publishers/JonathanHarty) geliştirdiği [Gruvbox Material Icon Theme](https://marketplace.visualstudio.com/items?itemName=JonathanHarty.gruvbox-material-icon-theme) isimli icon setini kullanıyorum.
+
+```bash
+ext install JonathanHarty.gruvbox-material-icon-theme
+```
+
+### 3.4. VSCode Yazı Stili Değiştirme
+
+Hepimiz favori bir font tercihi var. VSCode'da bu fontu kullanmak istediğinizde yapmanız gereken ise çok basit:
+
+1. Fontu sisteminize kurun
+2. VSCode `settings.json` dosyasından font tercihinizi yeni kurmuş olduğunuz font ile değiştirin.
+
+#### 3.4.1 Favori Font Setinizi Ubuntuya Kurmak
+
+Piyasada binlerce font bulunmakta fakat bugün ben kendi favori fontum olan _Source Code Pro_'yu kuracağız. Bu fontu [Google Fonts.](https://fonts.google.com/) sayfasında bulabilirsiniz fakat ben size fontu indirmek için gerekli komutu buraya bırakıyorum: 👇
+
+```bash
+curl https://fonts.google.com/download\?family\=Source%20Code%20Pro --output font.zip
+```
+
+> Dikkat ettiyseniz uzaktaki dosyayı indirmek için _curl_ aracını kullandık. İnen dosyanın adını belirtmek için ise _--output_ flag'ini kullandık.
+
+Dosya indikten sonra yapmamız gereken font dosyalarını zip arşivinden çıkarıp doğru konuma yerleştirmek. O doğru konum ise: 👉 `/home/<kullanıcı adın>/.fonts`
+
+> Eğer ev klasöründe `.fonts` klasörü yoksa yaratmayı unutma: 👉 `mkdir ~/.fonts`
+
+Her şey doğru gittiyse _Source Code Pro_ fontu sistemine kurulmuş olmalı. Değişiklilerin geçerli olması için bazen oturum kapatıp açmak gerekebiliyor.
+
+#### 3.4.2 VSCode `settings.json` Dosyasında Font Tercihini Değiştirmek
+
+VSCode'daki kişisel ayarlarının tutulduğu dosya `settings.json` dosyasıdır. Bu dosyaya ulaşmak için:
+
+- Komut panelini aç: `ctrl` + `shift` + `p`
+- 'open settings' yaz
+- Sıralanan seçeneklerden Open Settings (JSON) seçeneğine tıkla.
+
+Bu dosyada font ayarlarını değiştirmek çok kolay, sadece fontun tam adını girmeyi unutma. Aşağıdaki ayarlar hem entegre terminalin hem de VSCode editörünün font ayarlarını değiştirecek: 👇
+
+```js
+"editor.fontFamily": "'Source Code Pro Semibold','monospace'",
+"terminal.integrated.fontFamily": "Source Code Pro Semibold"
+```
+
+## 4. Node
