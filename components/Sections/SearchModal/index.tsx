@@ -47,8 +47,10 @@ const SearchModal = ({ open, search, setSearchValue, setOpen }: Props) => {
           className="w-full border border-gray-400 text-gray-400 rounded-md px-4 py-3 text-base flex gap-2 items-center justify-between cursor-pointer"
           onClick={() => setOpen(true)}
         >
-          <span className="hidden md:block">Search</span>
-          <span className="border border-gray-400 px-2 py-1 rounded-md">ctrl + y</span>
+          <span className="">Search</span>
+          <span className="hidden md:block border border-gray-400 px-2 py-1 rounded-md">
+            ctrl + y
+          </span>
         </div>
       )}
       <AnimatePresence>

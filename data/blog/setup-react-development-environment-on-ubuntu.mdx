@@ -6,7 +6,7 @@ image: '/images/blog/setup-react-development-environment-on-ubuntu/banner.png'
 locale: en
 tags: ['react', 'development environment', 'ubuntu', 'setup']
 isPublished: true
-alternate: ''
+alternate: '/blog/ubuntu-react-kurulumu'
 type: blog
 selected: true
 ---
@@ -16,7 +16,7 @@ As a Linux enthusiast and React developer, I enjoy the experience on Ubuntu. In 
 - Terminal setup
   - Urxvt terminal emulator
   - Git and Curl (!)
-  - ZSH setup
+  - ZSH setup and Oh My ZSH
   - Fonts
 - Browser
   - Brave Browser
@@ -47,8 +47,6 @@ I know, this is a fairly long list but you don't need to follow all the steps. I
 ## Prerequisites
 
 In order to follow this guide you will need a Ubuntu based system, like main Ubuntu release, Mint or etc. You won't need any deep Linux knowledge to follow, as I will guide you through all the process step by step. If you are coming from Windows or Mac, there are tons of tutorials and videos about installing Ubuntu on your machine out there, so I will skip this step.
-
-> I would like to mention an important point about my Ubuntu setup. I prefer using tiling window managers over stacking window managers. The following steps won't be different for Gnome Desktop Environment (Ubuntu's default desktop environment) but yours will look a bit different.
 
 ## Let's Start
 
@@ -100,7 +98,7 @@ _Curl_ is a terminal based data transfer tool. It is used for many purposes espe
 sudo apt install curl
 ```
 
-### 1.3. Setup ZSH
+### 1.3. Setup ZSH and Oh My ZSH
 
 [ZSH](https://www.zsh.org/) is a powerfull shell used in Unix systems. It enriches the terminal experience with lots of plugins, themes etc. It is similar to _fish_ shell but I like ZSH more because of the large community behind it.
 
@@ -150,7 +148,7 @@ Now you must see the changes after closing and re-opening the terminal. If you f
 
 On Ubuntu you can store your favourite fonts on this location: 👉 `/home/<your-username>/.fonts`
 
-I use _Source Code Pro_ as my terminal and VSCode font. You can get the same font files from my [.dotfiles](https://github.com/uguremirmustafa/.dotfiles) or from [Google Fonts.](https://fonts.google.com/specimen/Source+Code+Pro) After downloading the files, don't forget to put them in `.fonts` folder in the home.
+I use _Source Code Pro_ as my terminal and VSCode font. You can get the same font files from my [.dotfiles](https://github.com/uguremirmustafa/.dotfiles/tree/master/fonts/.fonts) or from [Google Fonts.](https://fonts.google.com/specimen/Source+Code+Pro) After downloading the files, don't forget to put them in `.fonts` folder in the home.
 
 ## 2. Browser
 
@@ -187,6 +185,7 @@ Brave Browser has some default settings to prevent cookies and third party scrip
 Brave Browser uses _chromium engine_ so you can install Chrome extensions easily on it. Let's install some major extensions to boost up our productivity while creating React applications.
 
 - [React Developer Tools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi)
+- [Redux Dev Tools](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en)
 - [ColorZilla](https://chrome.google.com/webstore/detail/colorzilla/bhlhnicpbhignbdhedgjhgdocnmhomnp/related?authuser=1)
 
 ## 3. VSCode

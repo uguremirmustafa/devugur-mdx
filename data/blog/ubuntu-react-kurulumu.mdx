@@ -1,0 +1,215 @@
+---
+title: Ubuntuda React Geliştirme Ortamı Hazırlama Kılavuzu
+summary: Bir React geliştiricisi olarak Ubuntu'ya geçiş yapmak mı istiyorsun? Bu kılavuzu adım adım takip ederek Ubuntu yüklü bilgisayarınızı React geliştirmek üzere hazırlayabilirsin. VSCode ve tarayıcı ayarları, terminal kişiselleştirme, fontlar, temalar ve birçok ekstra ipucu...
+publishedAt: '2021-08-22'
+image: '/images/blog/ubuntu-react-kurulumu/banner.png'
+locale: tr
+tags: ['react', 'geliştirme ortamı', 'ubuntu', 'kurulum', 'kılavuz', 'terminal']
+isPublished: false
+alternate: '/blog/setup-react-development-environment-on-ubuntu'
+type: blog
+selected: true
+---
+
+Uzun zamandır Linux kullanan biri olarak Ubuntu'nun bana gayet iyi bir deneyim sunduğunu söyleyebilirim. React geliştirmek için Ubuntu'yu ana işletim sistemi olarak kullanan birçok geliştirici olduğunu biliyorum. Eğer sen de bu listede yerini almak ve bunu yaparken de kafa ağrıtan ufak detaylarla boğuşmak istemiyorsan bu kılavuz tam sana göre. Lafı çok uzatmadan kılavuzun içerdiği başlıkları paylaşmak istiyorum: 👇
+
+- Terminal ayarları
+  - Urxvt terminal emulator
+  - Git ve Curl (!)
+  - ZSH kurulumu ve Oh My ZSH
+  - Fontlar
+- Tarayıcı
+  - Brave Browser
+  - Eklentiler
+  - React Geliştirici Araçları
+- VSCode
+  - Github SSH bağlantısı
+  - Eklentiler (!)
+  - Tema
+  - Font
+- Node Kurulumu (!)
+  - Node Version Manager (NVM)
+  - Yarn
+- API İstemcisi
+  - Insomnia
+  - Curl (!)
+- Tasarım Araçları ve Fotoğraf Düzenleme
+  - Figma (!)
+  - Gimp
+  - Gthumb
+- Ekstra Araçlar
+  - Password Manager - Keepassxc (!)
+  - App launcher - Rofi (!)
+  - Emoji tool - Rofi
+
+Gayet uzun bir liste gibi göründüğünün farkıdayım fakat tüm adımları takip etmeniz gerekmiyor. Listede önemli olduğunu gördüğüm basamakları ünlem işareti (!) ile işaretledim. Bunun yanında tüm adımları elimden geldiğince detaylı bir biçimde açıklamaya çalıştım. Yarım saatte hazır bir sisteminiz olacak. ⌚ 🙏
+
+## Neye İhtiyacım Var?
+
+Bu kılavuzu takip etmek için Linux uzmanı olmanıza gerek yok. Tek ihtiyacınız olan şey Ubuntu yüklü bir sistem. Elbette Ubuntu veya Debian tabanlı diğer distroları (Mint, PopOS vs.) da kullanmanız mümkün.
+
+İnternette Ubuntu sisteminin nasıl kurulacağına dair tonlarca içerik olduğu için bu adımı atlamanın daha uygun olacağını düşündüm. Eğer bu konuda da bir kılavuz isterseniz lütfen [bana](https://twitter.com/uguremirmustafa) haber verin.
+
+## Hadi Başlayalım
+
+Her şeyden önce en temel ihtiyacımız olan (sudan bahsetmiyorum tabiki de) terminalden başlamamız gerek.
+
+## 1. Terminal
+
+Grafik arayüze sahip uygulamalar (GUI Applications) genellikle kullanımı daha kolay olsalar ve havalı görünseler de terminal(uçbirim/konsol/komut satırı) bizlere birçok işlemi daha etkili, hızlı ve esnek bir biçimde gerçekleştirebilme imkanı sağlamakta. Biz yazılımcılar için iyi ayarlanmış bir terminal daha verimli bir çalışma ortamı sağlamakta.
+
+Piyasada birçok terminal emülatörü bulunmakla beraber _rxvt-unicode_ ya da **Urxvt** hem hafifliği hem de sunmuş olduğu ayarlama olanakları sebebiyle benim favorim.
+
+### 1.1. Urxvt Kurulumu
+
+Ubuntu'da yeni bir uygulama kurmak için en iyi yöntem default olarak kurulu gelen _gnome terminali_ kullanmak.
+
+> Gnome terminali açmak için `ctrl` + `alt` + `T` tuş kombinasyonunu kullanabilirsiniz.
+
+Yeni terminal uygulamamızı kurmak için terminalde şu kodu çalıştırabilirisiniz: 👇
+
+```bash
+sudo apt install rxvt-unicode
+```
+
+Yeni kurulan terminal uygulamanızı kullanmak için ister menüyü kullanabilir isterseniz de terminalde `urxvt` yazarak uygulamayı başlatabilirsiniz. İlk başta beyaz ve çirkin bir terminalle karşılaşırsanız şaşırmayın. Sonunda şuna benzer bir görünüme kavuşacaksınız.
+
+![urxvt son hali](./urxvt.png)
+
+Urxvt terminalizin temasını değiştirmek istiyorsanız yapacağınız tek **home** klasörünüzde bulunan _.Xresources_ dosyasında değişiklik yapmak. Örneğin terminalin fontlarını değiştirmek isterseniz şu satır ile bunu yapabilirsiniz (tabiki ilgili fontun sisteminizde yüklü olması gerek): 👇
+
+```bash
+urxvt*font: xft:Source Code Pro Black:style=Regular:size=14
+```
+
+<ProTip tip="_.Xresources_ dosyasına yapmış olduğunuz değişikliklerin geçerlilik kazanması için `xrdb -merge ~/.Xresources` kodunu çalıştırmanız gerekmektedir." />
+
+> _.Xresources_ dosyası da dahil olmak üzere bu kılavuzda kuracağımız tüm uygulamalara ve daha fazlasına ait konfigürasyon dosyalarının yer aldığı repoyu [burada](https://www.github.com/uguremirmustafa/.dotfiles) bulabilirsiniz.
+
+<ProTip tip="Ben konfigurasyon dosyalarımı(dotfiles) organize etmek için 'stow' adında bir uygulama kullanıyorum. Daha sonrasında 'stow' üzerine ayrı bir blog yazısı yayımlayacağım ancak şu an için ilgili dosyaları manuel olarak gerekli yerlere kopyalayabilirsiniz." />
+
+Urxvt ile ilgili konuşacak daha çok mesele olsa da kılavuzun çok uzamaması için burada kendi [konfigurasyon dosyamı](https://github.com/uguremirmustafa/.dotfiles/tree/master/xresources) paylaşmakla yetiniyorum.
+
+### 1.2. Git ve Curl Kurulumu
+
+_Git_ biz yazılımcılar için bir vazgeçilmez ve sen de bunu biliyorsun. Eğer hala kurmadıysan seni şöyle alalım: 👇
+
+```bash
+sudo apt install git
+```
+
+_Curl_ basit ama etkili bir terminal uygulaması. Birçok amaç için kullanılabilmekle beraber uzaktaki paketlerin indirilmesi ve API aramaları yapmak asıl görevi denilebilir. Büyük ihtimalle bu araca birçok kez ihtiyaç duyacaksın: 👇
+
+```bash
+sudo apt install curl
+```
+
+### 1.3. ZSH Terminal Kabuğu ve Oh My ZSH
+
+[ZSH](https://www.zsh.org/) Unix temelli sistemlerde sıklıkla tercih edilen güçlü bir terminal kabuğu. Sunmuş olduğu birçok eklenti, tema ve araçlarla terminal deneyimini zenginleştirmeyi amaçlayan ZSH'in, kısa bir denemeden sonra vazgeçilmez araçlarınız arasında yer alacağına eminim.
+
+```bash
+sudo apt install zsh
+```
+
+ZSH'i kurduktan sonra yapacağımız ilk şey varsayılan uçbirim kabuğunu ZSH olarak değiştirmek:
+
+```bash
+chsh -s $(which zsh)
+```
+
+ZSH'i kullanmak için yeniden oturum açmamız gerekiyor. Oturum açtıktan sonra terminalinizi açın. ZSH size konfigürasyon ayarlarınızı seçmek için birkaç seçenek sunacaktır. Bu adımı `q` ile atlayın, çünkü biz kendi `.zshrc` dosyamızı kullanacağız.
+
+ZSH'in başarılı bir şekilde kurulup kurulmadığını anlamak için `$SHELL --version` komutunu çalıştırabilirsiniz.
+
+Süper güçleriniz olsun ister misiniz? [Oh-My-Zsh](https://ohmyz.sh/) size ihtiyacınız olan süper güçleri verecek bir eklenti. Şu komutu çalıştırdıktan sonra her şey hazır: 👇
+
+```bash
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+```
+
+Şimdi sıra ZSH eklentilerinde...
+
+#### zsh-autosuggestions - otomatik komut önerme
+
+Bu eklenti sayesinde terminaliniz _history_ dosyasından daha önce girmiş olduğunuz komutları hatırlayarak size önerilerde bulunacak. Evet, her seferinde `npx create-react-app myapp` yazmaktan kurtulacaksınız! 🥳
+
+```bash
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+```
+
+Değişiklikleri görmek için biraz daha sabırlı ol ve adımlarımı takip et! 👣
+
+#### zsh-syntax-highlighting - terminal syntax renklendirme
+
+Adından da anlaşılacağı üzere terminalinize kod dizimine göre renk katacak bir eklenti.
+
+```bash
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+```
+
+Evet sıra _.zshrc_ konfigürasyon dosyamızı `home` klasörüne yerleştirmekte. `.zshrc` terminal kabuğunu kişiselleştirmek için kullandığımız ana konfigürasyon dosyası. Şimdilik [benimkiyi](https://github.com/uguremirmustafa/.dotfiles/blob/master/zsh/.zshrc) kopyalayabilir ve üzerinde değişiklikler yapabilirsin! Tam olarak şuraya koymalısın: 👉 `/home/<yaralı_baykuş_1992>/.zshrc` 😝
+
+Terminali yeniden açtığında değişiklikleri görmen lazım. Eğer bir sıkıntı yaşarsan bana [twitter](https://twitter.com/uguremirmustafa) üzerinden ulaşabilirsin!
+
+### 1.4. Fontlar
+
+Ubuntu'da font(yazı sitili) dosyalarını şu konumda saklayabilirsin: 👉 `/home/<kulanıcı_adın>/.fonts`
+
+Ben hem terminalde hem de VSCode'da _Source Code Pro_ fontunu kullanmayı tercih ediyorum. Kullanmış olduğum tüm font dosyalarını [buradan](https://github.com/uguremirmustafa/.dotfiles/tree/master/fonts/.fonts) ya da [Google Fontlardan](https://fonts.google.com/specimen/Source+Code+Pro) edinebilirsin. Dosyaları indirdikten sonra `~/.fonts` klasörüne koymayı unutma.
+
+<ProTip tip="~ simgesi '/home/<kullanıcı_adı>' konumuna denk gelmektedir." />
+
+## 2. Tarayıcı
+
+Bizler web geliştiriciler olarak farklı tarayıcılar arasındaki uyumluluk sorunları ile ilgilenmek durumundayız fakat şu da bir gerçek ki herkesin kendine ait favori bir web tarayıcısı var. Benimki ise [Brave Browser.](https://brave.com/)
+
+Şuna bakın 👇
+
+![Brave](./brave.png)
+
+Eğer siz de ikna olduysanız kurulumla devam edelim!
+
+### 2.1. Ubuntuda Brave Browser Kurulumu
+
+Ubuntu sistemimize Brave'i kurmak için [resmi web sitesindeki kurulum adımlarını](https://brave.com/linux/) takip edeceğiz. Aşağıdaki komutları birbiri ardına çalıştırarak kurulumu tamamlayabilirsiniz!
+
+```bash
+sudo apt install apt-transport-https curl
+
+sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+
+echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-release.list
+
+sudo apt update
+
+sudo apt install brave-browser
+```
+
+### 2.2. Brave Browser Ayarları
+
+Brave Browser bazı varsayılan ayarları sebebiyle üçüncü parti scriptleri ve çerezleri engellemekte. Bu da geliştirme aşamasında bazı _CORS_ hatalarına sebep olmakta. Bu ayarları şu menüden değiştirebilirsiniz: `settings > shields > cookies.`
+
+### 2.3. Eklentilerin Kurulumu
+
+Brave Browser Chrome'un kullanmış olduğu _chromium engine_ ile çalıştığı için Chrome eklentilerini kolaylıkla kullanabilirsiniz. Benim sıklıkla kullandığım ve sizlerinde kullandığını düşündüğüm bazı eklentileri aşağıdaki bağlantılardan kurabilirsiniz.
+
+- [React Developer Tools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi)
+- [Redux Dev Tools](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en)
+- [ColorZilla](https://chrome.google.com/webstore/detail/colorzilla/bhlhnicpbhignbdhedgjhgdocnmhomnp/related?authuser=1)
+
+## 3. VSCode
+
+VSCode birçok web geliştiricinin kullandığı, Microsoft tarafından geliştirilmiş ve desteklenmeye devam edilen açık kaynak kodlu bir metin düzenleyici olarak karşımıza çıkmakta. Açık kaynak kodlu olması ve epeyce bir kişiselleştirme imkanı sunması sebebiyle birçok React geliştiricisinin de vazgeçilmezi.
+
+Biz de bugün VSCode'u Ubuntu sistemimize kuracağız. Kurmakla kalmayıp gözlerimize huzur verecek olan _gruvbox_ temasını ve iconları ekleyecek, ardından da verimliliğimizi katlayacak eklentilerle kurulumumuzu üst noktaya taşıyacağız.
+
+### 3.1. Ubuntu VSCode Kurulumu
+
+Piyasada topluluk destekli birkaç VSCode sürümü olmakla beraber biz Microsoft'un sürümünü kullanacağız. Kurulum için sitelerindeki [kılavuzu](https://code.visualstudio.com/docs/setup/linux) kullanacağız.
+
+[Buraya](https://go.microsoft.com/fwlink/?LinkID=760868) tıklayarak VSCode'u indirebilirsiniz. İndirme işlemi tamamlandıktan sonra terminalinizi dosyanın bulunduğu konumda açarak şu kodu çalıştırabilirsiniz. Böylece VSCode sisteminize kurulmuş olacak. 👇
+
+```bash
+sudo apt install ./<downloaded-file-name>.deb
+```

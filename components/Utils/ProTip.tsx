@@ -8,16 +8,11 @@ interface Props {
 const variants = {
   animate: {
     x: [0, 10],
-    // y: [-5, 5],
     transition: {
       x: {
         yoyo: Infinity,
         duration: 1,
       },
-      //   y: {
-      //     yoyo: Infinity,
-      //     duration: 0.2,
-      //   },
     },
   },
 };
