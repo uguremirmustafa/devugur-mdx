@@ -313,3 +313,137 @@ Bu dosyada font ayarlarını değiştirmek çok kolay, sadece fontun tam adını
 ```
 
 ## 4. Node
+
+Node.js ve npm Javascript geliştiricilerinin vazgeçilmez araçları arasında ilk sıralarda yer almaktadır. Büyük bir ihtimalle projelerinin neredeyse tamamında ihtiyaç duyacağın bu Node.js ve npm'i Ubuntu sistemimize nasıl kuracağımıza bakalım.
+
+### 4.1. Node Version Manager (NVM) ile Node.js ve NPM Kurulumu
+
+Bazı durumlarda farklı projeler farklı Node versiyonu ile çalışabilmekte. Bu da farklı Node ve npm versiyonlarını sistemimize kurmamızı ve aktif olan Node ve npm versiyonunu değiştirmemizi gerektirmekte. Tam da bu işleri yapacak bir araç olan _nvm_ bizi tüm bu dertlerden kurtarıyor. _nvm_ kurulumu ve nvm ile farklı node-npm versiyonlarının nasıl kurulduğunu anlatmış olduğum [bu makaleye](https://www.devugur.com/blog/how-to-install-different-node-versions-on-linux) göz atabilirsiniz. Detaylı anlatımı bu makalede yaptığım için sonraki adıma geçiyorum.
+
+### 4.2. Yarn
+
+Eminim ki _yarn mı npm mi_ tartışmasına bir yerlerde denk gelmişsinizdir. O yüzden bu tartışmaya hiç girmeyerek benim tercihim olan _yarn_ kurulumu için gerekli kodu bırakıp kaçıyorum.
+
+```bash
+npm install --global yarn
+```
+
+Kurulumu kontrol etmek için `yarn --version` kodunu çalıştırabilirsiniz.
+
+## 5. API İstemcisi
+
+API'lar React geliştirme sürecinin ayrılmaz bir parçası. Çoğu zaman API'daki veriyi görüntülemek için `console.log` yardımımıza yetişse de sırf API sorgusu yapmak için geliştirilmiş birçok araç var.
+
+Ben _Insomnia_ adındaki aracı tercih etmekle beraber ufak sorgular için terminal üzerinde çalışan _Curl_ aracını da arada sırada kullanıyorum.
+
+### 5.1. Ubuntu 20.04 Insomnia Kurulumu
+
+Insomnia'yı [bu adresten](https://insomnia.rest/download) indirebilirsiniz. İlgili bağlantıdan bir _.deb_ dosyası inecektir. İndirilen dosyanın bulunduğu konuma gittikten sonra aşağıdaki kodu çalıştırarak kurulumu gerçekleştirebilirsiniz:👇
+
+```bash
+sudo dpkg -i <name-of-the-file.deb>
+```
+
+### 5.2. Ubuntu 20.04 Curl Kurulumu
+
+Daha önceki adımlarda kurmuştuk fakat eğer atladıysanız _curl_ kurulumu şu kodu çalıştırmak kadar basit:👇
+
+```bash
+sudo apt install curl
+```
+
+## 6. React Geliştiricisi İçin Basit Tasarım Araçları
+
+Evet, tasarım bambaşka bir disiplin ve uzmanlık alanı. Bunu kabul ediyoruz fakat her zaman tasarım ekibi ile çalışmak mümkün olmayabiliyor. Bu yüzden temel düzeyde tasarım için birkaç aracı kullanmayı öğrenmekte fayda var. Bu araçların başında kolay öğrenimi ve işlevselliği ile _Figma_ geliyor.
+
+### 6.1. Ubuntu Figma Kurulumu
+
+Figma'yı öğrenmek kolay olduğu gibi kurulumu da bir o kadar basit. Figma'yı snap mağazası aracılığıyla kuracağız.
+
+> Ubuntu'da varsayılan olarak [snap mağazası](https://snapcraft.io/store) kurulu ve aktif geliyor. Eğer sizin sisteminizde kurulu değilse [buradan](https://snapcraft.io/store) nasıl kurulacağını öğrenebilirsiiz.
+
+```bash
+sudo snap install figma-linux
+```
+
+### 6.2. GNU Image Manipulation Program (GIMP) - Photoshop Alternatifi
+
+Bildiğiniz üzere Adobe Photoshop'u Linux üzerinde _makul yollardan_ kullanmak pek mümkün değil. Şahsi kanaatim buna gerek de yok çünkü _GIMP_, Photoshop'un yaptığı her şeyi yapabiliyor. Eğer Photoshop'tan geliyorsanız alışması ve öğrenmesi biraz zaman alabilir.
+
+```bash
+sudo apt install gimp
+```
+
+### 6.3. Gthumb - Küçük Bir Fotoğraf Görüntüleme ve Düzenleme Aracı
+
+Gthumb ile fotoğraflarınızı görüntüleyebilir ve kırpma, filtre ekleme, döndürme gibi küçük düzenlemeler yapabilirsiniz. Bu tarz işlemleri hızlıca yapmanızı sağlayacak [Gthumb'ı](https://wiki.gnome.org/Apps/Gthumb) kurmak için:👇
+
+```bash
+sudo apt install gthumb
+```
+
+## 7. Ekstra Araçlar
+
+Bu kısımda benim zevkle kullandığım ve işlerimi kolaylaştıran bazı araçlardan bahsedeceğim.
+
+### 7.1. Keepassxc - Şifre Yöneticisi
+
+Bugünlerde şifrelerinizi akılda tutmak neredeyse imkansız, eğer tüm siteler için aynı şifreyi kullanmıyorsanız. Böyle bir tercihte bulunmak da ciddi bir güvenlik açığı oluşturuyor çünkü eğer üye olduğunuz sitelerden bir tanesi dahi güvenlik açığı verse şifreniz kötü ellere geçmiş oluyor.
+
+Binlerce kişinin şifresinin saklandığı tek bir hedefte şifrelerimi saklamayı tercih etmiyorum. [LastPass](https://www.lastpass.com) bu tarz bir hizmet sunuyor. Ben [Keepassxc](https://keepassxc.org/) gibi kendi şifrelerimin olduğu dosyayı kendimin saklayabileceği bir çözümü tercih ediyorum. Şifrelerimi kaydettikten sonra veritabanı dosyasını güvenli bir yere kaydediyorum ve her şey bu kadar. Eğer farklı cihazlarım arasında bu dosyayı senkronize etmek istersem Dropbox veya NextCloud gibi çözümlere yöneliyorum.
+
+Keepassxc kurulumu için şu kodu çalıştırabilirsiniz: 👇
+
+```bash
+sudo apt install keepassxc
+```
+
+### 7.2. Rofi - Uygulama Başlatıcısı ve Daha Fazlası
+
+Rofi tam bir İsviçre çakısı. Elinden her şey geliyor. Ama temelde uygulama başlatmak ve pencere geçişleri için tercih ediliyor. Ben de genelde uygulamalarımı başlatmak için ve _emojilerim_ için kullanıyorum.
+
+Şu şekilde kurabilirsiniz: 👇
+
+```bash
+sudo apt install rofi
+```
+
+Kurulum tamamlandıktan sonra uygulamayı `rofi -show drun` şeklinde çalıştırabilirsiniz. Tabiki rofiyi başlatmak için her seferinde terminali açmak anlamsız olacaktır. O yüzden bu komuta bir kısayol atamanızı tavsiye ederim.
+
+### 7.3. Rofimoji - Rofi Emoji Seçim Aracı
+
+Yukarıda bahsettiğim gibi ben Rofi'yi emoji seçmek için kullanıyorum ve gerçekten çok seri bir şekilde istediğim emojiyi hafızaya kopyalayabiliyorum. Bunun için [rofimoji](https://github.com/fdw/rofimoji) adında bir araç kullanıyorum.
+
+_Rofimojiyi_ kurmak için _pip_ lazım olacak. O yüzden bağımlılıklarıyla beraber kurulumu gerçekleştirelim.
+
+```bash
+sudo apt install python3-pip fonts-emojione python3 rofi xdotool xsel
+```
+
+Şimdi ise paketin kendisi...
+
+```bash
+sudo pip install rofimoji
+```
+
+Evet, şimdi hazır olmalı. Aşağıdaki kodu çalıştırarak rofimoji açabilir ve istediğin emojiyi arayabilir, _enter_ tuşu ile hafızaya kopyalayabilirsin.
+
+```bash
+rofimoji -a copy
+```
+
+> Bu tarz komutlara kısayol tuşu atamak verimliliğinizi ciddi anlamda artıracaktır.
+
+## Sonuç
+
+Tebrikler! 🎉🎉
+
+Ubuntu sistemini React geliştirmek üzere hazır hale getirmeyi başardın.
+
+Umarım bu rehberi okurken yeni şeyler öğrenmiş ve aynı zamanda eğlenmişsindir.
+
+Eğer takıldığın herhangi bir nokta varsa bana [email](mailto:uguremirmustafa@gmail.com) aracılığıyla ulaşabilir, [twitter](https://twitter.com/uguremirmustafa)dan yazabilirsiniz.
+
+Rehberi beğendiyseniz beni [twitter](https://twitter.com/uguremirmustafa)da ve [github](https://github.com/uguremirmustafa)da takip etmeyi düşünebilirsiniz.
+
+Zaman ayırdığınız için ve geri dönüşleriniz için şimdiden teşekkürler. 🙏⏳💭
