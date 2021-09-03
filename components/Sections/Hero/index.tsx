@@ -90,21 +90,21 @@ export const Hero = () => {
             className={`icon ${styles.socialIcon}`}
             rel="noreferrer"
           >
-            <Instagram />
+            <Instagram size="md" />
           </a>
           <a
             href="https://twitter.com/uguremirmustafa"
             className={`icon ${styles.socialIcon}`}
             rel="noreferrer"
           >
-            <Twitter />
+            <Twitter size="md" />
           </a>
           <a
             href="https://www.linkedin.com/in/u%C4%9Fur-emirmustafao%C4%9Flu-09047b14a/"
             className={`icon ${styles.socialIcon}`}
             rel="noreferrer"
           >
-            <LinkedIn />
+            <LinkedIn size="md" />
           </a>
         </div>
         <div className="flex justify-center gap-4 my-4 md:my-12">
