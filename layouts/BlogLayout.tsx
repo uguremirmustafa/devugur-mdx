@@ -4,9 +4,11 @@ import { ArticleMeta } from '@components/Sections/ArticleMeta';
 import Link from 'next/link';
 import { TagIcon } from '@components/Svgs/Tag';
 import { Tag } from '@components/Sections/Tag';
+import { EmojiReactions } from '@components/Sections/Reactions';
 
 interface Props {
   frontMatter: any;
+
   children: ReactNode;
 }
 
@@ -41,8 +43,9 @@ export default function BlogLayout({ children, frontMatter }: Props) {
             </Link>
           </div>
         )}
-        <div className="prose dark:prose-dark w-full">{children}</div>
+        <div className="prose dark:prose-dark w-full">{children}</div>{' '}
       </article>
+      <EmojiReactions slug={frontMatter.slug} />
     </Container>
   );
 }

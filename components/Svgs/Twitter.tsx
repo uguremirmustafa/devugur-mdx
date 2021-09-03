@@ -1,14 +1,16 @@
 import React from 'react';
 
-interface Props {}
+interface Props {
+  size: string;
+}
 
-export const Twitter = (props: Props) => {
+export const Twitter = ({ size }: Props) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
-      width="32"
-      height="32"
+      width={size === 'sm' ? 24 : 32}
+      height={size === 'sm' ? 24 : 32}
       fill="currentColor"
     >
       <path fill="none" d="M0 0h24v24H0z" />

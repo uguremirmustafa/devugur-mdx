@@ -1,10 +1,9 @@
+import { motion } from 'framer-motion';
+import { Footer } from 'layouts/Footer';
+import { Navbar } from 'layouts/Navbar';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { Navbar } from 'layouts/Navbar';
-import { Footer } from 'layouts/Footer';
-import { ReactNode, useEffect } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
-import SearchModal from '@components/Sections/SearchModal';
+import { ReactNode } from 'react';
 interface Props {
   children: ReactNode;
   title: string;
