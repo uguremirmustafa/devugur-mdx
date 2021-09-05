@@ -1,97 +1,85 @@
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-<url>
-<loc>https://devugur.com/tr/blog/react-projesinde-gsap-ile-animasyonlar</loc>
-<changefreq>daily</changefreq>
-<priority>0.9</priority>
-</url>
-<url>
-<loc>https://devugur.com/blog/adding-twitter-tags-to-nextjs-blog</loc>
-<changefreq>daily</changefreq>
-<priority>0.9</priority>
-</url>
-<url>
-<loc>https://devugur.com/blog/how-to-install-different-node-versions-on-linux</loc>
-<changefreq>daily</changefreq>
-<priority>0.9</priority>
-</url>
-<url>
-<loc>https://devugur.com/blog/how-to-persist-react-state</loc>
-<changefreq>daily</changefreq>
-<priority>0.9</priority>
-</url>
-<url>
-<loc>https://devugur.com/blog/material-ui-confirmation-dialog</loc>
-<changefreq>daily</changefreq>
-<priority>0.9</priority>
-</url>
-<url>
-<loc>https://devugur.com/blog/server-side-paginated-react-table</loc>
-<changefreq>daily</changefreq>
-<priority>0.9</priority>
-</url>
-<url>
-<loc>https://devugur.com/blog/simple-react-carousel</loc>
-<changefreq>daily</changefreq>
-<priority>0.9</priority>
-</url>
-<url>
-<loc>https://devugur.com/blog/social-share-buttons-for-react</loc>
-<changefreq>daily</changefreq>
-<priority>0.9</priority>
-</url>
-<url>
-<loc>https://devugur.com/blog/thinkpad-l14-fan-speed-configuration</loc>
-<changefreq>daily</changefreq>
-<priority>0.9</priority>
-</url>
-<url>
-<loc>https://devugur.com/blog/using-swr-for-data-fetching-in-nextjs</loc>
-<changefreq>daily</changefreq>
-<priority>0.9</priority>
-</url>
-<url>
-<loc>https://devugur.com/blog/what-are-core-web-vitals</loc>
-<changefreq>daily</changefreq>
-<priority>0.9</priority>
-</url>
-<url>
-<loc>https://devugur.com/blog/what-is-a-github-issue</loc>
-<changefreq>daily</changefreq>
-<priority>0.9</priority>
-</url>
-<url>
-<loc>https://devugur.com/tr/portfolio/react-apollo-typescript-ile-fullstack-jira-klon</loc>
-<changefreq>daily</changefreq>
-<priority>0.9</priority>
-</url>
-<url>
-<loc>https://devugur.com/portfolio/fullstack-jira-clone-with-react-apollo-and-typescript</loc>
-<changefreq>daily</changefreq>
-<priority>0.9</priority>
-</url>
-<url>
-<loc>https://devugur.com/about</loc>
-<changefreq>daily</changefreq>
-<priority>0.9</priority>
-</url>
-<url>
-<loc>https://devugur.com/</loc>
-<changefreq>daily</changefreq>
-<priority>0.9</priority>
-</url>
-<url>
-<loc>https://devugur.com/portfolio</loc>
-<changefreq>daily</changefreq>
-<priority>0.9</priority>
-</url>
-<url>
-<loc>https://devugur.com/blog</loc>
-<changefreq>daily</changefreq>
-<priority>0.9</priority>
-</url>
-<url>
-<loc>https://devugur.com/gear</loc>
-<changefreq>daily</changefreq>
-<priority>0.9</priority>
-</url>
-</urlset>
+
+  <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+  <url>
+                            <loc>https://devugur.com/about.tsx</loc>
+                        </url>
+                    
+                        <url>
+                            <loc>https://devugur.com/blog.tsx</loc>
+                        </url>
+                    
+                        <url>
+                            <loc>https://devugur.com/gear.tsx</loc>
+                        </url>
+                    
+                        <url>
+                            <loc>https://devugur.com/index.tsx</loc>
+                        </url>
+                    
+                        <url>
+                            <loc>https://devugur.com/portfolio.tsx</loc>
+                        </url>
+                    
+                        <url>
+                            <loc>https://devugur.com/blog/adding-twitter-tags-to-nextjs-blog</loc>
+                        </url>
+                    
+                        <url>
+                            <loc>https://devugur.com/blog/how-to-install-different-node-versions-on-linux</loc>
+                        </url>
+                    
+                        <url>
+                            <loc>https://devugur.com/blog/how-to-persist-react-state</loc>
+                        </url>
+                    
+                        <url>
+                            <loc>https://devugur.com/blog/material-ui-confirmation-dialog</loc>
+                        </url>
+                    
+                        <url>
+                            <loc>https://devugur.com/blog/react-projesinde-gsap-ile-animasyonlar</loc>
+                        </url>
+                    
+                        <url>
+                            <loc>https://devugur.com/blog/server-side-paginated-react-table</loc>
+                        </url>
+                    
+                        <url>
+                            <loc>https://devugur.com/blog/setup-react-development-environment-on-ubuntu</loc>
+                        </url>
+                    
+                        <url>
+                            <loc>https://devugur.com/blog/simple-react-carousel</loc>
+                        </url>
+                    
+                        <url>
+                            <loc>https://devugur.com/blog/social-share-buttons-for-react</loc>
+                        </url>
+                    
+                        <url>
+                            <loc>https://devugur.com/blog/thinkpad-l14-fan-speed-configuration</loc>
+                        </url>
+                    
+                        <url>
+                            <loc>https://devugur.com/blog/ubuntu-react-kurulumu</loc>
+                        </url>
+                    
+                        <url>
+                            <loc>https://devugur.com/blog/using-swr-for-data-fetching-in-nextjs</loc>
+                        </url>
+                    
+                        <url>
+                            <loc>https://devugur.com/blog/what-are-core-web-vitals</loc>
+                        </url>
+                    
+                        <url>
+                            <loc>https://devugur.com/blog/what-is-a-github-issue</loc>
+                        </url>
+                    
+                        <url>
+                            <loc>https://devugur.com/projects/fullstack-jira-clone-with-react-apollo-and-typescript</loc>
+                        </url>
+                    
+                        <url>
+                            <loc>https://devugur.com/projects/react-apollo-typescript-ile-fullstack-jira-klon</loc>
+                        </url></urlset>

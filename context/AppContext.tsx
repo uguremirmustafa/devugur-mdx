@@ -7,7 +7,7 @@ type InitialStateType = {
 
 const initialState = {
   sound: {
-    soundEnabled: false,
+    soundEnabled: true,
     volume: 0.25,
   },
 };

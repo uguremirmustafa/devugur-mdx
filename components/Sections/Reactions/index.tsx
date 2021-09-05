@@ -101,11 +101,14 @@ const AnimatedButton = ({ count = 0, reaction, slug, icon }) => {
   useEffect(() => setMounted(true), []);
 
   const patlat = () => {
+    const canvas = document.getElementById('body');
     if (mounted) {
       const conf = new ConfettiGenerator({ target: 'body' });
+      canvas.classList.remove('hidden');
       conf.render();
       setTimeout(() => {
         conf.clear();
+        canvas.classList.add('hidden');
       }, 4000);
     }
   };
@@ -114,7 +117,12 @@ const AnimatedButton = ({ count = 0, reaction, slug, icon }) => {
     <div className="flex flex-col items-center">
       <motion.button
         className="outline-none"
-        whileTap={{ scale: 1.3, rotate: 5 }}
+        whileHover={{
+          scale: reaction === 'rocket' ? 2 : 1.2,
+          rotate: 2,
+          transition: { type: 'spring' },
+          transformOrigin: 'left bottom',
+        }}
         onClick={() => {
           mutate();
           if (reaction === 'thumbsup') {
