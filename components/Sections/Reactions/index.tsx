@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ThumbsUp } from '@components/Svgs/ThumbsUp';
 import { RockYou } from '@components/Svgs/RockYou';
@@ -11,6 +11,14 @@ import { Instagram } from '@components/Svgs/Instagram';
 import { LinkedIn } from '@components/Svgs/LinkedIn';
 import useGetReactions from 'hooks/useGetReactions';
 import useCreateReaction from 'hooks/useCreateReaction';
+import useSound from 'use-sound';
+import { AppContext } from '@context/AppContext';
+const like = require('../../../public/sound/like.mp3');
+const wow = require('../../../public/sound/wow.mp3');
+const bird = require('../../../public/sound/bird.mp3');
+const rocket = require('../../../public/sound/rocket.mp3');
+const confetti = require('../../../public/sound/confetti-bomb.mp3');
+import ConfettiGenerator from 'confetti-js';
 
 interface Props {
   slug: string;
@@ -20,7 +28,7 @@ export const EmojiReactions = ({ slug }: Props) => {
   const { data: reactions } = useGetReactions(`/blog/${slug}`);
 
   return (
-    <div className="md:fixed bottom-4 md:bottom-[50%] md:translate-y-[50%] right-4 lg:right-10 xl:right-20 2xl:right-40">
+    <div className="fixed bottom-4 lg:bottom-[50%] lg:translate-y-[50%] left-4 lg:left-10 xl:left-20 2xl:left-40">
       <div className="hidden lg:flex mb-10 flex-col items-center">
         <img src="/me.png" className="w-16 rounded-full mb-2" alt="" />
         <p className="text-xs">Uğur</p>
@@ -46,7 +54,7 @@ export const EmojiReactions = ({ slug }: Props) => {
         </div>
       </div>
 
-      <div className=" p-2 md:p-4 rounded-md md:bg-white md:dark:bg-gray-800 md:border border-gray-200 dark:border-gray-400 flex md:flex-col gap-4 md:shadow-md">
+      <div className=" p-2 md:p-4 rounded-md bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-400 flex lg:flex-col gap-4 md:shadow-md">
         <AnimatedButton
           slug={slug}
           reaction={'thumbsup'}
@@ -56,16 +64,15 @@ export const EmojiReactions = ({ slug }: Props) => {
 
         <AnimatedButton
           slug={slug}
-          reaction={'rockyou'}
-          count={reactions?.rockyou}
-          icon={<RockYou />}
-        />
-
-        <AnimatedButton
-          slug={slug}
           reaction={'rocket'}
           count={reactions?.rocket}
           icon={<Rocket />}
+        />
+        <AnimatedButton
+          slug={slug}
+          reaction={'rockyou'}
+          count={reactions?.rockyou}
+          icon={<RockYou />}
         />
         <AnimatedButton slug={slug} reaction={'party'} count={reactions?.party} icon={<Party />} />
         <AnimatedButton
@@ -80,17 +87,57 @@ export const EmojiReactions = ({ slug }: Props) => {
 };
 
 const AnimatedButton = ({ count = 0, reaction, slug, icon }) => {
+  const { state } = useContext(AppContext);
   const { data, mutate } = useCreateReaction(`/blog/${slug}`, reaction, count + 1);
+  const soundSettings = state.sound;
+  const [likeSound] = useSound(like, soundSettings);
+  const [confettiSound] = useSound(confetti, soundSettings);
+  const [wowSound] = useSound(wow, soundSettings);
+  const [rocketSound] = useSound(rocket, soundSettings);
+  const [birdSound] = useSound(bird, soundSettings);
+
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => setMounted(true), []);
+
+  const patlat = () => {
+    if (mounted) {
+      const conf = new ConfettiGenerator({ target: 'body' });
+      conf.render();
+      setTimeout(() => {
+        conf.clear();
+      }, 4000);
+    }
+  };
+
   return (
     <div className="flex flex-col items-center">
       <motion.button
         className="outline-none"
-        whileTap={{ scale: 1.3, rotate: 18 }}
-        onClick={() => mutate()}
+        whileTap={{ scale: 1.3, rotate: 5 }}
+        onClick={() => {
+          mutate();
+          if (reaction === 'thumbsup') {
+            birdSound();
+          }
+          if (reaction === 'heart') {
+            likeSound();
+          }
+          if (reaction === 'party') {
+            confettiSound();
+            patlat();
+          }
+          if (reaction === 'rocket') {
+            rocketSound();
+          }
+          if (reaction === 'rockyou') {
+            wowSound();
+          }
+        }}
       >
         {icon}
       </motion.button>
-      <span className="text-sm mt-2">{count}</span>
+      <span className="font-bold text-xs lg:text-sm mt-px lg:mt-2">{count}</span>
     </div>
   );
 };

@@ -6,6 +6,7 @@ import useTranslation from 'next-translate/useTranslation';
 import { useRef, useState } from 'react';
 import useOnClickOutside from 'hooks/useOnClickOutside';
 import { AnimatePresence, motion } from 'framer-motion';
+import { Mute } from '@components/Utils/Mute';
 
 interface Props {
   alternate: string;
@@ -122,6 +123,7 @@ export const Navbar = ({ alternate, contentType }: Props) => {
                 )}
               </>
             )}
+            <Mute />
             <ThemeSwitcher />
           </div>
         </div>
