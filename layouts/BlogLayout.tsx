@@ -43,9 +43,8 @@ export default function BlogLayout({ children, frontMatter }: Props) {
             </Link>
           </div>
         )}
-        <div className="prose dark:prose-dark w-full">{children}</div>{' '}
+        <div className="prose dark:prose-dark w-full">{children}</div>
       </article>
-      <canvas id="body" className="fixed top-0 left-0 w-screen h-screen"></canvas>
 
       <EmojiReactions slug={frontMatter.slug} />
     </Container>
