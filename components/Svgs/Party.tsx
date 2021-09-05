@@ -9,8 +9,7 @@ export const Party = (props: Props) => {
       xmlnsXlink="http://www.w3.org/1999/xlink"
       aria-hidden="true"
       role="img"
-      width="2em"
-      height="2em"
+      className="w-7 lg:w-9"
       preserveAspectRatio="xMidYMid meet"
       viewBox="0 0 128 128"
     >

@@ -1,21 +1,31 @@
-import Link from 'next/link';
-
 import { useTheme } from 'next-themes';
-import React, { useEffect, useState } from 'react';
-
+import React, { useContext, useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+import useSound from 'use-sound';
+import { AppContext } from '@context/AppContext';
+const sound = require('../../public/sound/switch.mp3');
 interface Props {}
 
 export const ThemeSwitcher = (props: Props) => {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const { state } = useContext(AppContext);
   // After mounting, we have access to the theme
   useEffect(() => setMounted(true), []);
 
   let isDark = theme === 'dark';
+  const [playActive] = useSound(sound, state.sound);
+
   return (
-    <button
-      onClick={() => setTheme(isDark ? 'light' : 'dark')}
-      className="p-1 border-2 border-gray-900 dark:border-white rounded-lg outline-none w-8 h-8 flex justify-center items-center"
+    <motion.button
+      onClick={() => {
+        setTheme(isDark ? 'light' : 'dark'), playActive();
+      }}
+      className="p-1 border-gray-900 dark:border-white rounded-lg outline-none w-8 h-8 flex justify-center items-center"
+      whileTap={{
+        rotate: [30, -30, 20, -20, 10, -10, 0],
+        transition: { duration: 1, ease: 'easeInOut' },
+      }}
     >
       {mounted && (
         <svg
@@ -23,7 +33,7 @@ export const ThemeSwitcher = (props: Props) => {
           viewBox="0 0 24 24"
           fill="currentColor"
           stroke="currentColor"
-          className="w-4 h-4 text-gray-800 dark:text-gray-200"
+          className="w-6 h-6 text-gray-800 dark:text-gray-200"
         >
           {isDark ? (
             <path
@@ -42,6 +52,6 @@ export const ThemeSwitcher = (props: Props) => {
           )}
         </svg>
       )}
-    </button>
+    </motion.button>
   );
 };

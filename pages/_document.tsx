@@ -88,6 +88,7 @@ class MyDocument extends Document {
           />
         </Head>
         <body className="bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
+          <canvas id="body" className="fixed top-0 left-0 w-screen h-screen"></canvas>
           <Main />
           <NextScript />
         </body>
