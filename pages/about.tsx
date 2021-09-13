@@ -15,6 +15,7 @@ const About = ({ imgMeta }: Props) => {
   const about2 = t('about2');
   const about3 = t('about3');
   const about4 = t('about4');
+  const resume = t('resume');
   const metaTitle = t('meta-title');
   const metaDescription = t('meta-description');
 
@@ -39,6 +40,9 @@ const About = ({ imgMeta }: Props) => {
           <p className="about">{about3}</p>
           <p className="about">{about4}</p>
         </div>
+        <a href="/ugur_emirmustafa_cv.pdf" className="btn" target="_blank" rel="noreferrer">
+          {resume}
+        </a>
       </div>
     </Container>
   );

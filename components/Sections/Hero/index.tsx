@@ -9,6 +9,7 @@ import { Instagram } from '@components/Svgs/Instagram';
 import { LinkedIn } from '@components/Svgs/LinkedIn';
 import { ArrowDown } from '@components/Svgs/ArrowDown';
 import { motion } from 'framer-motion';
+import { Paper } from '@components/Svgs/Paper';
 
 const headingVariants = {
   initial: {
@@ -106,6 +107,14 @@ export const Hero = () => {
           >
             <LinkedIn size="md" />
           </a>
+          <div className={`icon ${styles.socialIcon} group relative`}>
+            <a href="/ugur_emirmustafa_cv.pdf" target="_blank" rel="noreferrer">
+              <Paper size="md" />
+              <span className="hidden group-hover:block absolute top-12 -left-4 text-sm transition">
+                Resume/CV
+              </span>
+            </a>
+          </div>
         </div>
         <div className="flex justify-center gap-4 my-4 md:my-12">
           <Link href="/portfolio">

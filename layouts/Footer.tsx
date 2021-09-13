@@ -98,6 +98,9 @@ export const Footer = ({ alternate, contentType }: Props) => {
             >
               Dotfiles
             </a>
+            <a href="/ugur_emirmustafa_cv.pdf" className="p-1" target="_blank" rel="noreferrer">
+              CV
+            </a>
           </ul>
         </div>
       </footer>
