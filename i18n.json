@@ -1,6 +1,7 @@
 {
   "locales": ["en", "tr"],
   "defaultLocale": "en",
+  "localeDetection": false,
   "pages": {
     "*": ["common"],
     "/": ["home"],
