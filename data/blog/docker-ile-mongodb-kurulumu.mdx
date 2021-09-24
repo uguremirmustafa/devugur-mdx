@@ -1,0 +1,219 @@
+---
+title: Docker ile bilgisayarınıza MongoDB kurma ve erişim sağlama
+summary: Docker ile bilgisayarımıza kurmadan birkaç satır komut MongoDB'ye erişebilmek mümkün. Gelin nasıl yapılacağını birlikte keşfedelim.
+publishedAt: '2021-09-20'
+image: '/images/blog/docker-ile-mongodb-kurulumu/banner.png'
+locale: tr
+tags: ['docker', 'mongodb', 'veritabanı', 'veritabanı bağlantısı']
+isPublished: true
+alternate: ''
+type: blog
+selected: true
+---
+
+![mongodb and docker](./banner.png)
+
+MongoDB _NoSQL veritabanları_ arasında en yaygın olarak kullanılan veritabanı. Özellikle JavaScript ve NodeJS çevresinde sıklıkla tercih edilen MongoDB'yi bilgisayarımıza indirmeden Docker ile kullanmak mümkün. Gelin hem çok pratik hem de zaman kazandıran bu yöntemi birlikte inceleyelim.
+
+Bu yazımızda:
+
+- Docker nedir ve ne işe yarar?
+- Docker ile MongoDB container nasıl yaratılır?
+  - MongoDB image dosyasını arama
+  - docker-compose.yml dosyası oluşturma
+- Veritabanına nasıl bağlanabiliriz?
+  - Terminalden bağlanma
+  - Node.js uygulamasından bağlanma
+
+sorularına cevap arayacağız. Hadi başlayalım...
+
+> Devam etmeden önce bilgisayarınızda Docker'ın ve docker-compose'un yüklü ve çalışır olduğundan emin olun!
+
+## 1. Docker Nedir ve Ne İşimize Yarayacak?
+
+Docker containerlar kullanarak kolayca uygulamalar yaratıp çalıştırdığımız ve deploy ettiğimiz bir araç olarak karşımıza çıkıyor. Container yapısını, uygulamanın bağımlılıklarının ve kendi kaynak kodunun bir paket haline getirilmesi ve izole bir şekilde çalışması şeklinde düşünebiliriz.
+
+Docker aynı şekilde bir MongoDB örneğini çalıştırmak için de kullanılabilir ki biz bugün bunu yapacağız. Bunu yaparken birkaç satır kod ile MongoDB'yi bilgisayarımıza kurmaktan ve bir ton ayarlama yapmaktan kurtulacağız. Ayrıca bire bir aynı örneği _docker-compose.yml_ dosyası sayesinde kolayca farklı ortamlara taşıyabileceğiz.
+
+## 2. Docker MongoDB Container Yaratma
+
+İlk olarak Docker'da MongoDB image dosyasını arayalım. Aynı işlemi [Docker Hub](https://hub.docker.com/search?type=image) aracılığıyla da yapabilirsiniz.
+
+```bash
+docker search mongodb
+```
+
+Bu arama bize resmi(official) ve topluluğun yaratmış olduğu image dosyalarını sonucunu verdi. _mongo_ isimli image bizim ihtiyacımız olan resmi MongoDB uygulamasının Docker versiyonu.
+
+Gerekli image dosyasını bulduğumuza göre artık _docker-compose_ ile çalışmaya başlayabiliriz.
+
+Varsayılan olarak, MongoDB containerları veritabanını container içinde `/data/db` isimli bir klasörde tutmaktalar. Bizim ihtiyacımız olan ise docker-compose dosyasını ve veritabanı verilerini saklayacağımız local bir klasör oluşturmak. Bu klasörü bilgisayarınızda istediğiniz bir noktada oluşturabilirsiniz. Aşağıdaki kod bize iç içe geçmiş bir klasör yapısı ve docker-compose.yml dosyası yaratacak.
+
+```bash
+mkdir -pv mongodb/database
+cd mongodb
+touch docker-compose.yml
+```
+
+Klasör yapısı şu şekilde olacak: 👇
+
+![folder structure](./tree.png)
+
+Şimdi docker-compose.yml dosyası üzerinde çalışabiliriz. Önce dosyanın son haline bakalım, ardından satır satır inceleyelim.
+
+```yml
+version: '3.8'
+services:
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    environment:
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - /home/anomy/Development/mongodb/database:/data/db
+    ports:
+      - 27017:27017
+    restart: unless-stopped
+```
+
+<ProTip tip=".yml uzantılı dosyalarda satır girinti ve çıkıntıları çok önemlidir. Bu yüzden kodu kopyalıyorsan dikkatli ol!" />
+
+### docker-compose.yml
+
+Version bilgisi Docker'ın nasıl çalışması gerektiğini belirleyen bir bilgi. Çeşitli sürümlerde .yml dosyası farklı yorumlanabiliyor.
+
+services bloğunda tek servisimiz olan mongodb var. Burada verdiğimiz isim çok önemli değil. Bir alt satırda ilgili _image_ dosyasının adını veriyoruz. Hatırlarsanız yukarıda yaptığımız search ile bu image ismine ulaşmıştık.
+
+container_name, `docker ps` ile çalışan containerları listelediğimizde bizim MongoDB container'ımızın yanında yazacak olan isme denk geliyor. Container'a ulaşırken işimize yarayacak.
+
+Önemli bir diğer kısım olan volumes bloğunda ise _volume mappıng_ yapıyoruz. Container içindeki verileri bilgisayarımızın localinde nerede tutacağımızı belirtiyoruz. (:) iki noktadan önceki kısım bilgisayarımızdaki klasör yapısının yolunu işaret ederken ikinci kısım containerın içindeki yola denk geliyor. ports kısmıda aynı mantıkla çalışıyor. İçerdeki 27017 portunu localimizdeki 27017'ye bağlıyoruz.
+
+restart satırı ise kullanıcı tarafından durdurulmadığı sürece bilgisayarı her başlattığımızda containerın başlaması gerektiğini söylüyor.
+
+### Container'ı ayağa kaldırma
+
+Artık docker-compose.yml dosyamız hazır olduğuna göre bu dosyada belirlemiş olduğumuz ayarlar ile container'ımızı ayağa kaldırabiliriz. Dosyanın bulunduğu konumda aşağıdaki kodu çalıştırarak container@i (-d) detached modda başlatabiliriz.
+
+```bash
+docker-compose up -d
+```
+
+<ProTip tip="Detached mod logları gizleyerek terminalimizi boş bırakır." />
+
+Container'ın çalışıp çalışmadığını containerları listeleyerek öğrenebiliriz. 👇 İsim kısmına dikkat ederseniz container_name için girmiş olduğumuz değerle aynı olduğunu görebilirsiniz.
+
+```bash
+docker ps
+```
+
+![list running docker containers](./list.png)
+
+## 3. Veritabanına Erişim
+
+Şimdi ise yarattığımız veritabanına bağlanmaya çalışalım. Bazen terminal aracılığıyla bazen de uygulama içinden veritabanına bağlanmak ve veritabanı üzerinde çeşitli işlemler yapmamızı gerektirecek durumlarla karşılaşabiliriz. Gelin şimdi bu yöntemleri keşfedelim.
+
+### a. Terminalden erişim
+
+Container'a interaktif terminal ile ulaşıp veritabanında çeşitli işlemler yapabiliriz. (-it) flag'i ile interaktif terminali başlatabiliriz.
+
+```bash
+docker exec -it mongodb bash
+```
+
+Şu anda container'ın içerisindeyiz. Burada `mongo` komutu ile MongoDB'ye bağlanabilir ve istediğimiz mongo sorgularını çalıştırabiliriz.
+
+```bash
+mongo
+```
+
+```bash
+show dbs
+use mydatabase
+db.user.insert({name: "ugur emirmustafa", age: 25})
+show dbs
+db.user.find()
+```
+
+### b. Node.js uygulamasından erişim
+
+Node.js uygulamasından MongoDB'ye erişim için çeşitli yöntemler olsa da en popüler olan yöntem `mongoose` aracını kullanarak bağlanmak. Gelin projeyi oluşturalım.
+
+```bash
+mkdir mongo-node-uygulamam
+cd mongo-node-uygulamam
+yarn init -y
+yarn add -D nodemon
+yarn add express mongoose
+touch index.js
+```
+
+index.js dosyasında projeyi oluşturalım.
+
+İlk olarak gerekli paketleri projeye dahil edelim.
+
+```js
+const express = require('express');
+const mongoose = require('mongoose');
+
+const app = express();
+
+app.use(express.json());
+```
+
+Ardından mongoose aracılığıyla mongodb'ye bağlantıyı kuralım.
+
+```js
+mongoose.connect('mongodb://localhost:27017/mongo', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+```
+
+Buradaki url yapısındaki kısımlara dikkat edelim. `localhost:27017` bilgisayarımızın kendi localindeki 27017 portunu temsil ediyor. `docker-compose.yml` dosyasında expose ettiğimiz portun 27017 olduğunu hatırlayın. / işaretinden sonraki kısım veritabanının adını ifade ediyor. Herhangi bir isim verebilirsiniz. Biz _mongo_ adını verdik.
+
+İkinci parametredeki seçenekler standart ayarlar olarak karşımıza çıkıyor.
+
+```js
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB bağlantı hatası!: '));
+db.once('open', function () {
+  console.log('Veritabanı başarıyla bağlandı');
+});
+```
+
+Burada ise bağlantı kurulup kurulmamsına göre console'a farklı mesajlar bastırıyoruz. Ardından 4000 portunda server'ı çalıştırıyoruz.
+
+```js
+app.listen(4000, () => {
+  console.log(`Server http://localhost:4000 adresinde çalışıyor...`);
+});
+```
+
+package.json dosyasına küçük bir `dev` script'i ekleyelim ki `yarn dev` komutu ile kolayca server'ı başlatabilelim.
+
+```json
+ "scripts": {
+    "dev": "nodemon server.js"
+  }
+```
+
+<ProTip tip="nodemon, dosya değişikliklerini izleyen ve server'ı her seferinde yeniden başlatan kullanışlı bir araçtır." />
+
+`yarn dev` komutu sonrasında console'da şu mesajları görebiliyorsak işlem başarılı demektir. 👇
+
+```bash
+[nodemon] starting `node server.js`
+Server http://localhost:4000 adresinde çalışıyor...
+Veritabanı başarıyla bağlandı
+```
+
+## Sonuç
+
+Docker bizlere izole çalışma ortamları oluşturma ve bu ortamları taşıma noktasında ciddi kolaylıklar sağlıyor. Burada yapmış olduğumuz çalışma her ne kadar basit olsa da umarım sizleri docker konusunda daha detaylı çalışmalara hazırlama adına yararlı olmuştur.
+
+Artık Docker ile MongoDB'ye bağlanmak daha kolay. 😄
+
+Yeni yazılardan haberdar olmak ve içerik talepleriniz için bana [twitter](https://twitter.com/uguremirmustafa) üzerinden ulaşabilir ve beni takip edebilirsiniz.
+
+İyi çalışmalar! 🧑‍💻💻🥳

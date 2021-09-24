@@ -247,10 +247,10 @@ html.light .hamburgerBtn {
   @apply text-blue-500 dark:text-purple-400;
 }
 .prose ul {
-  @apply pl-4 mb-4;
+  @apply pl-4;
 }
 .prose li {
-  margin-bottom: 0.6rem;
+  @apply my-2;
 }
 .prose li::before {
   content: '✔';
