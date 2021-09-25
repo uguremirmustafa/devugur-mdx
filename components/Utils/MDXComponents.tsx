@@ -12,10 +12,13 @@ import Step from '@components/Utils/Step';
 import ImageWithTheme from '@components/Utils/ImageWithTheme';
 import ProTip from '@components/Utils/ProTip';
 import BlurImage from '@components/Utils/BlurImage';
+import JumpingBall from '@components/Animations/JumpingBall';
+
 const MDXComponents = {
   Image,
   ImageWithTheme,
   BlurImage,
+  JumpingBall,
   a: CustomLink,
   //   Analytics,
   //   ConsCard,

@@ -12,7 +12,7 @@ const Index = ({ posts, projects }) => {
     <Container title={t('title')} description={t('description')}>
       <Hero />
       {projects.length > 0 && <ListTitle title={t('highlightedProjects')} />}
-      <div className="flex flex-col gap-4 w-full mt-8">
+      <div className="flex flex-col gap-16 w-full mt-8">
         {projects.map((frontMatter) => (
           <Card key={frontMatter.slug} {...frontMatter} cardType="portfolio" />
         ))}

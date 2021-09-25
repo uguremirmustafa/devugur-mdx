@@ -21,7 +21,7 @@ export default function Blog({ projects }: InferGetStaticPropsType<typeof getSta
           {subTitle}
         </h3>
 
-        <div className="flex flex-col gap-4 w-full">
+        <div className="flex flex-col gap-16 w-full">
           {projects.map((frontMatter) => (
             <Card key={frontMatter.slug} {...frontMatter} cardType="portfolio" />
           ))}

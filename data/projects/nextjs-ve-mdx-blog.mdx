@@ -1,0 +1,152 @@
+---
+title: NextJS ve MDX ile Developer Blog ve Portfolio Sitesi
+summary: Geliştiriciler için portfolio siteleri çoğu zaman CV'lerinden daha önemli olabilmekte. Bunun yanında teknik bilgilerini paylaşarak diğer yazılımcılara yardımcı olduğun blog yazılarını kendi websitende paylaşmanın gururu bambaşka. Ben de bu projede tam olarak bunu hedefledim. Bunu yaparken de NextJS ve MDX'ten faydalandım.
+publishedAt: '2021-09-25'
+images:
+  [
+    '/images/portfolio/nextjs-ve-mdx-blog/banner.png',
+    '/images/portfolio/nextjs-ve-mdx-blog/blog-example.png',
+  ]
+techStack: ['NextJS', 'MDX', 'Typescript', 'Blog', 'Portfolio', 'Tailwind']
+tags: ['nextjs', 'mdx', 'typescript', 'blog', 'portfolio']
+locale: tr
+alternate: '/portfolio/nextjs-and-mdx-blog'
+type: project
+isPublished: true
+selected: true
+github: https://github.com/uguremirmustafa/devugur-mdx
+demo: https://devugur.com
+---
+
+![devugur anasayfa](./banner.png)
+
+Yeteneklerin ve ortaya koyulan ürünlerin diplomanın yerini almaya başladığı yazılım sektöründe, yazılımcının ürünlerini ve bilgisini sergilemesi ciddi manada önem arz etmektedir. Bu bağlamda blog-portfolio siteleri yeteneklerimizi özgürce gösterebileceğimiz adresler haline geliyor. Ben de kendi sitem olan [devugur.com](https://devugur.com) adresini bu amaçla oluşturdum.
+
+Bu yazıda;
+
+- siteyi yazarken kullandığım araçlar,
+- içerik üretme noktasında sağladığı avantajlar,
+- ve performans adına yaptığım iyileştirmeler
+
+hakkında birçok detaydan bahsedeceğim. Daha fazla uzatmadan heyecanlı kısma başlayalım. 🥱
+
+## 1. Kullandığım Araçlar ve Tercih Nedenlerim
+
+Javascript ve React ekosistemine hakim bir frontend geliştirici olarak sitemi planlarken React uygulaması olarak tasarlamak istiyordum. Bu bana hem bilgilerimi pratikte kullanma hem de bunları canlı kanlı gösterebilme fırsatı sağlayacaktı ki öyle de oldu.
+
+### NextJS
+
+Son birkaç yılın yükselen React framework'ü _NextJS_, benim birçok projemde olduğu gibi bu projede de hayatımı kolaylaştıran araçların başında geliyor. NextJS _static-site-generation_ adı verilen özelliği sayesinde, eğer proje ihtiyacı olan tüm veriye build-time'da sahipse ilgili sayfaları statik web sayfası şeklinde oluşturarak tarayıcı tarafında çalışacak javascript kodunu minimize ediyor. Bu da otomatik olarak performansı ciddi anlamda artırıyor. Bu sayfaların CDN'de depolanması ve dünyanın her yerinde maximum hızda yüklenmesi de işin cabası.
+
+### MDX
+
+Github ile haşır neşir olan neredeyse herkes Markdown formatını duymuştur. MDX ise bunun daha gelişmiş versiyonu olan ve markdown içinde JSX formatında componentler yazılabilen bir format. Bu format ile React için yazmış olduğunuz componentleri, grafikleri, uyarı tablolarını ve daha birçok veri yapısını yazınıza dahil edebilirsiniz. MDX'in sağlamış olduğu bu esneklik ile interaktif ve eğlenceli blog yazıları oluşturmak mümkün. Örneğin şuna bir bakın: 👇
+
+<JumpingBall />
+
+Bu framer-motion ile yapılmış basit bir animasyon componenti. Bu componenti yazıma eklemek ise import etmek kadar kolay.
+
+```jsx
+import { MDXRemote } from 'next-mdx-remote';
+import JumpingBall from '@components/Animations/JumpingBall';
+
+const PostPage = ({ mdxSource, frontMatter }) => {
+  return (
+    <BlogLayout frontMatter={frontMatter}>
+      <MDXRemote {...mdxSource} components={JumpingBall} />
+    </BlogLayout>
+  );
+};
+export default PostPage;
+```
+
+MDX içeriğini render etmek için `next-mdx-remote` kütüphanesini kullanıyorum. Tüm yazıları yeniden build etmesi hızlı ve NextJS ile uyumlu olmasından ötürü bu kütüphaneyi seçtim. Alternatif olarak `mdx-enhanced` gibi kütüphaneler de mevcut.
+
+MDX ile çalışırken yazılara `frontmatter` ile meta veri eklemek çok kolay ve bunun sağladığı esneklik sayesinde farklı layoutlar yaratarak farklı yazı tiplerini istediğimiz şekilde yapılandırabilmek mümkün. Örneğin sitemdeki `blog` ve `portfolio` yazıları bazı yönleriyle birbirinden ayrılıyor. Bunun en basit örneği olarak portfolio yazılarının başında ilgili projenin github bağlantı linki ve demo linkini verebilirim.
+
+![frontmatter farklar](./buttons.png)
+
+```js
+// portfolio sayfası frontmatter kısmından alıntı
+---
+...
+github: https://github.com/uguremirmustafa/devugur-mdx
+demo: https://devugur.com
+---
+```
+
+Bu satırlar blog sayfalarının frontmatter kısmında yer almıyor.
+
+### Tailwind-CSS
+
+Evet, Tailwind sevenler kervanına ben de katılmış bulunuyorum. Her ne kadar business-scale uygulamalar için yeterli olmasa da küçük çaplı projelerde sağladığı hızlı tasarım olanakları sayesinde hızlıca ürün ortaya çıkarabilmek mümkün hale geliyor. Daha ciddi uygulamalarda SCSS/SASS tercihim olacaktır ancak bu proje için gayet de yeterli oldu. Kolayca gerçekleştirilen dark-mode entegrasyonu da cabası. 🌙🌞
+
+### Framer Motion ile Animasyonlar
+
+CSS zannedildiğinden güçlü özelliklere sahip fakat her şeyi CSS ile halletmeye çalışmak ciddi zaman kayıplarına neden olabiliyor. Animasyonlar da bunlardan bir tanesi. _Keyframes_ ile komplike animasyonlar yaratmak biraz gereksiz bir çaba olarak değerlendirilebilir. Bu noktada animasyon kütüphaneleri, react ile çalışıyorsanız da [framer-motion](https://www.framer.com/developers/) sizin için biçilmiş kaftan olabilir.
+
+Kolay entegrasyonu ile framer motion sayfa geçişlerinde ve küçük animasyonlar için sayfamda zevkle kullandığım bir araç oldu. Yakın zamanda bu konuda bir blog yazısı hazırlayacağım için bu kısmı kısa tutuyorum.
+
+> [GSAP](https://www.devugur.com/tr/blog/react-projesinde-gsap-ile-animasyonlar) ile de benzer efektleri elde etmek mümkün olsa da sayfa geçiş efektleri için ekstra araçlara ihtiyaç duyulması ve React'den ziyade genel bir Javascript kütüphanesi olması sebebiyle sonraki react projelerimde ilk tercihim GSAP yerine Framer-Motion olacaktır.
+
+## 2. Ne Gibi Avantjalar Sağlıyor?
+
+### Kısa yükleme süresi
+
+Sitedeki blog ve portfolio yazıları MDX formatında yazılıp build-time'da hazır olduğu için düşük bundle-size sayesinde sayfanın ilk yükleme süresi çok kısa oluyor. NextJS ve GatsbyJS ile iyice yaygınlık kazanan static-site-generation düşük performanslı ve düşük internet hızına sahip cihazlarda bile daha iyi bir deneyim sağlıyor.
+
+### Güçlü SEO
+
+Normal bir React projesinde ilk yükleme esnasında yüklenen html dosyası sayfada render edilen içerikleri içermemektedir. Javascript dosyası yüklendikten sonra render edilen sayfa içeriği, arama motoru robotlarınca incelenemediği için SEO açısından optimize olmamış siteler karşımıza çıkmaktadır. Ancak NextJS'in statik sayfa yaratma özelliği bu sorunun da önüne geçmekte ve SEO için hazır sitelerin yaratılmasına imkan tanımaktadır.
+
+### Lazy-loading Fotoğraflar
+
+Yine NextJS'in sunmuş olduğu next-image component'i sayesinde uğraşsız bir şekilde fotoğraflara lazy-loading özelliği kazandırılabilmekte. Böylece görüntülenme aralığını girmeyen fotoğraflar baştan yüklenmeyerek ilk yüklenme süresini düşürmekte ve server'a daha az yük bindirmekte.
+
+## 3. Sitenin Performansı Adına Yaptıklarım
+
+### SVG iconlar
+
+SVG formatındaki iconların az yer kapladığını hepimiz biliyoruz. Bunun için geliştirilmiş kütüphaneler(react-icons) de var ancak bundle-size'ı düşük tutmak adına kullandığım iconları [remix-icon](https://remixicon.com/) sitesinden svg formatında kopyalayıp projemin içinde kendi svg component kütüphanemi yarattım. Böylece hem birçok custom özellik ekleme şansına sahip oldum hem de gereksiz bağımlılıklardan kurtuldum. 🧠
+
+### Bulanık Fotoğraflar - Blurred Placeholder Images
+
+Eminim ki GatsbyJS kullanan herkes _sharp images_ özelliğine hayran kalmıştır. NextJS bu konuda biraz eksik kalıyor sanki. 😜 Ben de aradım taradım ve bu özelliği kendi custom image componentimde nasıl kullanacağımı öğrendim. Artık benim fotoğraflarım da _lazy loading_ aşamasında asıl görselin bulanık ve 1-2kb boyutundaki versiyonunu yüklüyor. Asıl görsel geldiğinde ise onunla yer değiştiriyor. Böylece hem [layout shift](https://www.devugur.com/blog/what-are-core-web-vitals#cumulative-layout-shift-cls) engellenmiş oluyor hem de kullanıcı o noktada bir fotoğraf yükleneceğini biliyor. Kısacası yüksek performans ve üstün kullanıcı deneyimi bir arada! 🤗
+
+## 4. Ekstra Özellikler
+
+### Çift Dil Desteği - i18n(internalization)
+
+Bu blogu ilk olarak İnglizce dilinde yazmaya başlamama rağmen ilerleyen zamanlarda Türkçe içeriğe aç olan ciddi bir kitlenin varlığı dikkatimi çekti. Bu nedenle bazı içerikleri Türkçe, bazılarını İngilizce bazılarını da çift dilde yazarak farklı okuyucu kitlelerine ulaşmayı ve onlara bir nebze de olsa yardım edebilmeyi hedefliyorum.
+
+### Ortalama Okuma Süresi
+
+```jsx
+import readingTime from 'reading-time';
+```
+
+Okuma süresi birçok blogda artık standart haline gelmiş durumda. Daha iyi bir kullanıcı deneyimi için bu özelliği [reading-time](https://www.npmjs.com/package/reading-time) paketi yardımıyla siteme eklemiş bulunuyorum.
+
+### Yazıya Emoji ile Tepki Verme ve Site içi Sesler
+
+Bu özellik, sitemdeki en sevdiğim özelliklerin başında geliyor. Kullanıcının site ile etkileşimini daha üst seviyeye çıkarmak ve eğlenceli zaman geçirmesi adına güzel bir özellik olduğunu düşünüyorum. Bu noktada [Josh W. Comeau'dan](https://www.joshwcomeau.com/) esinlendiğimi söylemem gerekiyor.
+
+### Custom Okunma Sayacı
+
+Google Analytics siteniz hakkında birçok bilgi verse de bazı veriler hatalı olabilmekte. Bunu önlemek ve daha basit bir çözüm elde etmek için [supabase'den](https://supabase.io/) ve _NextJS API routes_ özelliğinden yardım aldım. Sayfa her yüklendiğinde okuma sayısının bir arttığı bu sistem sayesinde yazıların almış olduğu gerçek okuma değerlerine ulaşabiliyorum.
+
+### Karanlık Mod
+
+Tailwind sağolsun sitelerimize dark-mode eklemek artık daha bir kolay. Zaten kimse geceleri bembeyaz ekrana bakmak zorunda olmamalı. Özellikle bizler gibi günün 14 saatini ekran karşısında geçirenler! 🧑‍💻
+
+## 5. Sonuç
+
+Bu proje sayesinde MDX konusunda ciddi bir deneyime sahip oldum. Özellikle iş hayatında yarattığımız kütüphanelere documentation yazmamız gerektiğinde bu bilgilerin işe yarayacağını düşünüyorum. Bunun dışında dikkatimi çeken bir nokta ise MDX formatında içerik üretmenin birçok WYSIWYG editör ile çalışmaktan daha kolay ve verimli olduğu yönünde. VSCode'u terk etmeden içerik üretmek gayet zevkli. 🤩
+
+Bu site ilk defa internalization özelliği eklediğim site oldu. NextJS bu noktada da gerçekten farkını ortaya koyuyor. Locale detaction (konum tespiti) özelliği sayesinde kullanıcının dilinde içerik sunmak çok kolay.
+
+Burada saymakla bitiremeyeceğim daha birçok deneyim kazandığım bu projenin, portfolyomda gururla gösterebileceğim projeler arasında yerini alacağına eminim. 😇
+
+Projeyedeki herhangi bir özelliğin nasıl yapıldığı konusunda merak ettiklerinizi bana [twitter](https://twitter.com/uguremirmustafa) üzerinden ya da [mail](mailto:uguremirmustafa@gmail.com) aracılığıyla sorabilirsiniz.
+
+İyi çalışmalar! 👋
