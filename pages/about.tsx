@@ -3,7 +3,6 @@ import React, { useEffect } from 'react';
 import useTranslation from 'next-translate/useTranslation';
 import BlurImage from '@components/Utils/BlurImage';
 import { getRouteImageMeta } from '@utils/image-api';
-import { motion } from 'framer-motion';
 interface Props {
   imgMeta: any;
 }

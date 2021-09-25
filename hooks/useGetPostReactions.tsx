@@ -14,6 +14,6 @@ const getPostReactions = async (slug: string) => {
   return postReactions;
 };
 
-export default function useGetReactions(slug: string) {
+export default function useGetPostReactions(slug: string) {
   return useQuery(`getReactions-${slug}`, () => getPostReactions(slug));
 }

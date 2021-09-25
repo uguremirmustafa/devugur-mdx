@@ -9,7 +9,7 @@ import { Twitter } from '@components/Svgs/Twitter';
 import { Github } from '@components/Svgs/Github';
 import { Instagram } from '@components/Svgs/Instagram';
 import { LinkedIn } from '@components/Svgs/LinkedIn';
-import useGetReactions from 'hooks/useGetReactions';
+import useGetPostReactions from 'hooks/useGetPostReactions';
 import useCreateReaction from 'hooks/useCreateReaction';
 import useSound from 'use-sound';
 import { AppContext } from '@context/AppContext';
@@ -25,7 +25,7 @@ interface Props {
 }
 
 export const EmojiReactions = ({ slug }: Props) => {
-  const { data: reactions } = useGetReactions(`/blog/${slug}`);
+  const { data: reactions } = useGetPostReactions(`/blog/${slug}`);
 
   return (
     <div className="fixed bottom-4 lg:bottom-[50%] lg:translate-y-[50%] left-4 lg:left-10 xl:left-20 2xl:left-40">

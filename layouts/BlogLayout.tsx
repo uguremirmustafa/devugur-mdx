@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { TagIcon } from '@components/Svgs/Tag';
 import { Tag } from '@components/Sections/Tag';
 import { EmojiReactions } from '@components/Sections/Reactions';
+import Chart from '@components/Sections/Reactions/Chart';
 
 interface Props {
   frontMatter: any;
@@ -44,6 +45,7 @@ export default function BlogLayout({ children, frontMatter }: Props) {
           </div>
         )}
         <div className="prose dark:prose-dark w-full">{children}</div>
+        <Chart />
       </article>
 
       <EmojiReactions slug={frontMatter.slug} />
