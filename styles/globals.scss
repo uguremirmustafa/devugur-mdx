@@ -263,6 +263,32 @@ html.light .hamburgerBtn {
 .prose a {
   @apply underline text-blue-500 hover:text-blue-400;
 }
+.prose p a {
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  padding: 2px;
+  &:after {
+    content: '';
+    width: 100%;
+    height: 2px;
+    background-color: rgba(59, 130, 246, var(--tw-text-opacity));
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transition: all ease 0.3s;
+    z-index: -1;
+  }
+  &:hover:after {
+    transform: skew(5deg, -5deg) scaleY(8) translateY(-1px);
+    transform-origin: center;
+  }
+  &:hover {
+    color: white;
+  }
+}
 .prose p {
   @apply mb-4 leading-loose;
 }
