@@ -9,7 +9,6 @@ import Chart from '@components/Sections/Reactions/Chart';
 
 interface Props {
   frontMatter: any;
-
   children: ReactNode;
 }
 
@@ -17,7 +16,7 @@ export default function BlogLayout({ children, frontMatter }: Props) {
   return (
     <Container
       title={`${frontMatter.title} – Uğur Emirmustafaoğlu`}
-      description={frontMatter.description}
+      description={frontMatter.summary}
       image={`https://devugur.com${frontMatter.image}`}
       date={new Date(frontMatter.publishedAt).toISOString()}
       type="article"

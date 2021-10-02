@@ -36,6 +36,7 @@ const contentVariants = {
 export default function Container(props: Props) {
   const { children, ...customMeta } = props;
   const router = useRouter();
+
   const meta = {
     title: 'Uğur Emirmustafaoğlu - Frontend Developer, blogger, ex lawyer.',
     description: `Front-end developer, open source enthusiast and Linux fan.`,

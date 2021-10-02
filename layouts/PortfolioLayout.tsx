@@ -3,8 +3,6 @@ import { ReactNode } from 'react';
 import { ArticleMeta } from '@components/Sections/ArticleMeta';
 import Link from 'next/link';
 import { Tool } from '@components/Svgs/Tool';
-import { Github } from '@components/Svgs/Github';
-import { Live } from '@components/Svgs/Live';
 
 interface Props {
   frontMatter: any;
@@ -16,7 +14,7 @@ export default function PortfolioLayout({ children, frontMatter }: Props) {
     <Container
       title={`${frontMatter.title} – Uğur Emirmustafaoğlu`}
       description={frontMatter.summary}
-      image={`https://devugur.com${frontMatter.image}`}
+      image={`https://devugur.com${frontMatter.images[0]}`}
       date={new Date(frontMatter.publishedAt).toISOString()}
       type="article"
       alternate={frontMatter.alternate}
