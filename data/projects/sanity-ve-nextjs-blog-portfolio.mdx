@@ -1,0 +1,148 @@
+---
+title: CMS kullanarak NextJS ile Fullstack Blog/Portfolio Sitesi
+summary: İçerik yönetim sistemleri(CMS) müşterimizin site üzerinde siz yazılımcının yardımı olmadan içerik düzenlemesi, ekleyip çıkarması için mükemmel araçlar olarak karşımızıza çıkıyor. Bu projede JAMStack felsefesi ile yaratılmış bir blog ve indirilebilir içerik koleksiyonu göreceksiniz. İndirilebilir içeriklere erişim ise Auth0 yardımı ile giriş yapmamış olan kullanıcılara sınırlandırılmıştır. Client tarafında ise NextJS kullanılmış ve SEO için optimize edilmiştir.
+publishedAt: '2021-10-02'
+images:
+  [
+    '/images/portfolio/sanity-ve-nextjs-blog-portfolio/home.png',
+    '/images/portfolio/sanity-ve-nextjs-blog-portfolio/jam.png',
+  ]
+techStack: ['NextJS', 'Sanity', 'Auth0', 'SASS']
+tags: ['nextjs', 'sanity.io', 'auth0', 'jamstack', 'sass/css', 'blog', 'portfolio']
+locale: tr
+alternate: ''
+type: project
+isPublished: false
+selected: false
+github: https://github.com/uguremirmustafa/prepokul-next
+demo: https://prepokul.com
+---
+
+![prepkul anasayfa](./home.png)
+
+## 1. Kullandığım Araçlar/Yöntemler ve Tercih Nedenlerim
+
+### JAMStack
+
+Wordpress ile alışmış olduğumuz all-in-one ya da monolithic sistemlerin tersine JAMStack felsefesi bize kullanacağımız servislerde esneklik ve üst düzey optimizasyon olanağı sunuyor.
+
+JAMStack(Javascript, API ve Markup) ile çalışmanın verdiği avantajların başında ise güvenlik geliyor. Sitenin hareketli parçaları bir API aracılığıyla geliştiriciye ulaştığı için arka plandaki servislerin nasıl çalıştığı ya da muhtemel güvenlik sorunlarının neler olduğu ile uğraşmıyor. Bu avantajı projede Auth0 kullanırken canlı kanlı yaşadım. Birkaç satır kod ile tüm authentication sürecini halledebildim.
+
+Projenin scale olması durumunda da gayet başarılı çalışan JAMStack felsefesi, proje CDN'de yaşadığı için cache gibi karmaşık ve çetrefilli işler ile uğraşmadan bizlere gayet yüksek bir performans sunuyor. Bugün 50 blog postunun olduğu sitede yarın 10000 tane blog olsa dahi aynı performansı elde edeceğini bilmenin rahatlığı gerçekten huzur verici.
+
+### NextJS
+
+Statik web siteleri React ekosisteminde GatsbyJS ile popülerlik kazanmıştı ancak son bir iki yılda NextJS geliştirici deneyimini zirveye çıkartan hamleleri ile gönüllerimizde ayrı bir yere sahip olmayı başarıyor.
+
+```jsx
+export async function getStaticProps(context) {
+  const data = await client.fetch(allPostsUnderCategory, { slug: context.params.slug });
+
+  return {
+    props: {
+      data,
+    },
+  };
+}
+
+export async function getStaticPaths() {
+  const slugs = await client.fetch(allPostPaths);
+
+  const paths = await slugs.map((slug) => ({ params: slug }));
+  return {
+    paths,
+    fallback: true,
+  };
+}
+```
+
+_getStaticPaths_ ve _getStaticProps_ fonksiyonları ile bütün blog postlarını build-time'da yaratma imkanı sunan NextJS, ışık hızında yüklenen sayfalar ile hem son kullanıcıyı hem de biz geliştiricileri mutlu ediyor.
+
+![build](./build.png)
+
+### Sanity.io - CMS
+
+Piyasada birçok CMS bulabilmek mümkün. Benim Sanity'i tercih etmemdeki en önemli faktör ise arayüzde sağa sola tıklamaya gerek kalmadan veri yapılarını(schemas) Sanity projesinin içinde basit bir JS dosyası şeklinde oluşturabilmem.
+
+```js
+export default {
+  name: 'author',
+  title: 'Yazar',
+  type: 'document',
+  fields: [
+    {
+      name: 'name',
+      title: 'Name',
+      type: 'string',
+    },
+    {
+      name: 'slug',
+      title: 'Slug',
+      type: 'slug',
+      options: {
+        source: 'name',
+        maxLength: 96,
+      },
+    },
+    {
+      name: 'image',
+      title: 'Image',
+      type: 'image',
+      options: {
+        hotspot: true,
+      },
+    },
+    {
+      name: 'bio',
+      title: 'Bio',
+      type: 'array',
+      of: [
+        {
+          title: 'Block',
+          type: 'block',
+          styles: [{ title: 'Normal', value: 'normal' }],
+          lists: [],
+        },
+      ],
+    },
+  ],
+};
+```
+
+Burada gördüğünüz author şeması bize sorgu yaptığımızda şöyle bir sonuç veriyor.
+
+```js
+  {
+    "_id":"7ca4b38e-4fase-45b6-a0d0-7b288273f473"
+    "image":{
+      "_type":"image"
+      "asset":{...}
+      "crop":{...}
+      "hotspot":{...}
+    }
+    "name":"Feyza Nur Emirmustafa"
+    "slug":{
+      "_type":"slug"
+      "current":"feyza-nur-emirmustafa"
+    }
+    "bio":{...}
+  }
+```
+
+Sorgu yapmak için ise kullanımı gayet kolay ve GraphQL'den bile bazı noktalarda üstün olan _GROQ_ adlı sorgu dilini kullanıyor. Sanity takımının in-house bir çözümü olan bu sorgu diline ilk başlarda alışması zor olsa da mükemmel bir slack kanalları var. 😍
+
+Örnek bir sorgu göstermek gerekirse 👇
+
+```js
+*[_type=="author"]{
+  name,
+  image,
+  slug,
+  _id,
+  bio
+}
+```
+
+Bütün bunların yanında Sanity Studio da müşterinizi tatmin edecek düzeyde bir arayüze sahip diyebilirim. Her ne kadar bir Contentful kadar havalı durmasa da bu arayüzü düzenlemek de bizim elimizde. En nihayetinde Sanity Studio da bir React uygulaması.`sanity start` komutu ile 3333 portunda ayağa kalkan studio'yu isterseniz Sanity'nin kendi hostingi üzerinde ücretsiz barındırabilir isterseniz de kendiniz host edebilirsiniz.
+
+![sanity studio](./studio.png)

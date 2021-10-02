@@ -60,12 +60,14 @@ export const Card = ({
                 className="relative overflow-hidden w-40 h-24 md:w-80 md:h-48 rounded-md border border-gray-300 shadow-lg bg-gray-200 cursor-pointer"
               >
                 <Image
-                  alt="dssa"
+                  alt={title}
                   src={image}
+                  width={320}
+                  height={200}
                   quality={100}
                   objectFit="cover"
-                  objectPosition="left"
-                  layout="fill"
+                  objectPosition="center"
+                  layout="intrinsic"
                   className="border border-white"
                 />
               </motion.div>
