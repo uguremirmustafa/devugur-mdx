@@ -12,8 +12,8 @@ tags: ['nextjs', 'sanity.io', 'auth0', 'jamstack', 'sass/css', 'blog', 'portfoli
 locale: tr
 alternate: ''
 type: project
-isPublished: false
-selected: false
+isPublished: true
+selected: true
 github: https://github.com/uguremirmustafa/prepokul-next
 demo: https://prepokul.com
 ---
@@ -146,3 +146,69 @@ Sorgu yapmak için ise kullanımı gayet kolay ve GraphQL'den bile bazı noktala
 Bütün bunların yanında Sanity Studio da müşterinizi tatmin edecek düzeyde bir arayüze sahip diyebilirim. Her ne kadar bir Contentful kadar havalı durmasa da bu arayüzü düzenlemek de bizim elimizde. En nihayetinde Sanity Studio da bir React uygulaması.`sanity start` komutu ile 3333 portunda ayağa kalkan studio'yu isterseniz Sanity'nin kendi hostingi üzerinde ücretsiz barındırabilir isterseniz de kendiniz host edebilirsiniz.
 
 ![sanity studio](./studio.png)
+
+## 2. Projenin Öne Çıkan Özellikleri
+
+### Statik Web Sitesi Olması
+
+Bir web sitesinin statik olması sanki çok işlevsiz gibi algılanmasına sebep olabilmekte lakin JAMStack mantığı ile bakıldığında birçok işlevi diğer servislerle halletiğimiz için hem istediğimiz fonksiyonları siteye dahil etmek hem de statik web sitesinin avantajlarını yaşamak mümkün.
+
+NextJS'in sağladığı fonksiyonlar sayesinde hızlı yüklenme süreleri, SEO açısından bütün datanın build-time'da çekilmiş olması ve böylece ilk yüklemede HTML içinde bu datanın servis edilmesi gibi avantajlar özellikle blog tarzı bir site için çok ciddi avantajlar sağlıyor.
+
+CDN'de cache edilmiş sayfalar sayesinde server tarafına çok daha az yük binmesi ve sitenin yürütme maliyetlerinin çok düşük olması da yine statik web sitelerinin haliyle bu sitenin bir diğer avantajı.
+
+### Esnek CMS yapısı
+
+Sanity.IO benim favori CMS'im. Yukarıda da bahsettiğim gibi geliştiriciye ciddi anlamda bir esneklik sağlıyor. İlerleyen zamanlarda blog sitesinin yanında bir e-ticaret platformu entegre etmek de mümkün. Tek yapmam gereken `product` adında bir şema ile yeni veri yapıları oluşturmak. Bu şekilde müşteri hem blogunu hem de e-ticaret verilerini tek yerden idare edebilir.
+
+CMS yapılandırmasının kod üzerinden yapılabiliyor olması onu benim gözümde Contentful gibi alternatiflerinin önüne koyuyor. Benzer tarzda iki tane farklı şema ile çalıştığımızı düşünelim. Bu durumda kod üzerinden şemaları yaratmanın avantajını görebiliriz. Basit bir kopyala yapıştır ile yeni şemamız hazır. Aynı şekilde şemaların dışarı aktarımı ve farklı projelerde kullanımı da gayet basit.
+
+Sanity zengin plugin kütüphanesi ile de esnekliğini bizlere gösteriyor. Bunu anlatmak başka bir yazının konusu olduğu için burada kesiyorum. Unutmadan Sanity'nin ücretsiz sürümü çok cömert olmakla birlikte ücretli sürümüde birçok rakibine nazaran ucuz. Bu kadar reklamdan sonra devam edelim. 🤫
+
+### Kayıt yapan kullanıcılara özel içerikleri
+
+Kimlik doğrulama(authentication) ve yetkilendirme(authorization) modern web sitelerinin artık olmazsa olmazı. Hem kullanıcı verilerini toplayarak bunlardan faydalanmak hem de korunan içerikleri saklamak için olmazsa olmaz. Sıfırdan bir authentication sistemi kurmak hem zaman hem de maliyet açısından projenin boyutuna da bağlı olarak yanlış bir tercih olabilir. Özellikle proje başlangıç aşamasında ise buna yatırım yapmaktansa projenin esas özelliklerini inşa etmek daha mantıklı olabilir. Bu proje de onlardan biri. Bu sebeple Auth0 free-tier işimi gayet gören bir çözüm oldu. Auth0 ekibinin NextJS için geliştirmiş olduğu [SDK](https://github.com/auth0/nextjs-auth0) sayesinde tüm uygulamaya auth özelliği katmış oldum.
+
+```js
+// /pages/api/auth/[...auth0].js
+
+import { handleAuth } from '@auth0/nextjs-auth0';
+
+export default handleAuth();
+```
+
+NextJS'in API endpointlerinden faydalanan Auth0 yukarıdaki endpoint ile her şeyi hallediyor.
+
+```jsx
+// /pages/_app.js
+
+import { UserProvider } from '@auth0/nextjs-auth0';
+
+function MyApp({ Component, pageProps }) {
+  return (
+    <UserProvider>
+      <Component {...pageProps} />
+    </UserProvider>
+  );
+}
+
+export default MyApp;
+```
+
+Burada da uygulamayı sardıktan sonra `useUser` hook yapısı ile kullanıcı bilgisine her yerden erişebiliyoruz. Bu kadar basit.
+
+## 3. Keşkelerim
+
+Bu projedeki en büyük keşkem CSS tarafında oldu ve bu hataya ilk defa düşmüyorum. 🥲 Projenin tasarımı içi gerekli olan tüm değişkenleri(color, padding, shadow vs.) proje başında tanımlamak yerine sürekli kopyala-yapıştır yapmak. Projeyi refactor ederken ilk yapacağım şey _mixin_ yapısına ve değişkenlere ağırlık vermek olacak.
+
+Diğer keşkem ise SVG iconlarımı saracak(wrap) bir component yaratmalıydım. Böylece her icona kolaylıkla istediğim propları verebilirdim. 😮‍💨 Bunu da projeyi refactor ederken düşüneceğim.
+
+### 3. Sonuç
+
+Bu proje sayesinde Sanity'i ve onun sorgu dili olan GROQ'u öğrenme şansı yakalamış oldum. Çok hızlı bir şekilde geliştirme ve projeyi production'a alma şansı da tanıyan Sanity mutlaka incelenmeli diye düşünüyorum.
+
+Buna ek olarak geliştirme süreçlerime katkısı olacak genel bir tecrübe kazandığımı düşünüyorum. _Ortada sorun yokken kendine sorun yaratma:_ Evet bunu hep yapıyorum ve birçok arkadaşın da bu hataya düştüğünü görüyorum. Normalde kendi kimlik doğrulama(authentication) ve yetkilendirme(authorization) sistemimi kendim yazardım. Bunun avantajları olmakla beraber bana vakit kaybettirdiği de bir gerçekti. O yüzden bazen hazır çözümlerden faydalanmak mantıklı olabiliyor. Auht0 burada imdadıma yetişti ve beni birçok baş ağrısından kurtarmakla kalmadı, bana tonla zaman kazandırdı. 🙃
+
+Belki eklenebilecek başka noktalar da olabilir ancak bu yazının sınırlarını zorladığımı hissediyorum.
+
+Başka projelerde görüşmek üzere. 👋👋
