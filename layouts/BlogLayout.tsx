@@ -18,7 +18,8 @@ export default function BlogLayout({ children, frontMatter }: Props) {
       title={`${frontMatter.title} – Uğur Emirmustafaoğlu`}
       description={frontMatter.summary}
       image={`https://devugur.com${frontMatter.image}`}
-      date={new Date(frontMatter.publishedAt).toISOString()}
+      // date={new Date(frontMatter.publishedAt).toISOString()}
+      date={frontMatter.publishedAt}
       type="article"
       alternate={frontMatter.alternate}
       contentType={frontMatter.type}

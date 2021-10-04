@@ -59,7 +59,7 @@ export default function Container(props: Props) {
         <meta name="author" content="Uğur Emirmustafaoğlu" />
         <meta property="og:description" content={meta.description} />
         <meta property="og:title" content={meta.title} />
-        <meta name="image" property="og:image" content={meta.image} />
+        <meta name="image" property="og:image" content={`${meta.image}?1`} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@uguremirmustafa" />
         <meta name="twitter:title" content={meta.title} />
