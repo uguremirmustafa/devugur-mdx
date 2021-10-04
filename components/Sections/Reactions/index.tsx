@@ -25,7 +25,7 @@ interface Props {
 }
 
 export const EmojiReactions = ({ slug }: Props) => {
-  const { data: reactions } = useGetPostReactions(`/blog/${slug}`);
+  const { data: reactions } = useGetPostReactions(slug);
 
   return (
     <div className="fixed bottom-4 lg:bottom-[50%] lg:translate-y-[50%] left-4 lg:left-10 xl:left-20 2xl:left-40">
@@ -88,7 +88,7 @@ export const EmojiReactions = ({ slug }: Props) => {
 
 const AnimatedButton = ({ count = 0, reaction, slug, icon }) => {
   const { state } = useContext(AppContext);
-  const { data, mutate } = useCreateReaction(`/blog/${slug}`, reaction, count + 1);
+  const { data, mutate } = useCreateReaction(slug, reaction, count + 1);
   const soundSettings = state.sound;
   const [likeSound] = useSound(like, soundSettings);
   const [confettiSound] = useSound(confetti, soundSettings);

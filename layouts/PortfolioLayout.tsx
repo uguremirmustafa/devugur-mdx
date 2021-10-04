@@ -3,6 +3,7 @@ import { ReactNode } from 'react';
 import { ArticleMeta } from '@components/Sections/ArticleMeta';
 import Link from 'next/link';
 import { Tool } from '@components/Svgs/Tool';
+import { EmojiReactions } from '@components/Sections/Reactions';
 
 interface Props {
   frontMatter: any;
@@ -48,6 +49,7 @@ export default function PortfolioLayout({ children, frontMatter }: Props) {
         )}
         <div className="prose dark:prose-dark max-w-none w-full">{children}</div>
       </article>
+      <EmojiReactions slug={`/portfolio/${frontMatter.slug}`} />
     </Container>
   );
 }
