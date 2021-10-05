@@ -75,11 +75,11 @@ export const Card = ({
           </div>
         )}
         <div className="flex flex-col md:flex-row justify-between mb-2">
-          <Link href={`/${cardType}/${slug}`} key={slug}>
-            <h4 className="card-title bg-clip-text text-transparent dark:text-transparent bg-gradient-to-br from-gray-600 to-gray-900 dark:from-yellow-400  dark:to-yellow-600 p-0 m-0 cursor-pointer">
+          <h4 className="bg-clip-text text-transparent dark:text-transparent bg-gradient-to-br from-gray-600 to-gray-900 dark:from-yellow-400  dark:to-yellow-600 p-0 m-0 cursor-pointer transition duration-500 ease-in-out underline hover:from-yellow-500 hover:to-yellow-600 ">
+            <Link href={`/${cardType}/${slug}`} key={slug}>
               {title}
-            </h4>
-          </Link>
+            </Link>
+          </h4>
           {!data && <div className="animate-spin"></div>}
           <div className="flex items-start gap-2 text-gray-500 text-left md:text-right mt-2 md:mt-0 min-w-4 text-sm">
             <p className="flex w-32 items-center gap-2 md:justify-end text-sm">

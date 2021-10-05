@@ -508,9 +508,6 @@ table {
   margin-top: 1rem;
 }
 
-.card-title:hover {
-  @apply from-yellow-500 to-yellow-600 transition duration-1000 ease-in-out;
-}
 .card-button:hover {
   @apply underline  dark:text-yellow-500 transition duration-1000 ease-in-out;
 }
