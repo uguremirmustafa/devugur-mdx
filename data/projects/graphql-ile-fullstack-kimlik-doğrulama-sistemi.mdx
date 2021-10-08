@@ -1,0 +1,162 @@
+---
+title: Apollo ve React Kullanarak Fullstack Kullanıcı Kimlik Doğrulama Sistemi - Login/Register
+summary: Kimlik Doğrulama Sisteminin(Authentication Flow) olmadığı bir web uygulaması hayal etmek neredeyse imkansız. Bazı şirketler Auth0 gibi hazır sistemler tercih ederken bazıları ise in-house çözümler yaratıyorlar. Bu projede Apollo ve React kullanarak server ve client'ın GraphQL üzerinden konuştuğu fullstack bir kimlik doğrulama sistemi hazırladım. Sonraki projenizde bu kodu boilerplate olarak kullanabilirsiniz.
+publishedAt: '2021-10-08'
+images:
+  [
+    '/images/portfolio/graphql-ile-fullstack-kimlik-doğrulama-sistemi/graphql.png',
+    '/images/portfolio/graphql-ile-fullstack-kimlik-doğrulama-sistemi/register.png',
+  ]
+techStack: ['React', 'Apollo-Server', 'Apollo-Client', 'GraphQL', 'JWT', 'Postgres', 'Chakra-UI']
+tags:
+  ['react', 'graphql', 'typescript', 'apollo-server-express', 'apollo-client', 'jwt', 'postgres']
+locale: tr
+alternate: ''
+type: project
+isPublished: true
+selected: true
+github: https://github.com/uguremirmustafa/graphql-express-jwt-auth-server
+demo: https://express-graphql-jwt-auth.vercel.app
+---
+
+![register](./register.png)
+
+Kimlik doğrulama sistemleri, kullanıcının temel bilgilerinin(email, şifre vb.) alınarak bir veritabanında şifrelenerek saklandığı ve kullanıcı uygulamaya giriş yaparken kullanıcıdan alınan bilgilerin veritabanındakilerle uyuşup uyuşmadığının kontrol edildiği sistemlerdir. Aslında hepimizin aşina olduğu _giriş yap/kaydol_ işleminin arkasındaki sistemden bahsediyorum. Bu uygulamada server ve client'ın _GraphQL_ üzerinden haberleştiği bir fullstack kimlik doğrulama sistemi geliştirdim. Bu projeyi hazırlarken aşağıdaki teknolojilerden yararlandım:
+
+- Server tarafında
+  - [apollo-server-express](https://www.npmjs.com/package/apollo-server-express)
+  - [jwt](https://jwt.io/)
+  - [typeorm](https://typeorm.io/#/)
+  - [typegraphql](https://typegraphql.com/)
+  - [ioredis](https://github.com/luin/ioredis)
+  - [typescript](https://www.typescriptlang.org/)
+- Client tarafında
+  - [react](https://reactjs.org/)
+  - [apollo-client](https://www.apollographql.com/docs/react/)
+  - [formik](https://formik.org/)
+  - [chakra-ui](https://chakra-ui.com/)
+  - [typescript](https://www.typescriptlang.org/)
+  - [graphql-code-generator](https://www.graphql-code-generator.com/)
+
+## 1. Kullandığım Araçlar ve Tercih Sebeplerim
+
+### apollo-server-express
+
+GraphQL ile server oluştururken en güçlü seçenekler arasında apollo-server ve apollo-server-express yer alıyor. Apollo'nun kendi sitesinde verdiği bilgilere göre apollo-server'ın arka planında da apollo-server-express çalışıyor fakat ince ayarlamalar için apollo-server-express tavsiye ediliyor. Bu proje bir boilerplate olduğunda geliştirmelere ve detaylı konfigürasyon değişikliklerine açık olmasını istedim ve bu nedenle apollo-server-express'i server olarak tercih ettim.
+
+![graphql](./graphql.png)
+
+### jwt
+
+Daha öncesinde buna benzer bir projede session'lar ile çalışmıştım. Bu sefer farklı bir deneyim olması için JWT tercih ettim. Cookie olarak gönderdiğim refresh-token ve access-token'larımı jwt ile imzalayarak gönderdim ve kullanıcıdan gelen request'leri de bir adet middleware yardımı ile authenticated olup olmamasına göre değerlendirdim.
+
+### typeorm ve typegraphql
+
+Bu iki kütüphanenin birlikte ne denli uyumlu çalıştıklarını Ben Awad'ın [şu](https://www.youtube.com/watch?v=25GS0MLT8JU) videosunda gördüğümden beri vazgeçilmez araçlarım arasında yer alıyorlar. _Typeorm_ Typescript desteği olan bir ORM, yani veritabanı etkileşim aracı. Onun sayesinde _postgres_ veritabanım ile iletişimimi saf SQL sorguları yazmak yerine daha zarif bir biçimde utility fonksiyonları ile yazıyorum.
+
+_typegraphql_ ise Typeorm ile yazmış olduğumuz _entity_ dosyalarına birer _@Field_ decorator'ı ekleyerek ayrıca type definitionları yazmadan kolayca Graphql type'larımı hazırlamış oluyorum. Bu iki aracı detaylıca öğrenmek isterseniz Ben Awad'ı muhakkak izleyin derim.
+
+```jsx
+import { Field, Int, ObjectType } from 'type-graphql';
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from 'typeorm';
+
+@ObjectType()
+@Entity('users')
+export class User extends BaseEntity {
+  @Field(() => Int)
+  @PrimaryGeneratedColumn()
+  id!: number;
+
+  @Field(() => String)
+  @Column('text', { unique: true })
+  email!: string;
+
+  @Field(() => String)
+  @Column('text', { unique: true })
+  username!: string;
+
+ @Column('text')
+  password!: string;
+
+  @Column('int', { default: 0 })
+  tokenVersion: number;
+}
+```
+
+### ioredis
+
+Redis bu projede bana _rate-limiting_ yaparken yardımcı oldu. _DDOS ataklarını_ önlemek adına kullanıcı ip adresleri ile Redis'te keyler sakladım. Böylece anlık ciddi bir talep olduğunda ilgili ip adresini belirli bir süre engelleme şansım oldu. Redis'in ne kadar hızlı ve bu tarz işler için ne kadar elverişli olduğunu sizler zaten biliyorsunuz.
+
+### apollo-client
+
+Browser tarafında React ile kullanıcı arayüzünü oluşturdum. Apollo-client ile uygulamamı sardım ve server tarafındaki verileri GraphQL sorguları ile kolayca çağırabildim.
+
+```jsx
+const client = new ApolloClient({
+  link: from([tokenRefreshLink, authLink, httpLink]),
+  cache: new InMemoryCache({}),
+});
+
+ReactDOM.render(
+  <ApolloProvider client={client}>
+    <App />
+  </ApolloProvider>,
+  document.getElementById('root')
+);
+```
+
+### graphql-code-generator
+
+Bu aracın ne kadar işe yaradığını ve vakit kazandırdığını anlatmak mümkün değil. Bilgisayarınıza kuracağınız bir CLI yardımı ile sizlere GraphQL sorgularınıza göre custom React hook yapıları oluşturuyor, hem de tamamen Typescript destekli. Bunun sayesinde artık apollo-client'ın sunduğu `useQuery` ve `useMutation` nasıl çalışıyordu onu dahi unuttum. 🥳
+
+### formik
+
+Bu vesile ile form oluşturma çilesini sırtımızdan alan `formik` ve `react-hook-form` kütüphanelerine ve geliştiricilerine tekrar teşekkürlerimi iletiyorum. Bunlar birer harika. Bu projedeki tercihim ise formik'ten yana oldu. Geçerli bir sebebi yok sanırım. Yoksa ikisi de harika kütüphaneler. Şuraya da oluşturmuş olduğum _custom input field_'ı bırakayım da tam olsun.
+
+```jsx
+import { FormControl, FormErrorMessage, FormLabel, Input, Textarea } from '@chakra-ui/react';
+import { useField } from 'formik';
+import React, { FC, InputHTMLAttributes } from 'react';
+
+type IProps = InputHTMLAttributes<HTMLInputElement | HTMLTextAreaElement> & {
+  name: string,
+  label: string,
+  textarea?: boolean,
+};
+
+const InputField: FC<IProps> = ({ label, textarea, size: _, ...props }) => {
+  const [field, { error }] = useField(props);
+  return (
+    <FormControl isInvalid={!!error}>
+      <FormLabel htmlFor={field.name}>{label}</FormLabel>
+      {!textarea ? (
+        <Input {...field} {...props} id={field.name} placeholder={props.placeholder} />
+      ) : (
+        <Textarea {...field} {...props} id={field.name} placeholder={props.placeholder} />
+      )}
+      {error ? <FormErrorMessage>{error}</FormErrorMessage> : null}
+    </FormControl>
+  );
+};
+
+export default InputField;
+```
+
+### chakra-ui
+
+Sürekli Material-UI kullanmaktan gına geldiği için bu projede Chakra-UI tercih ettim. Gayet eğlenceli bir kütüphane olduğunu söyleyebilirim. _Tailwind_ seven arkadaşlar bunu da seveceklerdir.
+
+![login](./login.png)
+
+## 2. Sonraki Adımlar ve Eklenecek Özellikler
+
+Projenin şu an için geliştirme aşamasında olduğunu söyleyebilirim. Özellikle TypeORM tarafında keşfedilecek birçok özellik var. Hele benim gibi frontend tarafınıza daha çok güveniyor ve backend'e yeni yeni ısınıyorsanız TypeORM'u keşfetmenin heyecanlı bir süreç olduğunu söylemek isterim. Şimdilik kafamda eklemeyi düşündüğüm özellikler ve yapılacaklar listesine şunları sıralayabiliriz:
+
+- _Global error handler:_ TypeORM hataları yakalayacak global bir fonksiyon yazma imkanı tanıyor sanırım. Yakında bunu keşfetmeyi planlıyorum ki her resolver için ayrı ayrı error-handling yapmayalım.
+- _Şifre yenileme - forgot password:_ Şimdilik şifrenizi unuttunuz mu yandınız ama yakında şifremi unuttum özelliği geliyor. ⏳
+
+## 3. Sonuç
+
+Bu proje ile JWT kullanarak GraphQL authentication server nasıl kurulur onu öğrendim. Buna ek olarak React tarafında cookie yönetimi ve HTTP headers konusunda yeni deneyimler edindim. Bir de Vercel'de environment variable'ların REACT_APP\_ prefixi ile yazılması gerektiğini yoksa saatlerce boşa vakit harcanabileceğini görmüş oldum. İşte bunlar hep tecrübe.
+
+Sonraki projelerde görüşmek üzere. 🤗
