@@ -22,13 +22,13 @@ const contentVariants = {
   animate: {
     opacity: 1,
     transition: {
-      duration: 1,
+      duration: 0.6,
     },
   },
   exit: {
     opacity: 0,
     transition: {
-      duration: 1,
+      duration: 0.6,
     },
   },
 };
@@ -46,7 +46,7 @@ export default function Container(props: Props) {
   };
 
   return (
-    <div className="bg-white dark:bg-gray-900 ">
+    <div className="bg-white dark:bg-gray-900">
       <Head>
         <title>{meta.title}</title>
         <meta name="robots" content="follow, index" />
