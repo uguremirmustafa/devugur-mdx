@@ -47,7 +47,6 @@ export default function BlogLayout({ children, frontMatter }: Props) {
         <div className="prose dark:prose-dark w-full">{children}</div>
         <Chart />
       </article>
-
       <EmojiReactions slug={`/blog/${frontMatter.slug}`} />
     </Container>
   );

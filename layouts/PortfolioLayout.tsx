@@ -49,6 +49,7 @@ export default function PortfolioLayout({ children, frontMatter }: Props) {
         )}
         <div className="prose dark:prose-dark max-w-none w-full">{children}</div>
       </article>
+
       <EmojiReactions slug={`/portfolio/${frontMatter.slug}`} />
     </Container>
   );

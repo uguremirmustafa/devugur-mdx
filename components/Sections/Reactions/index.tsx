@@ -28,7 +28,7 @@ export const EmojiReactions = ({ slug }: Props) => {
   const { data: reactions } = useGetPostReactions(slug);
 
   return (
-    <div className="fixed bottom-4 lg:bottom-[50%] lg:translate-y-[50%] left-4 lg:left-10 xl:left-20 2xl:left-40">
+    <div className="fixed bottom-4 lg:bottom-[50%] lg:translate-y-[50%] left-4 lg:left-10 xl:left-20 2xl:left-40 z-10">
       <div className="hidden lg:flex mb-10 flex-col items-center">
         <img src="/me.png" className="w-16 rounded-full mb-2" alt="" />
         <p className="text-xs">Uğur</p>

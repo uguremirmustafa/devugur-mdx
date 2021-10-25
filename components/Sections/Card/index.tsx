@@ -9,6 +9,7 @@ import { Eye } from '@components/Svgs/Eye';
 import { Github } from '@components/Svgs/Github';
 import { Live } from '@components/Svgs/Live';
 import { motion } from 'framer-motion';
+import AnimatedButton from '@components/Animations/AnimatedButton';
 
 interface Props {
   files: string[];
