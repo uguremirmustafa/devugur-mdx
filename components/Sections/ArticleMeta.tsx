@@ -35,6 +35,7 @@ export const ArticleMeta = ({ title, publishedAt, slug, readingTime, github, dem
             width={48}
             src="/me.png"
             className="rounded-full"
+            quality={25}
           />
           <p className="text-sm text-gray-700 dark:text-gray-300">
             {'Uğur Emirmustafaoğlu / '}
