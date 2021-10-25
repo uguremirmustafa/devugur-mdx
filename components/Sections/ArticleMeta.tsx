@@ -6,6 +6,7 @@ import useTranslation from 'next-translate/useTranslation';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React from 'react';
+import me from '../../public/me.png';
 
 interface Props {
   title: string;
@@ -33,7 +34,7 @@ export const ArticleMeta = ({ title, publishedAt, slug, readingTime, github, dem
             alt="Uğur Emirmustafaoğlu"
             height={48}
             width={48}
-            src="/me.png"
+            src={me}
             className="rounded-full"
             quality={25}
           />
