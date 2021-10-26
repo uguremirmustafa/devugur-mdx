@@ -1,0 +1,225 @@
+---
+title: React Projenize Typescript ile Level Atlatın
+summary: Typescript bizleri birçok hatadan kurtarmakla kalmıyor bizlere zaman da kazandırıyor. Gelin React projenizde Typescript'i nasıl kullanabilirsiniz bakalım.
+publishedAt: '2021-10-26'
+image: '/images/blog/react-ve-typescript/kapak.png'
+locale: tr
+tags: ['typescript', 'react']
+isPublished: true
+alternate: ''
+type: blog
+selected: true
+---
+
+Typescriptin bizlere sağladığı nimetleri saymakla vakit kaybetmeyi hiç istemiyorum. Zaten büyük ihtimalle bu nimetlerden haberi olan birisi olarak buraya geldin. O yüzden hemen başlamak istiyorum.
+
+## Typescript-React Boilerplate
+
+Her şeyden önce hızlıca bir React-Typescript boilerplate'i ile başlayalım. Webpack, Babel vs. ile uğraşmadan `create-react-app` ile bir proje oluşturalım. Şablon olarak `typescript` seçmeyi unutmayın. 👇
+
+```bash
+npx create-react-app <proje_adı> --template typescript
+```
+
+Yukarıdaki komut çalışmasını tamamladığında React-Typescript boilerplate kodumuz hazır olacak. Ardından proje dizinine gidip editörümüzü açalım.
+
+> Eğer halihazırda çalıştığınız bir React projesine Typescript eklemek isterseniz [şurayı](https://create-react-app.dev/docs/adding-typescript/#installation) okuyabilirsiniz.
+
+Çalıştırdığımız kod bize her zamanki alışık olduğumuz `.jsx` uzantılı dosyaların yerine `.tsx` uzantılı dosyalar yarattı. Bu formata sahip dosyalarda typescript ve jsx kodunu birlikte yazabileceğiz.
+
+## Component Yaratma
+
+Typescript ile yeni bir component yaratmayı deneyelim. Component'imiz bir `Container` olsun. Bu container property olarak `size` adında bir `string` alsın. Ayrıca `children` componentleri içine alabilsin.
+
+```tsx
+// components/Container.tsx
+
+import { ReactNode } from 'react';
+
+export type Sizes = 'sm' | 'md' | 'lg';
+
+interface Props {
+  size: Sizes;
+  children: ReactNode;
+}
+
+const Container = ({ size, children }: Props) => {
+  return <div className={size}>{children}</div>;
+};
+
+export default Container;
+```
+
+Burada neler oluyor bir bakalım.
+
+1. İlk dikkatimizi çeken `interface` ve `type` anahtar kelimeleri olmuştur sanırım. Typescript ve React ile çalışırken bu anahtar kelimeler çok sık rastlayacağınızı unutmayın. Bunlar Typescript type'larını tanımlamak için kullandığımız anahtar kelimeler. İkisinin arasında bazı farklar olsa da ikisi genelde birbirinin yerine kullanılmakta. Bu konuda karar vermekte zorlanıyorsanız `type`'ı kullanmak zorunda kalana kadar `interface`'i kullanmaya devam edin diyebilirim.
+
+_Sizes_ adında tanımlamış olduğumuz _union_ type ile size property'sinin alabileceği string değerleri sınırlı bir şekilde belirtmiş oluyoruz. Eğer birisi burada sıralanan 'sm' | 'md' | 'lg' seçeneklerinden başka bir seçenek sunmak isterse typescript bunu yakalayacaktır.
+
+2. Dikkat çeken diğer bir nokta ise `children` type olmalı. Zira React ile Typescript kullanırken children prop'unu çeşitli şekillerde tanımlayabilmekteyiz.
+
+- ReactChild
+- ReactChild[]
+- ReactNode
+- `const Page: React.FC<Props\> = ({ title, children }) => {}`
+
+Bu seçenekler arasında bazı farklılıklar mevcut ama konumuzun sınırlarını aştığı için bunu farklı bir yazıya saklıyorum. Eğer merak ediyorsanız [şu](https://www.carlrippon.com/react-children-with-typescript/) makaleye göz atabilirsiniz.
+
+Şimdi de bu komponenti App.tsx dosyamızda kullanalım.
+
+```tsx
+// App.tsx
+
+import Container from './components/Container';
+
+function App() {
+  return (
+    <div>
+      <Container size="sm">
+        <h2>hello world</h2>
+      </Container>
+    </div>
+  );
+}
+
+export default App;
+```
+
+İşte bu kadar basit. Eğer parent dosyamızdan yani App.tsx'ten size property'sini girmezsek typescript compiler bize hata verecektir. Zira size property'nin zorunlu bir prop olduğunu `Container` componentimizin `interface`'inde belirtmiştik. Eğer bu property'nin optinal(yani isteğe bağlı) olmasını istiyorsak bir _soru işareti(?)_ işimizi görecektir.
+
+```tsx
+//...
+interface Props {
+  size?: Sizes;
+  //...
+}
+```
+
+Aynı durum componente children eklemediğimiz durumda da karşımıza çıkacaktır çünkü her zaman children alacağını söylediğimiz bir component yarattık. İstersek onu da soru işareti ile optional hale getirebiliriz.
+
+## Typescript ve useState Hook
+
+State'imizin type'ını belirlemek bizleri olası hatalı state güncellemelerinden ve benzer diğer hatalardan kurtaracaktır. `useState` hook ile typescripti aşağıdaki syntax ile kullanabiliriz.
+
+```tsx
+interface User {
+  name: string;
+  email: string;
+  address: {
+    city: string;
+    street?: string;
+    apartmentNumber?: number;
+  };
+  hobbies?: string[];
+}
+
+const Container = ({ size, children }: Props) => {
+  const [user, setUser] = useState<User>();
+  return <div className={size}>{children}</div>;
+};
+
+export default Container;
+```
+
+`useState`'in type'ını bu şekilde belirttiğimizde `ctrl` + `space` kombinasyonu bizlere otomatik tamamlama seçeneklerini gösteriyor. Bu şekilde yazım hataları vb. tamamen engellenmiş oluyor.
+
+![autocomplete](./autocomplete.png)
+
+Eğer _user_ state'inin zorunlu ögelerinden biri eksik girilseydi de aynı şekilde typescript engine bizi uyaracaktı. Bana sorarsanız bu şekilde çalışmak hem daha zevkli hem de daha güvenli.
+
+## Typescript ve useRef Hook
+
+`useRef` vanilla javascriptte sıklıkla kullandığımız `getElementById` veya `querySelector` yerine React ortamında kullanımı tercih edilen bir hook yapısı olarak karşımıza çıkıyor. DOM node'larını seçmek için kullanılan `useRef` typescript ile nasıl kullanılır kısaca inceleyelim. Öncelikle bir tane `input` field ekleyelim ve bu input field'ı useRef ile seçelim. Ardından da _focus_ ve _blur_ eventleri trigger olduğunda style değişikliği yapalım.
+
+![input field](./inputfield.gif)
+
+```tsx
+import React, { useLayoutEffect, useRef } from 'react';
+import styles from './InputField.module.css';
+interface Props {}
+
+const InputField = (props: Props) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+  useLayoutEffect(() => {
+    const { current } = inputRef;
+
+    const handleFocus = () => inputRef.current?.classList.add(styles.active);
+    const handleBlur = () => inputRef.current?.classList.remove(styles.active);
+
+    current?.addEventListener('focus', handleFocus);
+    current?.addEventListener('blur', handleBlur);
+
+    return () => {
+      current?.removeEventListener('focus', handleFocus);
+      current?.removeEventListener('blur', handleBlur);
+    };
+  }, []);
+  return (
+    <div>
+      <input ref={inputRef} type="text" className={styles.input} />
+    </div>
+  );
+};
+
+export default InputField;
+```
+
+Evet, burada birçok olay gerçekleşiyor. Herşeyden önce `useLayoutEffect` yabancı geliyorsa merak etmeyin `useEffect` ile neredeyse aynı fakat sadece DOM node'larındaki değişiklikler için kullanılıyor. %99 useEffect ile aynı amaca hizmet ediyor, o yüzden no-panic!
+
+![dont panic](./giphy.webp)
+
+`useRef` hook kullanırken genelde bir constanta tanımlanır. Burada da inputRef olarak tanımladık. Typescript type'ını ise useState'de yaptığımız gibi `useRef<HTMLInputElement>` şeklinde tanımlıyoruz. `HTMLInputElement` şeklinde tanımlamamızın sebebi ise referansta bulunduğumuz DOM elementinin bir `input` olması. Eğer bunu nasıl bulacağınızı bilmiyorsanız Typescript'in bir numaralı kuralını hatırlayın: HOVER OVER!
+
+```tsx
+const inputRef = useRef<HTMLInputElement>(null);
+```
+
+Evet, type'ını bilmediğiniz bir element mi var, hemen fareyi ilgili alanın üzerine getirin, IDE'niz size yapmanız gerekeni söyleyecektir.
+
+`useLayoutEffect` ile component mount olduğunda inputRef'in referans ettiği `input` DOM tree'ye yüklenmiş oluyor. Böylece inputRef'i destructure ettiğimizde bizim işimize en çok yarayacak `current` property'sine erişebiliyoruz.
+
+```tsx
+const { current } = inputRef;
+
+const handleFocus = () => inputRef.current?.classList.add(styles.active);
+
+const handleBlur = () => inputRef.current?.classList.remove(styles.active);
+```
+
+Ardından `.active` classını input elementine ekleyip çıkaran iki fonksiyon tanımlıyoruz. Ardından input elementi üzerinde _focus_ ve _blur_ eventlerini dinliyor ve bu eventler trigger olduğunda az önce tanımladığımız fonksiyonları çağırıyoruz.
+
+```tsx
+current?.addEventListener('focus', handleFocus);
+current?.addEventListener('blur', handleBlur);
+```
+
+En sonunda ise eventListener'ları hafızadan silmek için bir fonksiyon çağırıyoruz.
+
+```tsx
+return () => {
+  current?.removeEventListener('focus', handleFocus);
+  current?.removeEventListener('blur', handleBlur);
+};
+```
+
+Evet `useRef` ve Typescript bu kadar kolay. Diğer DOM nodelarını ref ile seçtiğinizde angle bracket içine ne koyacağınızı aşağıda görebilirsiniz. 👇
+
+```tsx
+// <div/>
+const divRef = React.useRef<HTMLDivElement>(null);
+
+// <button/>
+const buttonRef = React.useRef<HTMLButtonElement>(null);
+
+// <br />
+const brRef = React.useRef<HTMLBRElement>(null);
+
+// <a>
+const linkRef = React.useRef<HTMLLinkElement>(null);
+```
+
+## Sonuç
+
+Evet, bu yazıda React ile Typescript kullanırken sıklıkla karşılaşacağımız birkaç nokta olan `useState`, `useRef` ve child componente prop göndermeyi öğrenmiş olduk. Typescript ve React üzerine daha fazla yazı istiyorsanız bana [twitter](https://twitter.com/uguremirmustafa) üzerinden ulaşabilirsiniz. Her türlü geri dönüşünüz benim için değerli.
+
+İyi çalışmalar! 🥳
